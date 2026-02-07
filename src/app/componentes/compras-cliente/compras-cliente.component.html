@@ -1,0 +1,40 @@
+
+<div>
+    <div class="p-4 d-flex justify-content-center mt-5 tabla-main">
+        <table class="table table-light table-striped table-hover table-responsive-sm">
+            <thead class="text-center">
+                <tr>
+                    <th>DNI Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Importe</th>
+                    
+                    <th>Fecha</th>
+                    
+                </tr>
+            </thead>
+            <tbody class="text-center table-group-divider">
+                <tr *ngFor="let compra of paginatedCompras">
+
+                    <td>{{ compra.dnicliente }}</td>
+                    <td>{{ compra.producto }}</td>
+                    <td>{{ compra.cantidad }}</td>
+                    <td>{{ compra.importe | currency:'EUR' }}</td>
+                    
+                    <td>{{ compra.dia }}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginación -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+                [class.active]="i + 1 === currentPage">
+                <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

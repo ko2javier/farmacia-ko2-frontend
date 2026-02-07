@@ -1,0 +1,193 @@
+<div [ngSwitch]="operation" class="mt-3">
+
+    <!-- 1- Caso: Insertar Usuario -->
+    <div *ngSwitchCase="'insert'">
+      <div class="card mx-auto mt-5 w-75">
+        <div class="card-header bg-info text-white">
+          <h4 class="mb-0 ms-3">Insertar Nuevo Usuario</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="insertUsuario()" #insertForm="ngForm">
+            <div class="row g-3 px-3 mt-3">
+              <div class="col-md-4">
+
+                <div class="form-floating mb-3 mt-4">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name"
+                  required [(ngModel)]="newUser.username" name="usernameUpdate">
+                  <label for="floatingInput">Username</label>
+                  
+                </div>
+                <!--
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Escribe el username" 
+                       required [(ngModel)]="newUser.username" name="username"> -->
+              </div>
+              <div class="col-md-4">
+
+                <div class="form-floating mb-3 mt-4">
+                  <input type="password" class="form-control" id="floatingInput2" placeholder="password"
+                  required [(ngModel)]="newUser.password" name="password">
+                  <label for="floatingInput">Contraseña</label>
+                  
+                </div>
+                <!--
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Escribe el password" 
+                       required [(ngModel)]="newUser.password" name="password"> -->
+              </div>
+              <div class="col-md-4">
+
+                <div class="form-floating mt-4">
+                  <select class="form-select " id="floatingSelect" aria-label="Permiso"
+                  [(ngModel)]="newUser.permiso" name="permiso" required="">
+                   
+                    <option value="SELLER">Seller</option>
+                    <option value="ADMIN">Admin</option>
+                    
+                  </select>
+                  <label for="floatingSelect">Permiso</label>
+                </div>
+                <!--
+                <label for="permiso" class="form-label">Permiso</label>
+                <input type="number" id="permiso" class="form-control" required 
+                       [(ngModel)]="newUser.permiso" name="permiso"> -->
+              </div>
+              <!--
+              <div class="col-md-2">
+                <label for="enabled" class="form-label">Enabled</label>
+                <input type="number" id="enabled" class="form-control" required 
+                       [(ngModel)]="newUser.enabled" name="enabled">
+              </div> -->
+            </div>
+            <div class="d-flex justify-content-end mt-5">
+              <button class="btn btn-success me-3" type="submit" [disabled]="insertForm.invalid">Insertar</button>
+              <button class="btn btn-secondary me-3" type="button" (click)="setMode('none')">Volver</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!--2-  Caso: Actualizar Usuario -->
+    <div *ngSwitchCase="'update'">
+      <div class="card mx-auto mt-5 w-75 ">
+        <div class="card-header bg-info text-white">
+          <h4 class="mb-0 ms-3">Actualizar Usuario</h4>
+        </div>
+        <div class="card-body">
+          <div class="row g-3 mt-2 mb-5 px-3">
+            <div class="col-md-4">
+              
+              <div class="form-floating mb-3 mt-4 ">
+                <input type="text" class="form-control " id="floatingInput1" placeholder="name"
+                [(ngModel)]="selectedUser.username" disabled name="usernameUpdate">
+                
+              </div>
+                     
+            </div>
+            <div class="col-md-4">
+
+              <div class="form-floating mb-3 mt-4">
+                <input type="password" class="form-control" id="floatingInput2" placeholder="password"
+                [(ngModel)]="selectedUser.password" name="passwordUpdate"   name="password">
+                <label for="floatingInput">Contraseña</label>
+                
+              </div>
+
+            
+            </div>
+            <div class="col-md-4">
+
+              <div class="form-floating mt-4">
+                <select class="form-select " id="floatingSelect" aria-label="Permiso"
+                [(ngModel)]="selectedUser.permiso" name="permisoUpdate">
+                 
+                  <option value="SELLER">Seller</option>
+                  <option value="ADMIN">Admin</option>
+                  
+                </select>
+                <label for="floatingSelect">Permiso</label>
+              </div>
+              <!--
+              <label for="permisoUpdate" class="form-label">Permiso</label>
+              <input type="number" id="permisoUpdate" class="form-control" required 
+                     [(ngModel)]="selectedUser.permiso" name="permisoUpdate">
+                     -->
+            </div>
+            
+          </div>
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-success me-2" (click)="updateUsuario()">Guardar Cambios</button>
+            <button class="btn btn-secondary me-3" (click)="setMode('none')">Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- 3**  Caso por defecto: Listado de Usuarios -->
+    <div *ngSwitchDefault>
+      <div class="p-4 d-flex justify-content-center mt-5">
+        <table class="table table-light table-striped table-hover table-responsive-sm">
+          <thead class="text-center">
+            <tr>
+             
+              <th>Username</th>
+              <th>Permiso</th>
+              
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let usuario of paginatedUsuarios">
+              
+              <td>{{ usuario.username }}</td>
+              <td>{{ usuario.permiso }}</td>
+             
+              <td>
+                <div class="d-flex justify-content-center align-items-center flex-nowrap">
+                  <button class="btn btn-sm  bton_accion" *ngIf="usuario.id" (click)="deleteUsuario(usuario.id)" type="button">
+
+                    <!-- Icono de eliminar -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash text-danger me-2" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                  </button>
+                  <button class="btn btn-sm me-2  bton_accion" (click)="setMode('update', usuario)" type="button">
+                    <!-- Icono de actualizar -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-floppy2-fill text-success " viewBox="0 0 16 16">
+                      <path d="M12 2h-2v3h2z"/>
+                      <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0zM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1zM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1"/>
+                    </svg>
+                  </button>
+                 
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Paginación y botón para insertar usuario -->
+      <div class="d-flex justify-content-center align-items-center">
+        
+        <nav class="mt-3 me-2">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage">
+              <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+            </li>
+          </ul>
+        </nav>
+        
+        <button class="btn btn-warning d-flex justify-content-center align-items-center" (click)="setMode('insert')" type="button" >
+          
+          <span class="me-1 mt-1">Insertar </span>
+          <div>
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19.75 14V11.75H22V10.25H19.75V8H18.25V10.25H16V11.75H18.25V14H19.75Z" fill="#000000"></path> <path d="M11 4C8.79 4 7 5.79 7 8C7 10.21 8.79 12 11 12C13.21 12 15 10.21 15 8C15 5.79 13.21 4 11 4Z" fill="#000000"></path> 
+              <path d="M3 18C3 15.34 8.33 14 11 14C13.67 14 19 15.34 19 18V20H3V18Z" fill="#000000">
+              </path> </g></svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  

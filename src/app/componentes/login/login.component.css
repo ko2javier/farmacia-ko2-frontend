@@ -1,0 +1,103 @@
+.container_login {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/assets/images/sion.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+
+.logo img {
+    height: 50px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+.login-link {
+    font-weight: 600;
+    padding: 8px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.login-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* --- ANIMACIÓN RECUPERADA --- */
+.animation-fade-in {
+    animation: fadeInUp 1.2s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* --- ESTILO DE INPUT REFORZADO --- */
+.custom-input {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    padding: 12px 15px !important;
+    border-radius: 10px !important;
+}
+
+.custom-input:focus {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+/* --- FIX AUTOFILL --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #121212 inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: white !important;
+    border: 1px solid #0d6efd !important;
+}
+
+.btn-modern {
+    background: linear-gradient(45deg, #0d6efd, #007bff);
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    transition: 0.3s;
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.5);
+}

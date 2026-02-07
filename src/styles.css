@@ -1,0 +1,16 @@
+/* src/styles.css */
+body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Mejora general para todas las tablas de tu proyecto */
+.table {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}/* You can add global styles to this file, and also import other style files */

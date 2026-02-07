@@ -1,0 +1,110 @@
+.contenedor_gral{
+    background-color: #EEEEEE;
+}
+
+.logo img{
+    width: 35%;
+    height: auto;
+}
+header h6{
+    font-weight: bold;
+}
+main h1{
+    margin-top: 10%;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+}
+
+
+
+/***** Aside *****/
+#aside-div{
+    background-color: #EEEEEE;
+
+}
+aside {
+height: 100vh;
+position: sticky;
+top: 0;
+overflow-y: auto;
+
+}
+
+aside a {
+    display: flex;
+    width: 100%; /* Para que abarquen el ancho completo */
+}
+.custom-width{
+    width: 75%;
+}
+
+
+aside a:hover {
+background-color: #e8f5e9;
+border-radius: 8px;
+}
+
+.bi {
+flex-shrink: 0;
+}
+#aside-div{
+grid-template-columns: 1fr 3fr; gap: 0;
+}
+
+
+/*<!--2- tabla--> */
+#main_rest{
+    margin-right: 20%;
+}
+
+.tabla-main {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%; /* Asegúrate de que el contenedor tenga altura */
+  
+}
+
+.boton-td-red svg:hover{
+    background-color: #DC3545;
+    border-radius: 100%;
+
+}
+.boton-td-green svg:hover{
+    background-color: #198754;
+    border-radius: 100%;
+
+}
+
+/* Estilos base */
+.menu-item {
+    display: flex;
+    width: 100%; /* Que abarque el ancho completo */
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #212529; /* Color del texto */
+    text-decoration: none;
+    align-items: center;
+}
+
+/* Mantener el efecto al pasar el mouse */
+.menu-item:hover {
+    background-color: #e8f5e9;
+    border-radius: 8px;
+}
+
+/* Evita el borde azul al hacer clic */
+.menu-item:focus {
+    outline: none;
+}
+
+/* Hace que el cursor se vea como en un enlace */
+.menu-item:hover,
+.menu-item:focus {
+    cursor: pointer;
+}

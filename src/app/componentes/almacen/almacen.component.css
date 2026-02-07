@@ -1,0 +1,73 @@
+.tabla-main {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%; 
+    margin-left: -5%;
+  
+}
+
+.boton-td-red svg:hover{
+    background-color: #DC3545;
+    border-radius: 100%;
+
+}
+.boton-td-green svg:hover{
+    background-color: #198754;
+    border-radius: 100%;
+
+}
+
+
+.bton_accion {
+    border: none; /* Ya lo tienes */
+    background: none; /* Elimina el fondo */
+    box-shadow: none; /* Evita sombras */
+    padding: 0; /* Elimina el relleno si lo tiene */
+}
+
+
+.bton_accion:hover, 
+.bton_accion:focus {
+    background: none !important; /* Evita el fondo en hover */
+    box-shadow: none !important; /* Evita cualquier sombra */
+    outline: none; /* Evita el contorno en focus */
+}
+
+/**Modifico los svg*/
+.bton_accion svg {
+    transition: all 0.2s ease-in-out;
+}
+
+.bton_accion:hover svg {
+    
+    filter: brightness(0.5); /* Hace el icono más oscuro */
+    stroke-width: 2px; /* Engrosa el trazo si es un SVG con `stroke` */
+}
+
+/**Modifico los cardheader de los formularios*/
+
+.card .card-header{
+    background-color: #c6eecd;
+    
+}
+
+
+
+/* Estilos de paginación */
+
+.pagination .page-item .page-link {
+    color: #000;
+}
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+}
+
+
+/**/
+

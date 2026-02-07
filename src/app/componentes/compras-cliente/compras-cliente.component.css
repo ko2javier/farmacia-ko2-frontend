@@ -1,0 +1,36 @@
+.tabla-main {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%; /* Asegúrate de que el contenedor tenga altura */
+    margin-left: -5%;
+  
+}
+
+.boton-td-red svg:hover{
+    background-color: #DC3545;
+    border-radius: 100%;
+
+}
+.boton-td-green svg:hover{
+    background-color: #198754;
+    border-radius: 100%;
+
+}
+
+/* Estilos de paginación */
+
+.pagination .page-item .page-link {
+    color: #000;
+}
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+}
+
+
+/**/

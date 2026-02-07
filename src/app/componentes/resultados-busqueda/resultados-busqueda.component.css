@@ -1,0 +1,58 @@
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    text-transform: uppercase;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.btn-success {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+}
+
+/*Referente al boton de añadir cosas al carrito de la compra*/
+
+.boton {
+    /* border: 2px solid #FFD814!important; */
+    color: #343535 !important; /* Texto en verde */
+    background-color: transparent !important; /* Fondo transparente */
+    padding: 6px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 50px; /* Bordes redondeados */
+}
+
+.boton svg {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover sobre el ícono "+" */
+
+.boton-td-red_svg:hover{
+    background-color: #DC3545;
+    border-radius: 100%;
+    color: white;
+
+}
+.boton-td-green_svg:hover{
+    background-color: #198754;
+    border-radius: 100%;
+    color: white;
+    
+}
+
+.button_mod {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px;
+    height: 48px !important; /* Ajusta si es necesario */
+    padding: 10px 20px !important;
+}

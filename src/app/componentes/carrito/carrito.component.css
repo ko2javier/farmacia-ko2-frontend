@@ -1,0 +1,22 @@
+
+.carrito-container{
+    margin-top: 8%;
+}
+.boton-td-red svg:hover{
+    background-color: #DC3545;
+    border-radius: 100%;
+
+}
+.boton-td-green svg:hover{
+    background-color: #198754;
+    border-radius: 100%;
+
+}
+.img_vacio img{
+    height: 70%;
+    width: 70%;
+    margin-top: 10%;
+    margin-left: 10%;
+    border-radius: 5px;
+
+}
