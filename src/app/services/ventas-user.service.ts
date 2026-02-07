@@ -10,8 +10,12 @@ import { VentaDTO } from '../models/VentaDTO';
   providedIn: 'root'
 })
 export class VentasUserService {
+/*
   private apiUrl = 'http://localhost:5000/ventas/all';
-  private sales_Url = 'http://localhost:5000/ventas';
+  private sales_Url = 'http://localhost:5000/ventas';*/
+
+  private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/ventas/all';
+  private sales_Url = 'https://distinguished-vibrancy-production.up.railway.app/ventas';
 
   private ventasSubject = new BehaviorSubject<VentaUsuario[]>([]);
   ventas$ = this.ventasSubject.asObservable();

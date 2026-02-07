@@ -10,8 +10,11 @@ import { InsertDto } from '../models/InsertDto';
   providedIn: 'root'
 })
 export class ArticuloService {
-  private apiUrl = 'http://localhost:5000/articulos/All'; // URL del backend
-  private apiUrl2 = 'http://localhost:5000/articulos'; // URL del backend
+  //private apiUrl = 'http://localhost:5000/articulos/All'; // URL del backend
+  //private apiUrl2 = 'http://localhost:5000/articulos'; // URL del backend
+
+   private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/articulos/All'; // URL del backend
+  private apiUrl2 = 'https://distinguished-vibrancy-production.up.railway.app/articulos'; // URL del backend
 
 
   constructor(private http: HttpClient) {}

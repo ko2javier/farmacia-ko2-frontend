@@ -8,7 +8,8 @@ import { ComprasCliente } from '../models/ComprasCliente';
   providedIn: 'root'
 })
 export class ComprasClienteService {
-  private apiUrl = 'http://localhost:5000/compras'; // URL base del backend
+  //private apiUrl = 'http://localhost:5000/compras'; // URL base del backend
+  private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/compras'; // URL base del backend
 
   constructor(private http: HttpClient) {}
 

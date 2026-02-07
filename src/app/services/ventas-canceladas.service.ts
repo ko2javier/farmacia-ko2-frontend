@@ -9,7 +9,8 @@ import { AuthService } from './auth.service'; // Importamos para pillar el token
 export class VentasCanceladasService {
 
   // 
-  private apiUrl = 'http://localhost:5000/cancelaciones'; 
+  //private apiUrl = 'http://localhost:5000/cancelaciones'; 
+  private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/cancelaciones'; 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
