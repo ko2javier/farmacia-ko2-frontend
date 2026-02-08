@@ -5,9 +5,7 @@ import { CarritoItem } from '../../models/CarritoItem';
 import { ToastService } from '../../services/toast.service';
 import { VentaDTO } from '../../models/VentaDTO';
 import { VentasUserService } from '../../services/ventas-user.service';
-import { ComprasCliente } from '../../models/ComprasCliente';
 import { VentaUsuario } from '../../models/VentaUsuario';
-import { ComprasClienteService } from '../../services/compras-cliente-service.service';
 import { ArticuloService } from '../../services/articulo.service';
 import { UpdateDto } from '../../models/UpdateDTO';
 import { PdfGeneratorService } from '../../services/pdf-generator.service';
@@ -28,17 +26,16 @@ export class CarritoComponent implements OnInit {
   carrito: CarritoItem[] = [];
 
   constructor(
-    public carritoService: CarritoService, 
-    private toastService: ToastService, 
-    private ventasService: VentasUserService, 
-    private comprasService: ComprasClienteService,
-    private articuloService: ArticuloService, 
-    private pdfService: PdfGeneratorService 
+    public carritoService: CarritoService,
+    private toastService: ToastService,
+    private ventasService: VentasUserService,
+    private articuloService: ArticuloService,
+    private pdfService: PdfGeneratorService
   ) {}
 
   ngOnInit() {
     this.carritoService.obtenerCarrito().subscribe((productos) => {
-      this.carrito = productos.filter(item => item.cantidadCompra > 0); 
+      this.carrito = productos.filter(item => item.cantidadCompra > 0);
     });
   }
 
@@ -48,7 +45,7 @@ export class CarritoComponent implements OnInit {
   eliminarDelCarrito(id: number) {
     this.carritoService.reducirCantidad(id);
   }
-  
+
   /**
    * 📌 Vacía todo el carrito
    */
@@ -56,7 +53,7 @@ export class CarritoComponent implements OnInit {
     this.mostrarFormulario = false;
     this.carritoService.vaciarCarrito();
   }
-  
+
   /**
    * 📌 Validar Identificacion
    */
@@ -73,14 +70,14 @@ export class CarritoComponent implements OnInit {
           return false;
         }
         break;
-  
+
       case "NIE":
         if (!/^[XYZ][0-9]{7}[A-Za-z]$/.test(valor.toUpperCase())) {
           this.toastService.showToast("Error", "❌ NIE inválido. Debe comenzar con X, Y o Z, seguido de 7 números y una letra.", true, "Error");
           return false;
         }
         break;
-  
+
       default:
         this.toastService.showToast("Error", `❌ Tipo de documento '${tipo}' no válido.`, true, "Error");
         return false;
@@ -98,11 +95,11 @@ export class CarritoComponent implements OnInit {
       console.warn("No se puede completar la compra: Identificación no válida.");
       return;
     }
-  
+
     console.log("✅ Identificación válida, procesando compra...");
     this.registrarVenta(); // Pasamos al siguiente paso
   }
-  
+
   // 1) Función para validar los ítems carrito
   validarItems(carrito: any[]): boolean {
     for (const item of carrito) {
@@ -135,12 +132,12 @@ export class CarritoComponent implements OnInit {
       importe: item.articulo.precio * item.cantidadCompra,
       codigo: item.articulo.codigo
     }));
-  
+
     // 2) Llamas al servicio
     this.ventasService.registrarVentas(ventasDTO).subscribe({
       next: (response: VentaUsuario[]) => {
         console.log('Ventas registradas con éxito:', response);
-        
+
         // 3) PREGUNTAR SI QUIERE TICKET (SweetAlert)
         Swal.fire({
             title: '¡Compra Exitosa!',
@@ -152,32 +149,32 @@ export class CarritoComponent implements OnInit {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33'
         }).then((result) => {
-            
+
             // Si el usuario dice que SÍ
             if (result.isConfirmed) {
                 // Preparamos datos básicos para el ticket
                 // Cogemos el ID de la primera venta como referencia, o uno aleatorio si es batch
-                const datosVenta = { 
-                    id: response[0]?.id || 'BATCH', 
-                    dnicliente: this.identificacion 
+                const datosVenta = {
+                    id: response[0]?.id || 'BATCH',
+                    dnicliente: this.identificacion
                 };
-                
+
                 // Generamos el PDF usando el carrito ACTUAL (antes de vaciarlo)
                 this.pdfService.imprimirTicket(datosVenta, this.carrito);
             }
 
             // --- PROCESO DE FINALIZACIÓN ---
             // Esto se ejecuta SIEMPRE (quiera ticket o no)
-            
+
             // a) Registrar en historial de compras del cliente
-            this.registrarCompra(response);
-            
+            //this.registrarCompra(response);
+
             // b) Actualizar Stock en base de datos
             this.actualizarStockBatch();
-            
+
             // c) Vaciar el carrito visual (Lo hacemos al final para que el PDF tenga datos)
             this.vaciarCarrito();
-            
+
             // d) Mostrar toast informativo final
             this.toastService.showToast('Success', 'Proceso finalizado correctamente', false, 'Success');
         });
@@ -194,7 +191,7 @@ export class CarritoComponent implements OnInit {
       }
     });
   }
-
+/*
   registrarCompra(ventas: VentaUsuario[]) {
     const comprasDTO: ComprasCliente[] = ventas.map(venta => ({
       ventaId: venta.id,
@@ -203,7 +200,7 @@ export class CarritoComponent implements OnInit {
       cantidad: venta.cantidad,
       importe: venta.importe
     }));
-  
+
     this.comprasService.registrarComprasCliente(comprasDTO).subscribe({
       next: (respuesta: ComprasCliente[]) => {
         console.log('Compras registradas en historial cliente:', respuesta);
@@ -212,7 +209,7 @@ export class CarritoComponent implements OnInit {
         console.error('Error al registrar compras:', err);
       }
     });
-  }
+  }*/
 
   actualizarStockBatch(): void {
     const updates: UpdateDto[] = this.carrito
@@ -221,7 +218,7 @@ export class CarritoComponent implements OnInit {
         codigo: item.articulo.codigo,
         cantidadVendida: item.cantidadCompra
       }));
-  
+
     this.articuloService.updateStockBatch(updates).subscribe({
       next: (response) => {
         console.log('Stock actualizado en batch:', response);
