@@ -90,7 +90,7 @@
             <th>Cod_Producto</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Accion</th>
+            <th *ngIf="isAdmin">Acción</th>
           </tr>
           </thead>
           <tbody class="text-center table-group-divider">
@@ -100,7 +100,7 @@
             <td>{{articulo.codigo}}</td>
             <td class="fw-bold">{{ articulo.precio | currency:'EUR' }}</td>
             <td> {{ articulo.cantidad }}  </td>
-            <td>
+            <td *ngIf="isAdmin">
               <div class="d-flex justify-content-center align-items-center flex-nowrap gap-2">
                 <button class="btn bton_accion btn-sm border-0" (click)="eliminarArticulo(articulo.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi text-danger bi-trash-fill" viewBox="0 0 16 16">

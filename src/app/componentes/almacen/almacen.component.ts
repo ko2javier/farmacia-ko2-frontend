@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { ToastService } from '../../services/toast.service';
 import { UpdateDto } from '../../models/UpdateDTO';
 import { InsertDto } from '../../models/InsertDto';
+import {jwtDecode} from 'jwt-decode';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-almacen',
@@ -25,12 +27,16 @@ export class AlmacenComponent {
     codigo: '' };
     insertDto: InsertDto = { nombre: '', categoria: '', precio: 0, cantidad: 0 };
 
+  // Variable para ocultar/mostrar la update/borrar
+  isAdmin: boolean = false;
+
 
   constructor(private articuloService: ArticuloService,
-    private toastService: ToastService ) {}
+    private toastService: ToastService, private authService: AuthService ) {}
 
   ngOnInit() {
     this.cargarArticulos();
+    this.checkRole();
   }
 
   cargarArticulos() {
@@ -50,6 +56,19 @@ export class AlmacenComponent {
         console.error('Error al obtener artículos', error);
       }
     );
+  }
+
+  // Comprobar rol
+  checkRole(): void {
+    const token = this.authService.getToken();
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+        this.isAdmin = decoded.role === 'ADMIN' || decoded.role === 'ROLE_ADMIN';
+      } catch (e) {
+        this.isAdmin = false;
+      }
+    }
   }
 
   displayTable(page: number): void {
