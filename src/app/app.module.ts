@@ -16,6 +16,9 @@ import { ResultadosBusquedaComponent } from './componentes/resultados-busqueda/r
 import { CarritoComponent } from './componentes/carrito/carritocomponent';
 import { UsersComponent } from './componentes/users/users.component';
 import { VentasCanceladasComponent } from './componentes/ventas-canceladas/ventas-canceladas.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
 
 
 
@@ -40,10 +43,14 @@ import { VentasCanceladasComponent } from './componentes/ventas-canceladas/venta
   ],
   imports: [
     BrowserModule,
-
+    BrowserAnimationsModule,
+    NgxChartsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    EstadisticasComponent,
+    BrowserAnimationsModule,
+    NgxChartsModule,
 
 
   ],

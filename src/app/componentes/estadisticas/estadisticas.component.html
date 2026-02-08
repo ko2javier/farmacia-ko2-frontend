@@ -1,0 +1,72 @@
+<div class="container mt-5 mb-5 fade-in">
+
+  <div class="d-flex align-items-center justify-content-center mb-4 gap-2">
+
+  </div>
+
+  <div class="row g-4">
+
+    <div class="col-md-6">
+      <div class="card shadow border-0 h-100">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="card-title text-center text-success fw-bold m-0">
+            💰 Ventas por Vendedor (Euros)
+          </h5>
+        </div>
+        <div class="card-body d-flex justify-content-center align-items-center">
+
+          <ngx-charts-bar-vertical
+            [view]="[400, 320]"
+            [results]="ventasPorVendedor"
+            [scheme]="colorSchemeVentas"
+            [gradient]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Vendedor"
+            yAxisLabel="Total Vendido (€)">
+          </ngx-charts-bar-vertical>
+
+          <div *ngIf="ventasPorVendedor.length === 0" class="text-muted">
+            Cargando datos o sin ventas...
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow border-0 h-100">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="card-title text-center text-danger fw-bold m-0">
+            🚫 Cancelaciones (Top Responsables)
+          </h5>
+        </div>
+        <div class="card-body d-flex justify-content-center align-items-center">
+
+          <ngx-charts-bar-horizontal
+            [view]="[400, 300]"
+            [results]="cancelacionesPorResponsable"
+            [scheme]="colorSchemeCancelaciones"
+            [gradient]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Cantidad Cancelada"
+            yAxisLabel="Responsable">
+          </ngx-charts-bar-horizontal>
+
+          <div *ngIf="cancelacionesPorResponsable.length === 0" class="text-muted">
+            Sin cancelaciones registradas.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

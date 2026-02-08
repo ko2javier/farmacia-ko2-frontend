@@ -1,0 +1,28 @@
+/* --- OPCIÓN NUCLEAR PARA QUITAR EL GRIS --- */
+
+/* 1. Atacamos al contenedor principal de la leyenda */
+:host ::ng-deep .ngx-charts .chart-legend {
+  background-color: transparent !important; /* Adiós color */
+  background: none !important;              /* Adiós fondo */
+  border: none !important;                  /* Adiós bordes */
+  box-shadow: none !important;              /* Adiós sombras */
+}
+
+/* 2. Atacamos también al contenedor interno (el "wrapper") */
+:host ::ng-deep .ngx-charts .chart-legend > div {
+  background: transparent !important;
+}
+
+/* 3. Ajustamos el texto para que se lea perfecto sobre blanco */
+:host ::ng-deep .ngx-charts .legend-label-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #6c757d !important; /* Gris oscuro elegante */
+}
+
+/* 4. Opcional: Ajustar el espaciado para que no quede pegado */
+:host ::ng-deep .ngx-charts .chart-legend .legend-labels {
+  background: transparent !important;
+  text-align: center;
+}
