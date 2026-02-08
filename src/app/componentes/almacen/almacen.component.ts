@@ -21,10 +21,10 @@ export class AlmacenComponent {
   totalPages: number = 0;
   paginatedArticulos: Articulo[] = [];
   operation: 'insert' | 'update' | 'none' = 'none';
-  selectedArticulo = { id: 0, nombre: '', categoria: '', precio: 0, cantidad: 0, 
+  selectedArticulo = { id: 0, nombre: '', categoria: '', precio: 0, cantidad: 0,
     codigo: '' };
     insertDto: InsertDto = { nombre: '', categoria: '', precio: 0, cantidad: 0 };
-  
+
 
   constructor(private articuloService: ArticuloService,
     private toastService: ToastService ) {}
@@ -37,7 +37,13 @@ export class AlmacenComponent {
     this.articuloService.cargarArticulos().subscribe(
       (data) => {
         this.articulos = data;
+
+        // 🟢 Calculamos total paginas
         this.totalPages = Math.ceil(this.articulos.length / this.rowsPerPage);
+
+        // 🟢 CORRECCIÓN: Si no hay artículos, totalPages debe ser 1 (no 0)
+        if (this.totalPages === 0) this.totalPages = 1;
+
         this.displayTable(1);
       },
       (error) => {
@@ -47,11 +53,11 @@ export class AlmacenComponent {
   }
 
   displayTable(page: number): void {
-   
+
     const start = (page - 1) * this.rowsPerPage;
     const end = start + this.rowsPerPage;
     this.paginatedArticulos = this.articulos.slice(start, end);
-    
+
   }
 
   changePage(page: number): void {
@@ -101,7 +107,7 @@ setMode(mode: 'none' | 'insert' | 'update', articulo?: Articulo){
     case 'update':
       this.operation = 'update';
       this.selectedArticulo = { ...articulo! }; // ¡Forzamos la no-null assertion!
-      
+
       break;
 
       case 'insert':
@@ -113,12 +119,12 @@ setMode(mode: 'none' | 'insert' | 'update', articulo?: Articulo){
           this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
 
           break;
-      
+
       default:
         this.operation = 'none';
         this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
         break;
-    
+
   }
 }
 
@@ -164,7 +170,7 @@ updateArticulo() {
       console.error('Error al actualizar artículo:', err);
       this.toastService.showToast(
         'Error', '❌ No se pudo actualizar', true, 'Error' );
-      
+
     }
   });
 }
@@ -172,7 +178,7 @@ updateArticulo() {
 // Metodo para chequear los campos de articulo!!
 chequear_art():Boolean{
   this.respuesta=true;
-  
+
   if (this.insertDto.precio <= 0 || this.insertDto.cantidad < 0) {
     /*
     this.toastService.showToast('ERROR', 'La cantidad y el precio deben ser números y mayores que 0',
@@ -180,7 +186,7 @@ chequear_art():Boolean{
        this.toastService.showToast(
         'Error', '❌ Cantidad/ Precio deben ser números y >= 0', true, 'Error' );
         this.respuesta=false;
-    
+
  } else if( this.insertDto.nombre.length<3 || this.insertDto.categoria.length<3){
 
   this.toastService.showToast(
@@ -188,7 +194,7 @@ chequear_art():Boolean{
     this.respuesta=false;
 
  }
-  
+
 return this.respuesta;
 
 }
@@ -204,13 +210,13 @@ insertArticulo() {
         console.log('Artículo creado:', articuloCreado);
         // Muestra un toast o mensaje de éxito
         this.toastService.showToast('Éxito', 'Artículo Creado', false, 'Success');
-  
+
         // Refrescar lista si deseas
           this.cargarArticulos();
-  
+
         // Reiniciar formulario
         this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
-  
+
         // Volver a la vista principal
         this.setMode('none');
       },
@@ -222,9 +228,9 @@ insertArticulo() {
     });
   }
 
- 
 
 
- 
-  
+
+
+
 }

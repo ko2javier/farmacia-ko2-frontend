@@ -1,188 +1,158 @@
-
-
 <div [ngSwitch]="operation" class="mt-3">
-  
-<!-- Caso: Insertar ítem -->
-<div *ngSwitchCase="'insert'">
-  <div class="card mx-auto mt-5 w-75">
-    <div class="card-header">
-      <h4 class="mb-0 ms-3">Insertar Nuevo Artículo</h4>
-    </div>
-    <div class="card-body">
-      <!-- Agrega #insertForm="ngForm" y (ngSubmit)="insertArticulo()" -->
-      <form (ngSubmit)="insertArticulo()" #insertForm="ngForm">
-        <div class="row g-3 px-3 mt-3">
-          <div class="col-md-3">
-            <label for="Nombre" class="form-label">Nombre</label>
-            <input type="text" id="Nombre" class="form-control" required aria-describedby="name" placeholder="write here"
-              [(ngModel)]="insertDto.nombre" name="nombre" >
-          </div>
-          <div class="col-md-3">
-            <label for="Categoria" class="form-label">Categoría</label>
-            <input type="text" id="Categoria" class="form-control" required aria-describedby="Categoria" placeholder="..."
-              [(ngModel)]="insertDto.categoria" name="categoria"  >
-          </div>
-          <div class="col-md-3">
-            <label for="Precio" class="form-label">Precio</label>
-            <input type="number" id="Precio" class="form-control" required [(ngModel)]="insertDto.precio"
-              name="precio"  >
-          </div>
-          <div class="col-md-3">
-            <label for="Cantidad" class="form-label">Cantidad</label>
-            <input type="number" id="Cantidad" class="form-control" required [(ngModel)]="insertDto.cantidad"
-              name="cantidad" >
-          </div>
-        </div>
 
-        <!-- Botones -->
-        <div class="d-flex justify-content-end mt-5">
-          <!-- Puedes deshabilitar el botón si el form no es válido -->
-          <button class="btn btn-success me-3" type="submit" [disabled]="insertForm.invalid">Insertar</button>
-          <button class="btn btn-secondary me-3" (click)="setMode('none')" type="button">Volver</button>
-        </div>
-      </form>
+  <div *ngSwitchCase="'insert'">
+    <div class="card mx-auto mt-5 w-75">
+      <div class="card-header">
+        <h4 class="mb-0 ms-3">Insertar Nuevo Artículo</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="insertArticulo()" #insertForm="ngForm">
+          <div class="row g-3 px-3 mt-3">
+            <div class="col-md-3">
+              <label for="Nombre" class="form-label">Nombre</label>
+              <input type="text" id="Nombre" class="form-control" required aria-describedby="name" placeholder="write here"
+                     [(ngModel)]="insertDto.nombre" name="nombre">
+            </div>
+            <div class="col-md-3">
+              <label for="Categoria" class="form-label">Categoría</label>
+              <input type="text" id="Categoria" class="form-control" required aria-describedby="Categoria" placeholder="..."
+                     [(ngModel)]="insertDto.categoria" name="categoria">
+            </div>
+            <div class="col-md-3">
+              <label for="Precio" class="form-label">Precio</label>
+              <input type="number" id="Precio" class="form-control" required [(ngModel)]="insertDto.precio"
+                     name="precio">
+            </div>
+            <div class="col-md-3">
+              <label for="Cantidad" class="form-label">Cantidad</label>
+              <input type="number" id="Cantidad" class="form-control" required [(ngModel)]="insertDto.cantidad"
+                     name="cantidad">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-5">
+            <button class="btn btn-success me-3" type="submit" [disabled]="insertForm.invalid">Insertar</button>
+            <button class="btn btn-secondary me-3" (click)="setMode('none')" type="button">Volver</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
 
-<!-- Caso: Actualizar ítem -->
-<div *ngSwitchCase="'update'">
-  <div class="card mx-auto mt-5 w-75" >
-    <div class="card-header">
-      <h4 class="mb-0 ms-3">Actualizar Artículo</h4>
-    </div>
-    <div class="card-body">
-      <!-- (1) Form con (ngSubmit) y #insertForm="ngForm" para usar validaciones -->
-
-      
+  <div *ngSwitchCase="'update'">
+    <div class="card mx-auto mt-5 w-75" >
+      <div class="card-header">
+        <h4 class="mb-0 ms-3">Actualizar Artículo</h4>
+      </div>
+      <div class="card-body">
         <div class="row g-3 mt-2 mb-5 px-3">
           <div class="col-md-3">
-
             <label for="NombreUpdate" class="form-label">Nombre</label>
             <input type="text" id="NombreUpdate" class="form-control"
-                  [(ngModel)]="selectedArticulo.nombre" disabled>
+                   [(ngModel)]="selectedArticulo.nombre" disabled>
           </div>
           <div class="col-md-3">
             <label for="Cod_ProductoUpdate" class="form-label">Cod_Producto</label>
             <input type="text" id="Cod_ProductoUpdate" class="form-control"
-                  [(ngModel)]="selectedArticulo.codigo" disabled>
+                   [(ngModel)]="selectedArticulo.codigo" disabled>
           </div>
           <div class="col-md-3">
             <label for="PrecioUpdate" class="form-label">Precio</label>
             <input type="number" id="PrecioUpdate" class="form-control"
-                  [(ngModel)]="selectedArticulo.precio" required>
+                   [(ngModel)]="selectedArticulo.precio" required>
           </div>
           <div class="col-md-3">
             <label for="CantidadUpdate" class="form-label">Cantidad</label>
             <input type="number" id="CantidadUpdate" class="form-control"
-                  [(ngModel)]="selectedArticulo.cantidad" required>
+                   [(ngModel)]="selectedArticulo.cantidad" required>
           </div>
         </div>
 
-        <!-- Botones al final de card-body -->
         <div class="d-flex justify-content-end mt-4">
           <button class="btn btn-success me-2" (click)="updateArticulo()">Guardar Cambios</button>
           <button class="btn btn-secondary me-3" (click)="setMode('none')">Volver</button>
         </div>
-      
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngSwitchDefault>
+
+    <div class="container mt-5 mb-5">
+
+      <div class="table-responsive shadow-sm rounded">
+        <table class="table table-light table-striped table-hover mb-0">
+          <thead class="text-center table-dark"> <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Cod_Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Accion</th>
+          </tr>
+          </thead>
+          <tbody class="text-center table-group-divider">
+          <tr *ngFor="let articulo of paginatedArticulos">
+            <td>{{ articulo.nombre }}</td>
+            <td>{{ articulo.categoria }}</td>
+            <td>{{articulo.codigo}}</td>
+            <td class="fw-bold">{{ articulo.precio | currency:'EUR' }}</td>
+            <td> {{ articulo.cantidad }}  </td>
+            <td>
+              <div class="d-flex justify-content-center align-items-center flex-nowrap gap-2">
+                <button class="btn bton_accion btn-sm border-0" (click)="eliminarArticulo(articulo.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi text-danger bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                  </svg>
+                </button>
+                <button class="btn bton_accion btn-sm border-0" (click)="setMode('update',articulo)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi text-success bi-floppy2-fill" viewBox="0 0 16 16">
+                    <path d="M12 2h-2v3h2z"/>
+                    <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0zM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1zM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+
+        <button class="btn btn-warning d-flex justify-content-center align-items-center shadow-sm mb-3 mb-md-0"
+                (click)="setMode('insert')">
+          <span class="text-dark me-2 fw-bold">Insertar Nuevo</span>
+          <div>
+            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+              <path d="M190.23926,82.92725a7.99946,7.99946,0,0,1-.19629,11.312l-24.416,23.584a7.99966,7.99966,0,1,1-11.11523-11.50781l24.416-23.584A7.99843,7.99843,0,0,1,190.23926,82.92725Zm23.418,34.72949-96,96a53.255,53.255,0,0,1-75.31446-75.31348l96-96a53.255,53.255,0,0,1,75.31446,75.31348Zm-11.31446-64a37.25409,37.25409,0,0,0-52.68554,0L107.31348,96,160,148.68628l42.34277-42.343A37.2969,37.2969,0,0,0,202.34277,53.65674Z"></path>
+            </svg>
+          </div>
+        </button>
+
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-outline-primary"
+                  (click)="changePage(currentPage - 1)"
+                  [disabled]="currentPage === 1">
+            ⬅ Anterior
+          </button>
+
+          <span class="fw-bold text-dark bg-light px-3 py-2 rounded border">
+                Página {{ currentPage }} de {{ totalPages }}
+            </span>
+
+          <button class="btn btn-outline-primary"
+                  (click)="changePage(currentPage + 1)"
+                  [disabled]="currentPage === totalPages">
+            Siguiente ➡
+          </button>
+        </div>
+
+      </div>
 
     </div>
   </div>
-</div>
-
-
-
-  <!-- Caso por defecto (ninguno) -->
-  <div *ngSwitchDefault>
-    <div >
-      <div class=" p-4 d-flex justify-content-center mt-5 tabla-main">
-          <table class="table table-light table-striped table-hover table-responsive-sm  ">
-            <thead class=" text-center ">
-              <tr>
-               
-                  <th>Nombre</th>
-                  <th>Categoría</th>
-                  <th>Cod_Producto</th>
-                  <th>Precio</th>
-                  <th>Cantidad</th>
-                  <th>Accion</th>
-                  
-      
-              </tr>
-            </thead>
-            <tbody class="text-center table-group-divider">
-              
-              <tr *ngFor="let articulo of paginatedArticulos">
-                  <td>{{ articulo.nombre }}</td>
-                  <td>{{ articulo.categoria }}</td>
-                  <td>{{articulo.codigo}}</td>
-  
-                  <td>{{ articulo.precio | currency:'EUR' }}</td>
-                  
-                <td class="d-flex justify-content-center align-items-center">
-                 
-                  {{ articulo.cantidad }}
-                
-                </td>
-                <td >
-                  <div class="d-flex justify-content-center align-items-center flex-nowrap">
-                    <button class="me-2 border-0 bton_accion" (click)="eliminarArticulo(articulo.id)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash text-danger me-1" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                      </svg>
-                    </button>
-                    <button class="border-0 bton_accion" (click)="setMode('update',articulo)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-floppy2-fill text-success" viewBox="0 0 16 16">
-                        <path d="M12 2h-2v3h2z"/>
-                        <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0zM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1zM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1"/>
-                      </svg>
-                    </button>
-                  </div>
-          
-              </td>
-              
-              </tr>
-            </tbody>
-          
-            <tfoot >
-                <tr class="table-success">
-                
-                </tr>
-              </tfoot>
-      
-          </table>
-          
-        </div>
-        <!-- Paginación -->
-         <div class="d-flex justify-content-center align-items-center">
-            <nav class="mt-3 me-2">
-              <ul class="pagination justify-content-center">
-                  <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage">
-                      <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
-                  </li>
-              </ul>
-            </nav>
-            <button class="btn btn-warning d-flex justify-content-center align-items-center"
-             (click)="setMode('insert')"> 
-            
-            
-             <span class="text-dark me-1">Insertar </span>
-             <div>
-              <svg fill="#000000" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" class=""><g 
-                id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
-                <path d="M190.23926,82.92725a7.99946,7.99946,0,0,1-.19629,11.312l-24.416,23.584a7.99966,7.99966,0,1,1-11.11523-11.50781l24.416-23.584A7.99843,7.99843,0,0,1,190.23926,82.92725Zm23.418,34.72949-96,96a53.255,53.255,0,0,1-75.31446-75.31348l96-96a53.255,53.255,0,0,1,75.31446,75.31348Zm-11.31446-64a37.25409,37.25409,0,0,0-52.68554,0L107.31348,96,160,148.68628l42.34277-42.343A37.2969,37.2969,0,0,0,202.34277,53.65674Z"></path> </g>
-                </svg>
-            </div>
-            
-            </button>
-        </div>
-    
-  </div>
-  </div>
 
 </div>
-
-
-

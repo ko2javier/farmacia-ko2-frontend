@@ -28,6 +28,10 @@ export class ComprasClienteComponent implements OnInit {
         console.log("✅ Compras obtenidas:", this.compras);
 
         this.totalPages = Math.ceil(this.compras.length / this.rowsPerPage);
+
+        // 🟢 ÚNICO CAMBIO: Evitar "Página 1 de 0" si no hay datos
+        if (this.totalPages === 0) this.totalPages = 1;
+
         this.displayTable(1);
       },
       (error) => {
@@ -45,6 +49,7 @@ export class ComprasClienteComponent implements OnInit {
   }
 
   changePage(page: number): void {
+    // Tu lógica original ya funciona perfectamente con los botones nuevos
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.displayTable(page);
