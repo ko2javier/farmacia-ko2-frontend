@@ -5,11 +5,12 @@ import { Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
 import { VentasUserService } from '../../services/ventas-user.service';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true, // 👈 IMPORTANTE EN ANGULAR 19
-  imports: [CommonModule, NgxChartsModule], // 👈 AQUÍ IMPORTAMOS LOS MÓDULOS
+  imports: [CommonModule, NgxChartsModule, TranslatePipe], // 👈 AQUÍ IMPORTAMOS LOS MÓDULOS
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })
@@ -41,8 +42,7 @@ export class EstadisticasComponent implements OnInit {
 
   constructor(
     private ventaService: VentasUserService,
-    private canceladasService: VentasCanceladasService,
-
+    private canceladasService: VentasCanceladasService,private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +50,9 @@ export class EstadisticasComponent implements OnInit {
     this.cargarDatosCancelaciones();
   }
 
+  cambiarIdioma(idioma: string) {
+    this.translate.use(idioma);
+  }
   // 1. CARGAR Y AGRUPAR VENTAS
   cargarDatosVentas() {
     this.ventaService.cargarVentas() .subscribe(data => {

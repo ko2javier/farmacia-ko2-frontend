@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,19 @@ export class LoginComponent {
    username: string = '';
    password: string = '';
    errorMessage: string = '';
- 
-  
-   constructor(private authService: AuthService, private router: Router, private toastService: ToastService ) { }
+
+
+   constructor(private authService: AuthService, private router: Router,
+               private toastService: ToastService, private translate: TranslateService ) { }
 
    click_logIn(){
     this.isLoggedIn=(this.isLoggedIn)?false:true;
-    
+
    }
+
+  cambiarIdioma(idioma: string) {
+    this.translate.use(idioma);
+  }
 
    onLogin(): void {
     this.authService.login(this.username, this.password).subscribe({
@@ -33,7 +39,7 @@ export class LoginComponent {
       error: (error) => {
         console.error('Error during login:', error);
         this.errorMessage = 'Invalid username or password.';
-        
+
         this.toastService.showToast(
           'Error',
           'Invalid username or password',

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PanelVentasService } from '../../services/panel-ventas.service';
 import { CarritoService } from '../../services/carrito.service';
 import { CarritoItem } from '../../models/CarritoItem';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-resultados-busqueda',
@@ -17,7 +18,7 @@ export class ResultadosBusquedaComponent implements OnInit {
 
   constructor(
     public panelVentasService: PanelVentasService,
-    public carritoService: CarritoService
+    public carritoService: CarritoService, private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -30,6 +31,9 @@ export class ResultadosBusquedaComponent implements OnInit {
     });
   }
 
+  cambiarIdioma(idioma: string) {
+    this.translate.use(idioma);
+  }
   /**
    * 📌 Obtiene la cantidad de un producto específico en el carrito
    */
@@ -70,5 +74,5 @@ export class ResultadosBusquedaComponent implements OnInit {
     console.log("🔹 Emitiendo evento para ir al carrito...");
     this.navegarAlCarrito.emit('carrito');
   }
-  
+
 }

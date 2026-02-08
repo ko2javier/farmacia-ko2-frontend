@@ -1,7 +1,6 @@
 <div class="container mt-5 mb-5 fade-in">
 
   <div class="d-flex align-items-center justify-content-center mb-4 gap-2">
-
   </div>
 
   <div class="row g-4">
@@ -10,7 +9,7 @@
       <div class="card shadow border-0 h-100">
         <div class="card-header bg-white border-0 py-3">
           <h5 class="card-title text-center text-success fw-bold m-0">
-            💰 Ventas por Vendedor (Euros)
+            {{ 'ESTADISTICAS.TITULO_VENTAS' | translate }}
           </h5>
         </div>
         <div class="card-body d-flex justify-content-center align-items-center">
@@ -25,12 +24,12 @@
             [legend]="false"
             [showXAxisLabel]="true"
             [showYAxisLabel]="true"
-            xAxisLabel="Vendedor"
-            yAxisLabel="Total Vendido (€)">
+            [xAxisLabel]="'ESTADISTICAS.EJE_X_VENDEDOR' | translate"
+            [yAxisLabel]="'ESTADISTICAS.EJE_Y_TOTAL' | translate">
           </ngx-charts-bar-vertical>
 
           <div *ngIf="ventasPorVendedor.length === 0" class="text-muted">
-            Cargando datos o sin ventas...
+            {{ 'ESTADISTICAS.CARGANDO' | translate }}
           </div>
 
         </div>
@@ -41,7 +40,7 @@
       <div class="card shadow border-0 h-100">
         <div class="card-header bg-white border-0 py-3">
           <h5 class="card-title text-center text-danger fw-bold m-0">
-            🚫 Cancelaciones (Top Responsables)
+            {{ 'ESTADISTICAS.TITULO_CANCELACIONES' | translate }}
           </h5>
         </div>
         <div class="card-body d-flex justify-content-center align-items-center">
@@ -56,12 +55,12 @@
             [legend]="false"
             [showXAxisLabel]="true"
             [showYAxisLabel]="true"
-            xAxisLabel="Cantidad Cancelada"
-            yAxisLabel="Responsable">
+            [xAxisLabel]="'ESTADISTICAS.EJE_X_CANTIDAD' | translate"
+            [yAxisLabel]="'ESTADISTICAS.EJE_Y_RESPONSABLE' | translate">
           </ngx-charts-bar-horizontal>
 
           <div *ngIf="cancelacionesPorResponsable.length === 0" class="text-muted">
-            Sin cancelaciones registradas.
+            {{ 'ESTADISTICAS.SIN_CANCELACIONES' | translate }}
           </div>
 
         </div>

@@ -1,46 +1,52 @@
-<!-- ✅ Mostrar el panel de búsqueda solo si NO se han activado los resultados -->
 <div *ngIf="!mostrarResultados">
-    <div class="mt-5 main_1">
-        <div class="row align-items-center g-3 mt-5">
-            <!-- 🔍 Campo de búsqueda por "Nombre Producto" -->
-            <div class="col-auto">
-                <label for="nombreDataList" class="form-label text-dark">Nombre</label>
-                <input class="form-control"
-                    list="datalistOptions1"
-                    [(ngModel)]="searchNombre"
-                    (input)="panelVentasService.actualizarListaNombres(searchNombre)"
-                    (change)="seleccionarProducto()"
-                    placeholder="Type to search..."
-                >
-                <datalist id="datalistOptions1" *ngIf="panelVentasService.mostrarListaNombres">
-                    <option *ngFor="let nombre of productosUnicos" [value]="nombre"></option>
-                </datalist>
-            </div>
+  <div class="mt-5 main_1">
+    <div class="row align-items-center g-3 mt-5">
 
-            <!-- 🔍 Campo de búsqueda por "Categoría" -->
-            <div class="col-auto">
-                <label for="categoriaDataList" class="form-label text-dark">Categoría</label>
-                <input class="form-control"
-                    list="datalistOptions2"
-                    [(ngModel)]="searchCategoria"
-                    (input)="panelVentasService.actualizarListaCategorias(searchCategoria)"
-                    placeholder="Seleccione una categoría..."
-                >
-                <datalist id="datalistOptions2" *ngIf="panelVentasService.mostrarListaCategorias">
-                    <option *ngFor="let categoria of categoriasUnicas" [value]="categoria"></option>
-                </datalist>
-            </div>
-            
-            <!-- Botones de acción -->
-            <div class="col-auto mt-5">
-                <button class="btn btn-success me-2" (click)="buscarProductos()">Search</button>
-                <button class="btn btn-warning" (click)="clear()">Clear</button>
-            </div>
-        </div>
+      <div class="col-auto">
+        <label for="nombreDataList" class="form-label text-dark">
+          {{ 'PANEL.NOMBRE' | translate }}
+        </label>
+
+        <input class="form-control"
+               list="datalistOptions1"
+               [(ngModel)]="searchNombre"
+               (input)="panelVentasService.actualizarListaNombres(searchNombre)"
+               (change)="seleccionarProducto()"
+               placeholder="{{ 'PANEL.PLACEHOLDER_NOMBRE' | translate }}"
+        >
+        <datalist id="datalistOptions1" *ngIf="panelVentasService.mostrarListaNombres">
+          <option *ngFor="let nombre of productosUnicos" [value]="nombre"></option>
+        </datalist>
+      </div>
+
+      <div class="col-auto">
+        <label for="categoriaDataList" class="form-label text-dark">
+          {{ 'PANEL.CATEGORIA' | translate }}
+        </label>
+
+        <input class="form-control"
+               list="datalistOptions2"
+               [(ngModel)]="searchCategoria"
+               (input)="panelVentasService.actualizarListaCategorias(searchCategoria)"
+               placeholder="{{ 'PANEL.PLACEHOLDER_CATEGORIA' | translate }}"
+        >
+        <datalist id="datalistOptions2" *ngIf="panelVentasService.mostrarListaCategorias">
+          <option *ngFor="let categoria of categoriasUnicas" [value]="categoria"></option>
+        </datalist>
+      </div>
+
+      <div class="col-auto mt-5">
+        <button class="btn btn-success me-2" (click)="buscarProductos()">
+          {{ 'PANEL.BTN_BUSCAR' | translate }}
+        </button>
+        <button class="btn btn-warning" (click)="clear()">
+          {{ 'PANEL.BTN_LIMPIAR' | translate }}
+        </button>
+      </div>
     </div>
+  </div>
 </div>
-<!-- ✅ Mostrar el componente de resultados cuando se haga una búsqueda -->
-<div *ngIf="mostrarResultados">
-    <app-resultados-busqueda *ngIf="mostrarResultados" (volverAlPanel)="mostrarResultados = false"></app-resultados-busqueda>
 
+<div *ngIf="mostrarResultados">
+  <app-resultados-busqueda *ngIf="mostrarResultados" (volverAlPanel)="mostrarResultados = false"></app-resultados-busqueda>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VentasCanceladasService } from '../../services/ventas-canceladas.service';
+import { VentasCanceladasService } from '../../services/ventas-canceladas.service'; // ✅ Tu servicio correcto
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ventas-canceladas',
@@ -9,35 +10,45 @@ import { VentasCanceladasService } from '../../services/ventas-canceladas.servic
 })
 export class VentasCanceladasComponent implements OnInit {
 
-  cancelaciones: any[] = [];
+  // 🟢 1. Estructura de datos para filtros
+  cancelacionesOriginal: any[] = [];   // Copia de seguridad (TODO)
+  cancelacionesFiltradas: any[] = [];  // Lista activa (Filtros aplicados)
+  paginatedCancelaciones: any[] = [];  // Lo que se ve en pantalla (Paginado)
+
+  // 🟢 2. Variables de los inputs del buscador
+  textoBusqueda: string = '';
+  fechaBusqueda: string = '';
 
   // Variables del paginado
   rowsPerPage: number = 8;
   currentPage: number = 1;
   totalPages: number = 0;
-  paginatedCancelaciones: any[] = [];
 
-  constructor(private ventasCanceladasService: VentasCanceladasService) { }
+  constructor(
+    private ventasCanceladasService: VentasCanceladasService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.cargarDatosReales();
   }
 
+  cambiarIdioma(idioma: string) {
+    this.translate.use(idioma);
+  }
+
+  // ✅ Tu método original, pero adaptado para guardar la copia de seguridad
   cargarDatosReales(): void {
     this.ventasCanceladasService.getCancelaciones().subscribe(
       (data) => {
         console.log("✅ Datos recibidos de la DB:", data);
 
-        // Asignamos los datos reales
-        this.cancelaciones = data;
+        // Guardamos en Original y en Filtrada (al inicio son iguales)
+        this.cancelacionesOriginal = data;
+        this.cancelacionesFiltradas = data;
 
-        // Recalculamos paginación
-        this.totalPages = Math.ceil(this.cancelaciones.length / this.rowsPerPage);
-
-        // 🟢 ÚNICO CAMBIO: Evitar bug visual "Página 1 de 0" si no hay datos
-        if (this.totalPages === 0) this.totalPages = 1;
-
-        this.displayTable(1);
+        // Calculamos paginación inicial
+        this.calcularPaginacion();
       },
       (error) => {
         console.error("❌ Error al obtener cancelaciones:", error);
@@ -45,16 +56,62 @@ export class VentasCanceladasComponent implements OnInit {
     );
   }
 
+  // 🟢 LÓGICA DE FILTRADO (Texto y Fecha)
+  aplicarFiltros(): void {
+    let temporal = this.cancelacionesOriginal;
+
+    // 1. Filtro por Texto (Producto o Responsable)
+    if (this.textoBusqueda) {
+      const texto = this.textoBusqueda.toLowerCase();
+      temporal = temporal.filter(item =>
+        (item.nombreProducto && item.nombreProducto.toLowerCase().includes(texto)) ||
+        (item.responsable && item.responsable.toLowerCase().includes(texto))
+      );
+    }
+
+    // 2. Filtro por Fecha
+    if (this.fechaBusqueda) {
+      temporal = temporal.filter(item =>
+        item.fecha && item.fecha.toString().startsWith(this.fechaBusqueda)
+      );
+    }
+
+    // Actualizamos la lista filtrada y volvemos a la página 1
+    this.cancelacionesFiltradas = temporal;
+    this.currentPage = 1;
+    this.calcularPaginacion();
+  }
+
+  // 🟢 Limpiar filtros
+  limpiarFiltros(): void {
+    this.textoBusqueda = '';
+    this.fechaBusqueda = '';
+    this.cancelacionesFiltradas = this.cancelacionesOriginal; // Restauramos todo
+    this.currentPage = 1;
+    this.calcularPaginacion();
+  }
+
+  // ✅ Método auxiliar para recalcular páginas y cortar el array
+  calcularPaginacion(): void {
+    // Usamos 'cancelacionesFiltradas' para calcular el total
+    this.totalPages = Math.ceil(this.cancelacionesFiltradas.length / this.rowsPerPage);
+
+    if (this.totalPages === 0) this.totalPages = 1;
+
+    // Mostramos la página actual
+    this.displayTable(this.currentPage);
+  }
+
   /** Metodos de Paginación */
   displayTable(page: number): void {
-    // Quitamos el 'return' si está vacío para asegurarnos que limpie la tabla visualmente
     const start = (page - 1) * this.rowsPerPage;
     const end = start + this.rowsPerPage;
-    this.paginatedCancelaciones = this.cancelaciones.slice(start, end);
+
+    // IMPORTANTE: Cortamos de 'cancelacionesFiltradas', no de la original
+    this.paginatedCancelaciones = this.cancelacionesFiltradas.slice(start, end);
   }
 
   changePage(page: number): void {
-    // Tu lógica original funciona perfecta con los botones Anterior/Siguiente
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.displayTable(page);

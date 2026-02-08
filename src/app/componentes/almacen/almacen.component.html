@@ -3,36 +3,41 @@
   <div *ngSwitchCase="'insert'">
     <div class="card mx-auto mt-5 w-75">
       <div class="card-header">
-        <h4 class="mb-0 ms-3">Insertar Nuevo Artículo</h4>
+        <h4 class="mb-0 ms-3">{{ 'ALMACEN.TITULO_INSERTAR' | translate }}</h4>
       </div>
       <div class="card-body">
         <form (ngSubmit)="insertArticulo()" #insertForm="ngForm">
           <div class="row g-3 px-3 mt-3">
             <div class="col-md-3">
-              <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" id="Nombre" class="form-control" required aria-describedby="name" placeholder="write here"
+              <label for="Nombre" class="form-label">{{ 'ALMACEN.NOMBRE' | translate }}</label>
+              <input type="text" id="Nombre" class="form-control" required aria-describedby="name"
+                     placeholder="{{ 'ALMACEN.PLACEHOLDER_NOMBRE' | translate }}"
                      [(ngModel)]="insertDto.nombre" name="nombre">
             </div>
             <div class="col-md-3">
-              <label for="Categoria" class="form-label">Categoría</label>
+              <label for="Categoria" class="form-label">{{ 'ALMACEN.CATEGORIA' | translate }}</label>
               <input type="text" id="Categoria" class="form-control" required aria-describedby="Categoria" placeholder="..."
                      [(ngModel)]="insertDto.categoria" name="categoria">
             </div>
             <div class="col-md-3">
-              <label for="Precio" class="form-label">Precio</label>
+              <label for="Precio" class="form-label">{{ 'ALMACEN.PRECIO' | translate }}</label>
               <input type="number" id="Precio" class="form-control" required [(ngModel)]="insertDto.precio"
                      name="precio">
             </div>
             <div class="col-md-3">
-              <label for="Cantidad" class="form-label">Cantidad</label>
+              <label for="Cantidad" class="form-label">{{ 'ALMACEN.CANTIDAD' | translate }}</label>
               <input type="number" id="Cantidad" class="form-control" required [(ngModel)]="insertDto.cantidad"
                      name="cantidad">
             </div>
           </div>
 
           <div class="d-flex justify-content-end mt-5">
-            <button class="btn btn-success me-3" type="submit" [disabled]="insertForm.invalid">Insertar</button>
-            <button class="btn btn-secondary me-3" (click)="setMode('none')" type="button">Volver</button>
+            <button class="btn btn-success me-3" type="submit" [disabled]="insertForm.invalid">
+              {{ 'ALMACEN.BTN_INSERTAR' | translate }}
+            </button>
+            <button class="btn btn-secondary me-3" (click)="setMode('none')" type="button">
+              {{ 'ALMACEN.BTN_VOLVER' | translate }}
+            </button>
           </div>
         </form>
       </div>
@@ -43,35 +48,39 @@
   <div *ngSwitchCase="'update'">
     <div class="card mx-auto mt-5 w-75" >
       <div class="card-header">
-        <h4 class="mb-0 ms-3">Actualizar Artículo</h4>
+        <h4 class="mb-0 ms-3">{{ 'ALMACEN.TITULO_ACTUALIZAR' | translate }}</h4>
       </div>
       <div class="card-body">
         <div class="row g-3 mt-2 mb-5 px-3">
           <div class="col-md-3">
-            <label for="NombreUpdate" class="form-label">Nombre</label>
+            <label for="NombreUpdate" class="form-label">{{ 'ALMACEN.NOMBRE' | translate }}</label>
             <input type="text" id="NombreUpdate" class="form-control"
                    [(ngModel)]="selectedArticulo.nombre" disabled>
           </div>
           <div class="col-md-3">
-            <label for="Cod_ProductoUpdate" class="form-label">Cod_Producto</label>
+            <label for="Cod_ProductoUpdate" class="form-label">{{ 'ALMACEN.CODIGO' | translate }}</label>
             <input type="text" id="Cod_ProductoUpdate" class="form-control"
                    [(ngModel)]="selectedArticulo.codigo" disabled>
           </div>
           <div class="col-md-3">
-            <label for="PrecioUpdate" class="form-label">Precio</label>
+            <label for="PrecioUpdate" class="form-label">{{ 'ALMACEN.PRECIO' | translate }}</label>
             <input type="number" id="PrecioUpdate" class="form-control"
                    [(ngModel)]="selectedArticulo.precio" required>
           </div>
           <div class="col-md-3">
-            <label for="CantidadUpdate" class="form-label">Cantidad</label>
+            <label for="CantidadUpdate" class="form-label">{{ 'ALMACEN.CANTIDAD' | translate }}</label>
             <input type="number" id="CantidadUpdate" class="form-control"
                    [(ngModel)]="selectedArticulo.cantidad" required>
           </div>
         </div>
 
         <div class="d-flex justify-content-end mt-4">
-          <button class="btn btn-success me-2" (click)="updateArticulo()">Guardar Cambios</button>
-          <button class="btn btn-secondary me-3" (click)="setMode('none')">Volver</button>
+          <button class="btn btn-success me-2" (click)="updateArticulo()">
+            {{ 'ALMACEN.BTN_GUARDAR' | translate }}
+          </button>
+          <button class="btn btn-secondary me-3" (click)="setMode('none')">
+            {{ 'ALMACEN.BTN_VOLVER' | translate }}
+          </button>
         </div>
       </div>
     </div>
@@ -84,13 +93,14 @@
 
       <div class="table-responsive shadow-sm rounded">
         <table class="table table-light table-striped table-hover mb-0">
-          <thead class="text-center table-dark"> <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Cod_Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th *ngIf="isAdmin">Acción</th>
+          <thead class="text-center table-dark">
+          <tr>
+            <th>{{ 'ALMACEN.NOMBRE' | translate }}</th>
+            <th>{{ 'ALMACEN.CATEGORIA' | translate }}</th>
+            <th>{{ 'ALMACEN.CODIGO' | translate }}</th>
+            <th>{{ 'ALMACEN.PRECIO' | translate }}</th>
+            <th>{{ 'ALMACEN.CANTIDAD' | translate }}</th>
+            <th *ngIf="isAdmin">{{ 'ALMACEN.ACCION' | translate }}</th>
           </tr>
           </thead>
           <tbody class="text-center table-group-divider">
@@ -124,7 +134,7 @@
 
         <button class="btn btn-warning d-flex justify-content-center align-items-center shadow-sm mb-3 mb-md-0"
                 (click)="setMode('insert')">
-          <span class="text-dark me-2 fw-bold">Insertar Nuevo</span>
+          <span class="text-dark me-2 fw-bold">{{ 'ALMACEN.BTN_NUEVO' | translate }}</span>
           <div>
             <svg fill="#000000" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
               <path d="M190.23926,82.92725a7.99946,7.99946,0,0,1-.19629,11.312l-24.416,23.584a7.99966,7.99966,0,1,1-11.11523-11.50781l24.416-23.584A7.99843,7.99843,0,0,1,190.23926,82.92725Zm23.418,34.72949-96,96a53.255,53.255,0,0,1-75.31446-75.31348l96-96a53.255,53.255,0,0,1,75.31446,75.31348Zm-11.31446-64a37.25409,37.25409,0,0,0-52.68554,0L107.31348,96,160,148.68628l42.34277-42.343A37.2969,37.2969,0,0,0,202.34277,53.65674Z"></path>
@@ -136,17 +146,17 @@
           <button class="btn btn-outline-primary"
                   (click)="changePage(currentPage - 1)"
                   [disabled]="currentPage === 1">
-            ⬅ Anterior
+            ⬅ {{ 'ALMACEN.ANTERIOR' | translate }}
           </button>
 
           <span class="fw-bold text-dark bg-light px-3 py-2 rounded border">
-                Página {{ currentPage }} de {{ totalPages }}
-            </span>
+                {{ 'ALMACEN.PAGINA' | translate }} {{ currentPage }} {{ 'ALMACEN.DE' | translate }} {{ totalPages }}
+          </span>
 
           <button class="btn btn-outline-primary"
                   (click)="changePage(currentPage + 1)"
                   [disabled]="currentPage === totalPages">
-            Siguiente ➡
+            {{ 'ALMACEN.SIGUIENTE' | translate }} ➡
           </button>
         </div>
 

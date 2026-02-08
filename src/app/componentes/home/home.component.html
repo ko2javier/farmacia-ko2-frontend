@@ -1,159 +1,98 @@
 <div class="contenedor_gral container-fluid">
 
+  <header class="container-fluid d-flex justify-content-between align-items-center header_1 p-2 sticky-top mb-3">
+    <div class="logo col-3 ms-3">
+      <img src="assets/images/logo_r.png" alt="logo">
+    </div>
 
-        <header class="container-fluid d-flex justify-content-between align-items-center  header_1 p-2 sticky-top mb-3">
-            <div class="logo col-3 ms-3">
-                <img src="assets/images/logo_r.png" alt="logo">
+    <div class="col-3 d-flex justify-content-center">
+      <h4 class="text-dark">{{ getSectionTranslationKey() | translate }}</h4>
+    </div>
+
+    <div class="col-3 d-flex justify-content-end me-5">
+      <h6 class="text-white">
+        <button (click)="logout()" class="btn btn-link p-0 text-decoration-none">
+          <svg fill="#000000" width="35px" height="35px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path> </g></svg>
+        </button>
+      </h6>
+    </div>
+  </header>
+
+  <div class="d-grid" id="aside-div">
+
+    <aside class="w-75">
+      <button class="btn btn-light d-md-none mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#asideMenu" aria-expanded="false" aria-controls="asideMenu">
+        <svg width="30" height="30" fill="currentColor" class="bi bi-list">
+          <path fill-rule="evenodd" d="M3.5 12.5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </button>
+
+      <div id="asideMenu" class="collapse d-md-block">
+        <div class="d-flex flex-column py-4 px-3 mt-4">
+
+          <button (click)="cambiarSeccion('almacen')" class="menu-item mb-3">
+            <svg fill="#000000" height="30px" width="30px" version="1.2" baseProfile="tiny" id="inventory" class="me-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 230" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M61.2,106h37.4v31.2H61.2V106z M61.2,178.7h37.4v-31.2H61.2V178.7z M61.2,220.1h37.4v-31.2H61.2V220.1z M109.7,178.7H147 v-31.2h-37.4V178.7z M109.7,220.1H147v-31.2h-37.4V220.1z M158.2,188.9v31.2h37.4v-31.2H158.2z M255,67.2L128.3,7.6L1.7,67.4 l7.9,16.5l16.1-7.7v144h18.2V75.6h169v144.8h18.2v-144l16.1,7.5L255,67.2z"></path> </g></svg>
+            <span class="d-none d-lg-inline">{{ 'SIDEBAR.ALMACEN' | translate }}</span>
+          </button>
+
+          <button (click)="cambiarSeccion('Historial Ventas')" class="menu-item mb-3">
+            <svg version="1.1" id="_x32_" class="me-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><path d="M429.75,56.692c-5.641-4-12.891-5.031-19.422-2.734l-242.875,85c-30.625-1.453-51.484-9.844-65.859-19.203 c-4.328-2.813-5.266-4.469-5.266-4.469c-2.594-2.594-3.594-6.188-2.859-9.891c0.75-3.703,3.391-6.734,6.953-7.984l217.359-76.063 c3.266-1.156,6.891-0.641,9.703,1.359c0.25,0.188,0.469,0.438,0.703,0.625l15.906-5.75c-0.984-5.453-3.938-10.391-8.547-13.641 c-5.641-4.016-12.891-5.031-19.422-2.75l-228.578,80c-8.563,3-14.297,11.094-14.297,20.156v5.578v352.312 c0,0,15.063,49,94.203,52.766l242.688-84.938c17.125-6,28.609-22.171,28.609-40.328V74.114 C438.75,67.192,435.391,60.692,429.75,56.692z"></path></svg>
+            <span class="d-none d-lg-inline">{{ 'SIDEBAR.HISTORIAL' | translate }}</span>
+          </button>
+
+          <button (click)="cambiarSeccion('panel ventas')" class="menu-item mb-3">
+            <svg fill="#000000" height="30px" width="30px" class="me-2" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M51.65,104.728H245.35c3.354,0,6.083-2.728,6.083-6.082V69.988c0-3.354-2.729-6.082-6.083-6.082H51.65 c-3.354,0-6.083,2.728-6.083,6.082v28.658C45.567,102,48.296,104.728,51.65,104.728z"></path> <path d="M290.918,156.645h-25.034l8.207,20.386h16.827c3.354,0,6.082-2.728,6.082-6.082v-8.221 C297,159.374,294.272,156.645,290.918,156.645z"></path> <polygon points="83.089,156.645 74.882,177.031 222.118,177.031 213.911,156.645 "></polygon> <path d="M78.187,122.157c-1.39-2.058-3.61-3.238-6.093-3.238h-5.526c-3.016,0-5.694,1.809-6.821,4.608l-40.046,99.469 c-0.928,2.303-0.662,4.804,0.728,6.862c1.39,2.057,3.61,3.237,6.093,3.237h5.526c3.017,0,5.694-1.809,6.821-4.607l40.046-99.47 C79.842,126.714,79.577,124.214,78.187,122.157z"></path> <path d="M31.116,156.645H6.082c-3.354,0-6.082,2.729-6.082,6.083v8.221c0,3.354,2.728,6.082,6.082,6.082h16.827L31.116,156.645z"></path> <path d="M237.253,123.526c-1.127-2.798-3.805-4.607-6.821-4.607h-5.526c-2.483,0-4.703,1.18-6.093,3.238 c-1.39,2.057-1.655,4.557-0.728,6.861l40.046,99.471c1.127,2.797,3.804,4.606,6.821,4.606h5.526c2.483,0,4.703-1.18,6.093-3.237 c1.39-2.058,1.655-4.558,0.728-6.862L237.253,123.526z"></path> </g> </g></svg>
+            <span class="d-none d-lg-inline">{{ 'SIDEBAR.PANEL' | translate }}</span>
+          </button>
+
+          <button (click)="cambiarSeccion('carrito')" class="menu-item d-flex align-items-center mb-3">
+            <div class="d-flex flex-column align-items-center me-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart text-dark" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>
             </div>
+            <span class="d-md-none d-lg-inline me-4">{{ 'SIDEBAR.CARRITO' | translate }}</span>
+            <span *ngIf="carritoService.obtenerCantidadTotal() > 0" class="badge rounded-pill text-bg-success">{{ carritoService.obtenerCantidadTotal() }}</span>
+          </button>
 
-            <div class="col-3 d-flex justify-content-center">
-                <h4 class="text-dark">{{ currentSection | titlecase }}</h4>
+          <button (click)="cambiarSeccion('estadisticas')" class="menu-item d-flex align-items-center mb-3">
+            <div class="d-flex flex-column align-items-center me-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16"><path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/></svg>
             </div>
+            <span class="d-md-none d-lg-inline me-4">{{ 'SIDEBAR.ESTADISTICAS' | translate }}</span>
+          </button>
 
+          <button *ngIf="this.userRole!='SELLER'" (click)="cambiarSeccion('Gestión Usuarios')" class="menu-item mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people-fill me-2" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
+            <span class="d-md-none d-lg-inline">{{ 'SIDEBAR.USUARIOS' | translate }}</span>
+          </button>
 
-            <div class=" col-3 d-flex justify-content-end me-5">
-                <h6 class="text-white "> <button (click)="logout()" class="btn btn-link p-0 text-decoration-none">
-                    <svg fill="#000000" width="35px" height="35px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
-                         <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z">
-
-                    </path> </g></svg>
-
-                </button> </h6>
-
-
-            </div>
-
-
-        </header>
-
-        <div class="d-grid" id="aside-div" >
-            <!-- Aside -->
-
-                <!-- Aside -->
-                <aside class="  w-75">
-                    <!-- Botón Menú Hamburguesa -->
-                    <button class="btn btn-light d-md-none mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#asideMenu" aria-expanded="false" aria-controls="asideMenu">
-                        <svg width="30" height="30" fill="currentColor" class="bi bi-list">
-                            <path fill-rule="evenodd" d="M3.5 12.5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </button>
-                    <!-- Menú Items -->
-                    <div id="asideMenu" class="collapse d-md-block"
-                    >
-                        <div class="d-flex flex-column py-4 px-3 mt-4 ">
-
-                            <button (click)="cambiarSeccion('almacen')" class="menu-item mb-3">
-
-                                <svg fill="#000000" height="30px" width="30px" version="1.2" baseProfile="tiny" id="inventory" class="me-2" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 230" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M61.2,106h37.4v31.2H61.2V106z M61.2,178.7h37.4v-31.2H61.2V178.7z M61.2,220.1h37.4v-31.2H61.2V220.1z M109.7,178.7H147 v-31.2h-37.4V178.7z M109.7,220.1H147v-31.2h-37.4V220.1z M158.2,188.9v31.2h37.4v-31.2H158.2z M255,67.2L128.3,7.6L1.7,67.4 l7.9,16.5l16.1-7.7v144h18.2V75.6h169v144.8h18.2v-144l16.1,7.5L255,67.2z"></path> </g></svg>
-                                <span class="d-none d-lg-inline">Almacén</span>
-                            </button>
-
-                            <button (click)="cambiarSeccion('Historial Ventas')" class="menu-item mb-3">
-                                <svg version="1.1" id="_x32_" class="me-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
-                                    <path d="M429.75,56.692c-5.641-4-12.891-5.031-19.422-2.734l-242.875,85c-30.625-1.453-51.484-9.844-65.859-19.203 c-4.328-2.813-5.266-4.469-5.266-4.469c-2.594-2.594-3.594-6.188-2.859-9.891c0.75-3.703,3.391-6.734,6.953-7.984l217.359-76.063 c3.266-1.156,6.891-0.641,9.703,1.359c0.25,0.188,0.469,0.438,0.703,0.625l15.906-5.75c-0.984-5.453-3.938-10.391-8.547-13.641 c-5.641-4.016-12.891-5.031-19.422-2.75l-228.578,80c-8.563,3-14.297,11.094-14.297,20.156v5.578v352.312 c0,0,15.063,49,94.203,52.766l242.688-84.938c17.125-6,28.609-22.171,28.609-40.328V74.114 C438.75,67.192,435.391,60.692,429.75,56.692z">
-
-                                    </path>
-                                </svg>
-                                <span class="d-none d-lg-inline">Historial Ventas</span>
-                            </button>
-                            <button (click)="cambiarSeccion('panel ventas')" class="menu-item mb-3">
-                              <svg fill="#000000" height="30px" width="30px" class="me-2" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g>
-                                <path d="M51.65,104.728H245.35c3.354,0,6.083-2.728,6.083-6.082V69.988c0-3.354-2.729-6.082-6.083-6.082H51.65 c-3.354,0-6.083,2.728-6.083,6.082v28.658C45.567,102,48.296,104.728,51.65,104.728z"></path> <path d="M290.918,156.645h-25.034l8.207,20.386h16.827c3.354,0,6.082-2.728,6.082-6.082v-8.221 C297,159.374,294.272,156.645,290.918,156.645z"></path> <polygon points="83.089,156.645 74.882,177.031 222.118,177.031 213.911,156.645 "></polygon> <path d="M78.187,122.157c-1.39-2.058-3.61-3.238-6.093-3.238h-5.526c-3.016,0-5.694,1.809-6.821,4.608l-40.046,99.469 c-0.928,2.303-0.662,4.804,0.728,6.862c1.39,2.057,3.61,3.237,6.093,3.237h5.526c3.017,0,5.694-1.809,6.821-4.607l40.046-99.47 C79.842,126.714,79.577,124.214,78.187,122.157z"></path> <path d="M31.116,156.645H6.082c-3.354,0-6.082,2.729-6.082,6.083v8.221c0,3.354,2.728,6.082,6.082,6.082h16.827L31.116,156.645z"></path> <path d="M237.253,123.526c-1.127-2.798-3.805-4.607-6.821-4.607h-5.526c-2.483,0-4.703,1.18-6.093,3.238 c-1.39,2.057-1.655,4.557-0.728,6.861l40.046,99.471c1.127,2.797,3.804,4.606,6.821,4.606h5.526c2.483,0,4.703-1.18,6.093-3.237 c1.39-2.058,1.655-4.558,0.728-6.862L237.253,123.526z">
-
-                              </path> </g> </g></svg>
-                                <span class="d-none d-lg-inline">Panel Ventas</span>
-                            </button>
-
-
-                            <button (click)="cambiarSeccion('carrito')" class="menu-item d-flex  align-items-center mb-3">
-                                <div class="d-flex flex-column align-items-center me-2 ">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart text-dark " viewBox="0 0 16 16">
-                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                                      </svg>
-                                </div>
-                               <span class="d-md-none d-lg-inline me-4">Carrito</span>
-                               <span *ngIf="carritoService.obtenerCantidadTotal() >0" class="badge rounded-pill text-bg-success "> {{ carritoService.obtenerCantidadTotal() }}</span>
-                            </button>
-
-                          <button (click)="cambiarSeccion('estadisticas')" class="menu-item d-flex align-items-center mb-3">
-                            <div class="d-flex flex-column align-items-center me-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
-                                <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
-                              </svg>
-                            </div>
-
-                            <span class="d-md-none d-lg-inline me-4">Estadísticas</span>
-                          </button>
-
-
-
-                            <button *ngIf="this.userRole!='SELLER'" (click)="cambiarSeccion('Gestión Usuarios')" class="menu-item mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people-fill me-2" viewBox="0 0 16 16">
-                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                                  </svg>
-                               <span class="d-md-none d-lg-inline">Gestion Usuarios</span>
-                            </button>
-                             <button *ngIf="this.userRole!='SELLER'" (click)="cambiarSeccion('ventas-canceladas')" class="menu-item mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-x me-2" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708"/>
-                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
-                                </svg>
-                               <span class="d-md-none d-lg-inline">Ventas Canceladas</span>
-                            </button>
-
-
-
-                        </div>
-                    </div>
-                </aside>
-
-
-
-            <!-- Tabla -->
-            <main id="main_rest">
-              <div class="row d-flex justify-content-around align-items-center m-0 p-0">
-                  <div class="col">
-                      <!-- Componente Almacen -->
-                      <app-almacen *ngIf="currentSection === 'almacen'"></app-almacen>
-                       <!-- Componente historial ventas -->
-                        <app-ventas-usuario *ngIf="currentSection === 'Historial Ventas'" ></app-ventas-usuario>
-
-
-
-
-                        <!-- Componente historial ventas -->
-                        <app-panel *ngIf="currentSection === 'panel ventas'" ></app-panel>
-
-                        <!-- Componente historial ventas canceladas -->
-
-                        <app-ventas-canceladas *ngIf="currentSection === 'ventas-canceladas'"></app-ventas-canceladas>
-
-                        <!-- Componente de Resultados de la Búsqueda -->
-                        <app-resultados-busqueda
-                        *ngIf="currentSection === 'resultados'"
-                        (volverAlPanel)="cambiarSeccion('panel-ventas')">
-                        </app-resultados-busqueda>
-
-
-                        <!-- Componente Carro Campra -->
-                        <app-carrito *ngIf="currentSection === 'carrito'" ></app-carrito>
-                    <!-- Componente Estadisticas -->
-                      <app-estadisticas *ngIf="currentSection === 'estadisticas'"></app-estadisticas>
-
-                        <app-users *ngIf="currentSection === 'Gestión Usuarios'" > </app-users>
-
-                  </div>
-
-              </div>
-          </main>
-
+          <button *ngIf="this.userRole!='SELLER'" (click)="cambiarSeccion('ventas-canceladas')" class="menu-item mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-x me-2" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708"/><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/></svg>
+            <span class="d-md-none d-lg-inline">{{ 'SIDEBAR.CANCELADAS' | translate }}</span>
+          </button>
 
         </div>
+      </div>
+    </aside>
 
+    <main id="main_rest">
+      <div class="row d-flex justify-content-around align-items-center m-0 p-0">
+        <div class="col">
+          <app-almacen *ngIf="currentSection === 'almacen'"></app-almacen>
+          <app-ventas-usuario *ngIf="currentSection === 'Historial Ventas'"></app-ventas-usuario>
+          <app-panel *ngIf="currentSection === 'panel ventas'"></app-panel>
+          <app-ventas-canceladas *ngIf="currentSection === 'ventas-canceladas'"></app-ventas-canceladas>
 
+          <app-resultados-busqueda
+            *ngIf="currentSection === 'resultados'"
+            (volverAlPanel)="cambiarSeccion('panel-ventas')">
+          </app-resultados-busqueda>
 
+          <app-carrito *ngIf="currentSection === 'carrito'"></app-carrito>
+          <app-estadisticas *ngIf="currentSection === 'estadisticas'"></app-estadisticas>
+          <app-users *ngIf="currentSection === 'Gestión Usuarios'"></app-users>
+        </div>
+      </div>
+    </main>
 
+  </div>
 </div>

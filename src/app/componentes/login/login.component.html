@@ -1,60 +1,68 @@
 <div class="container_login">
-    
-    <header class="container-fluid d-flex justify-content-between align-items-center px-4 py-3">
-        <div class="logo">
-            <img src="assets/images/logo_r.png" alt="EasyFarma Logo">
-        </div>
-        <div>
-            <a href="#" class="text-decoration-none text-white login-link" (click)="click_logIn()">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Acceso
-            </a>
-        </div>
-    </header>
 
-    <div class="flex-grow-1 d-flex justify-content-center align-items-center w-100">
-        
-        <main class="text-center hero-text p-4 animation-fade-in" *ngIf="isLoggedIn">
-            <h1>הֲיִפָּלֵא מֵיהוה כָּל דָּבָר</h1>
-            <p class="mt-3 fs-5 text-white-50 fst-italic">Genesis 18:14</p>
-        </main>
-
-        <section class="col-11 col-md-6 col-lg-4" *ngIf="!isLoggedIn">
-            <div class="glass-card p-4 p-md-5">
-                
-                <div class="text-center mb-4">
-                    <h2 class="fw-bold text-white">Bienvenido</h2>
-                    <p class="text-white-50 small">Ingresa tus credenciales para continuar</p>
-                </div>
-
-                <form (ngSubmit)="onLogin()" autocomplete="off">
-                    
-                    <div class="mb-3">
-                        <label class="form-label text-white-50 small ms-2">Usuario</label>
-                        <input type="text" 
-                               class="form-control custom-input" 
-                               [(ngModel)]="username" 
-                               name="u_name_field" 
-                               required 
-                               autocomplete="off">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label text-white-50 small ms-2">Contraseña</label>
-                        <input type="password" 
-                               class="form-control custom-input" 
-                               [(ngModel)]="password" 
-                               name="p_word_field" 
-                               required 
-                               autocomplete="new-password">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-modern w-100 py-2 mt-2">
-                        INICIAR SESIÓN
-                    </button>
-
-                </form>
-            </div>
-        </section>
-
+  <header class="container-fluid d-flex justify-content-between align-items-center px-4 py-3">
+    <div class="logo">
+      <img src="assets/images/logo_r.png" alt="EasyFarma Logo">
     </div>
+
+    <div class="d-flex align-items-center gap-3">
+
+      <div class="btn-group">
+        <button class="btn btn-sm btn-outline-light" (click)="cambiarIdioma('es')">🇪🇸</button>
+        <button class="btn btn-sm btn-outline-light" (click)="cambiarIdioma('en')">🇬🇧</button>
+      </div>
+
+      <a href="#" class="text-decoration-none text-white login-link" (click)="click_logIn()">
+        <i class="bi bi-box-arrow-in-right me-2"></i>
+        {{ 'LOGIN.ACCESO' | translate }}
+      </a>
+    </div>
+  </header>
+
+  <div class="flex-grow-1 d-flex justify-content-center align-items-center w-100">
+
+    <main class="text-center hero-text p-4 animation-fade-in" *ngIf="isLoggedIn">
+      <h1>הֲיִפָּלֵא מֵיהוה כָּל דָּבָר</h1>
+      <p class="mt-3 fs-5 text-white-50 fst-italic">Ge 18:14</p>
+    </main>
+
+    <section class="col-11 col-md-6 col-lg-4" *ngIf="!isLoggedIn">
+      <div class="glass-card p-4 p-md-5">
+
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-white">{{ 'LOGIN.BIENVENIDO' | translate }}</h2>
+          <p class="text-white-50 small">{{ 'LOGIN.INSTRUCCIONES' | translate }}</p>
+        </div>
+
+        <form (ngSubmit)="onLogin()" autocomplete="off">
+
+          <div class="mb-3">
+            <label class="form-label text-white-50 small ms-2">{{ 'LOGIN.USUARIO' | translate }}</label>
+            <input type="text"
+                   class="form-control custom-input"
+                   [(ngModel)]="username"
+                   name="u_name_field"
+                   required
+                   autocomplete="off">
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label text-white-50 small ms-2">{{ 'LOGIN.CONTRASENA' | translate }}</label>
+            <input type="password"
+                   class="form-control custom-input"
+                   [(ngModel)]="password"
+                   name="p_word_field"
+                   required
+                   autocomplete="new-password">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-modern w-100 py-2 mt-2">
+            {{ 'LOGIN.BTN_ENTRAR' | translate }}
+          </button>
+
+        </form>
+      </div>
+    </section>
+
+  </div>
 </div>

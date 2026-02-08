@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule,HttpClient  } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AlmacenComponent } from './componentes/almacen/almacen.component';
 import { VentasUsuarioComponent } from './componentes/ventas-usuario/ventas-usuario.component';
@@ -19,10 +19,15 @@ import { VentasCanceladasComponent } from './componentes/ventas-canceladas/venta
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
-
-
+// Función necesaria para compilar la traducción (AOT)
+export function HttpLoaderFactory(http: any) {
+  // @ts-ignore
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 
 @NgModule({
@@ -52,6 +57,13 @@ import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.c
     BrowserAnimationsModule,
     NgxChartsModule,
 
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
 
   ],
   providers: [
