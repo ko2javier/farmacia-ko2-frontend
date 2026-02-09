@@ -39,6 +39,8 @@
     "SIGUIENTE": "Next",
     "PAGINA": "Page",
     "DE": "of",
+    "STOCK_BAJO": "Critical Stock!",
+    "STOCK_CRITICO": "Out of Stock",
     "MSG": {
       "ERROR_TITULO": "Error",
       "EXITO_TITULO": "Success",
@@ -102,7 +104,9 @@
     "PLACEHOLDER_NOMBRE": "Type to search...",
     "PLACEHOLDER_CATEGORIA": "Select a category...",
     "BTN_BUSCAR": "Search",
-    "BTN_LIMPIAR": "Clear"
+    "BTN_LIMPIAR": "Clear",
+    "READY_TITLE": "Sales Panel",
+    "READY_SUBTITLE": "Search above to start a sale."
   },
   "BUSQUEDA": {
     "TITULO": "Search Results",

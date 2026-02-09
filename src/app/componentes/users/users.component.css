@@ -4,7 +4,7 @@
     align-items: center; /* Centra verticalmente */
     height: 100%; /* Asegúrate de que el contenedor tenga altura */
     margin-left: -5%;
-  
+
 }
 
 .boton-td-red svg:hover{
@@ -27,7 +27,7 @@
 }
 
 
-.bton_accion:hover, 
+.bton_accion:hover,
 .bton_accion:focus {
     background: none !important; /* Evita el fondo en hover */
     box-shadow: none !important; /* Evita cualquier sombra */
@@ -40,7 +40,7 @@
 }
 
 .bton_accion:hover svg {
-    
+
     filter: brightness(0.5); /* Hace el icono más oscuro */
     stroke-width: 2px; /* Engrosa el trazo si es un SVG con `stroke` */
 }
@@ -49,7 +49,7 @@
 
 .card .card-header{
     background-color: #c6eecd;
-    
+
 }
 
 
@@ -76,8 +76,11 @@
 }
 
 .bton_accion:hover svg {
-    
+
     filter: brightness(0.5); /* Hace el icono más oscuro */
     stroke-width: 2px; /* Engrosa el trazo si es un SVG con `stroke` */
 }
 
+.contenedor-seccion {
+margin-top: 3%;
+}

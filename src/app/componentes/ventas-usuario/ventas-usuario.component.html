@@ -1,4 +1,4 @@
-<div class="container mt-5 mb-5">
+<div class="contenedor-seccion container mb-5">
 
   <div class="row mb-4">
     <div class="col-12">
@@ -93,7 +93,7 @@
 
     <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
       <button class="btn btn-outline-primary" (click)="cambiarPagina(-1)" [disabled]="currentPage === 1">
-        {{ 'HISTORIAL.ANTERIOR' | translate }}
+        ⬅ {{ 'HISTORIAL.ANTERIOR' | translate }}
       </button>
 
       <span class="fw-bold px-2">
@@ -101,7 +101,7 @@
       </span>
 
       <button class="btn btn-outline-primary" (click)="cambiarPagina(1)" [disabled]="currentPage === totalPages">
-        {{ 'HISTORIAL.SIGUIENTE' | translate }}
+        {{ 'HISTORIAL.SIGUIENTE' | translate }}⬅
       </button>
     </div>
 

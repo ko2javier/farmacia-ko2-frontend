@@ -19,7 +19,7 @@ export class AuthService {
 
   saveToken(token: string): void {
     localStorage.setItem('jwtToken', token); // Guarda el token en el almacenamiento local
-    
+
   }
 
   getToken(): string | null {
@@ -30,5 +30,5 @@ export class AuthService {
     localStorage.removeItem('jwtToken'); // Borra el token al cerrar sesión
   }
 
-  
+
 }

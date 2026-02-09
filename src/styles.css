@@ -1,16 +1,107 @@
-/* src/styles.css */
+/* 1. IMPORTAR LA FUENTE POPPINS (Automáticamente desde Google) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* 2. CUERPO DE LA PÁGINA */
 body {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Tu gradiente original (era bueno, lo mantenemos) */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+
+  /* EL CAMBIO CLAVE: Usamos Poppins */
+  font-family: 'Poppins', sans-serif;
+  color: #343a40; /* Gris oscuro suave, mejor que negro puro */
+  -webkit-font-smoothing: antialiased; /* Hace que la fuente se vea nítida */
 }
 
-/* Mejora general para todas las tablas de tu proyecto */
+/* 3. TABLAS MODERNAS (Estilo Tarjeta Flotante) */
+/* --- MODIFICACIÓN: TABLAS LIMPIAS (SIN FONDO BLANCO) --- */
+
+.table-responsive {
+  /* Quitamos el blanco sólido y el padding grueso */
+  background: rgba(255, 255, 255, 0.6); /* Transparencia sutil */
+  backdrop-filter: blur(10px);          /* Efecto cristal borroso moderno */
+  border-radius: 16px;                  /* Mantenemos las esquinas redondas */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra mucho más suave */
+  padding: 0;                           /* ¡Esto quita el marco blanco! */
+  border: none;
+  margin-bottom: 2rem;
+  overflow: hidden; /* Asegura que las esquinas redondas recorten la tabla */
+}
+
 .table {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(5px);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}/* You can add global styles to this file, and also import other style files */
+  margin-bottom: 0;
+  background-color: transparent !important; /* La tabla en sí es transparente */
+}
+
+/* Cabecera oscura (Mantenemos esto, se ve profesional) */
+.table thead th {
+  background-color: #212529;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+/* El resto de estilos (botones, hover, fuente body) DÉJALOS COMO ESTABAN */
+/* Solo hemos cambiado el bloque .table-responsive y .table */
+
+/* Redondeamos las esquinas superiores de la cabecera */
+.table thead th:first-child { border-top-left-radius: 10px; }
+.table thead th:last-child { border-top-right-radius: 10px; }
+
+/* Cuerpo de la tabla */
+.table tbody td {
+  vertical-align: middle; /* Todo centrado verticalmente */
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f3f5; /* Líneas muy sutiles */
+  font-size: 0.95rem;
+}
+
+/* Efecto HOVER en las filas (La magia interactiva) */
+.table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa !important;
+  transform: scale(1.002); /* Un zoom microscópico */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra al pasar el ratón */
+  z-index: 10;
+  position: relative;
+}
+
+/* 4. BOTONES DE ACCIÓN (Más bonitos) */
+.btn {
+  border-radius: 8px; /* Botones más cuadrados/modernos */
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px); /* Se levantan un poco */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Iconos dentro de botones (Papelera, etc) */
+.bi, svg {
+  vertical-align: -0.125em; /* Alineación perfecta del icono con el texto */
+}
+
+/* 5. TARJETAS (CARDS) GENERALES (Para formularios de Login, Insertar, etc) */
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  background: #ffffff;
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 1.5rem;
+  font-weight: 600;
+}

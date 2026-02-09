@@ -39,6 +39,8 @@
     "SIGUIENTE": "Siguiente",
     "PAGINA": "Página",
     "DE": "de",
+    "STOCK_BAJO": "¡Stock Crítico! ",
+    "STOCK_CRITICO": "Agotado",
     "MSG": {
       "ERROR_TITULO": "Error",
       "EXITO_TITULO": "Éxito",
@@ -102,7 +104,9 @@
     "PLACEHOLDER_NOMBRE": "Escribe para buscar...",
     "PLACEHOLDER_CATEGORIA": "Seleccione una categoría...",
     "BTN_BUSCAR": "Buscar",
-    "BTN_LIMPIAR": "Limpiar"
+    "BTN_LIMPIAR": "Limpiar",
+    "READY_TITLE": "Panel de Ventas",
+    "READY_SUBTITLE": "Realiza una búsqueda arriba para comenzar una venta."
   },
   "BUSQUEDA": {
     "TITULO": "Resultados de la Búsqueda",

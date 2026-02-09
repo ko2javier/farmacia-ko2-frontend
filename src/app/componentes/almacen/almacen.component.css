@@ -2,9 +2,9 @@
     display: flex;
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
-    height: 100%; 
+    height: 100%;
     margin-left: -5%;
-  
+
 }
 
 .boton-td-red svg:hover{
@@ -27,7 +27,7 @@
 }
 
 
-.bton_accion:hover, 
+.bton_accion:hover,
 .bton_accion:focus {
     background: none !important; /* Evita el fondo en hover */
     box-shadow: none !important; /* Evita cualquier sombra */
@@ -40,7 +40,7 @@
 }
 
 .bton_accion:hover svg {
-    
+
     filter: brightness(0.5); /* Hace el icono más oscuro */
     stroke-width: 2px; /* Engrosa el trazo si es un SVG con `stroke` */
 }
@@ -49,7 +49,7 @@
 
 .card .card-header{
     background-color: #c6eecd;
-    
+
 }
 
 
@@ -68,6 +68,14 @@
     background-color: #e9ecef;
 }
 
+/* Esta clase controlará la altura de TODAS tus secciones */
+.contenedor-seccion {
+  /* Ajusta este valor. Si tu header mide unos 60px,
+     100px de padding dará una sensación de ~160px total */
+  padding-top: 100px;
 
+  width: 100%;
+  min-height: 100vh; /* Opcional: asegura que ocupe el alto */
+}
 /**/
 

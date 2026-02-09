@@ -12,11 +12,22 @@
     border-radius: 100%;
 
 }
-.img_vacio img{
-    height: 70%;
-    width: 70%;
-    margin-top: 10%;
-    margin-left: 10%;
-    border-radius: 5px;
+/* Contenedor: Mantiene el centrado perfecto (esto no cambia) */
+.img_vacio {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;     /* Centrado vertical */
+  height: 80vh;            /* Altura del área disponible */
+  width: 100%;
+}
 
+/* Imagen: Aumentamos el tamaño máximo */
+.img_vacio img {
+  /* CAMBIO AQUÍ: Aumentamos el límite para que se vea más grande */
+  max-width: 600px;
+
+  width: 100%;      /* Esto asegura que se encoja bien en pantallas pequeñas */
+  height: auto;     /* Mantiene la proporción para que no se deforme */
+  border-radius: 5px;
+  margin: 0;
 }

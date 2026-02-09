@@ -1,50 +1,67 @@
-<div *ngIf="!mostrarResultados">
-  <div class="mt-5 main_1">
-    <div class="row align-items-center g-3 mt-5">
+<div *ngIf="!mostrarResultados" class="contenedor-seccion container">
 
-      <div class="col-auto">
-        <label for="nombreDataList" class="form-label text-dark">
-          {{ 'PANEL.NOMBRE' | translate }}
-        </label>
+  <div class="main_1 mb-4"> <div class="row align-items-end g-3">
 
-        <input class="form-control"
-               list="datalistOptions1"
-               [(ngModel)]="searchNombre"
-               (input)="panelVentasService.actualizarListaNombres(searchNombre)"
-               (change)="seleccionarProducto()"
-               placeholder="{{ 'PANEL.PLACEHOLDER_NOMBRE' | translate }}"
-        >
-        <datalist id="datalistOptions1" *ngIf="panelVentasService.mostrarListaNombres">
-          <option *ngFor="let nombre of productosUnicos" [value]="nombre"></option>
-        </datalist>
-      </div>
+    <div class="col-md-4"> <label for="nombreDataList" class="form-label text-dark fw-bold">
+      {{ 'PANEL.NOMBRE' | translate }}
+    </label>
 
-      <div class="col-auto">
-        <label for="categoriaDataList" class="form-label text-dark">
-          {{ 'PANEL.CATEGORIA' | translate }}
-        </label>
+      <input class="form-control"
+             list="datalistOptions1"
+             [(ngModel)]="searchNombre"
+             (input)="panelVentasService.actualizarListaNombres(searchNombre)"
+             (change)="seleccionarProducto()"
+             placeholder="{{ 'PANEL.PLACEHOLDER_NOMBRE' | translate }}">
 
-        <input class="form-control"
-               list="datalistOptions2"
-               [(ngModel)]="searchCategoria"
-               (input)="panelVentasService.actualizarListaCategorias(searchCategoria)"
-               placeholder="{{ 'PANEL.PLACEHOLDER_CATEGORIA' | translate }}"
-        >
-        <datalist id="datalistOptions2" *ngIf="panelVentasService.mostrarListaCategorias">
-          <option *ngFor="let categoria of categoriasUnicas" [value]="categoria"></option>
-        </datalist>
-      </div>
+      <datalist id="datalistOptions1" *ngIf="panelVentasService.mostrarListaNombres">
+        <option *ngFor="let nombre of productosUnicos" [value]="nombre"></option>
+      </datalist>
+    </div>
 
-      <div class="col-auto mt-5">
-        <button class="btn btn-success me-2" (click)="buscarProductos()">
+    <div class="col-md-4">
+      <label for="categoriaDataList" class="form-label text-dark fw-bold">
+        {{ 'PANEL.CATEGORIA' | translate }}
+      </label>
+
+      <input class="form-control"
+             list="datalistOptions2"
+             [(ngModel)]="searchCategoria"
+             (input)="panelVentasService.actualizarListaCategorias(searchCategoria)"
+             placeholder="{{ 'PANEL.PLACEHOLDER_CATEGORIA' | translate }}">
+
+      <datalist id="datalistOptions2" *ngIf="panelVentasService.mostrarListaCategorias">
+        <option *ngFor="let categoria of categoriasUnicas" [value]="categoria"></option>
+      </datalist>
+    </div>
+
+    <div class="col-md-4">
+      <div class="d-flex gap-2">
+        <button class="btn btn-success w-100" (click)="buscarProductos()">
           {{ 'PANEL.BTN_BUSCAR' | translate }}
         </button>
-        <button class="btn btn-warning" (click)="clear()">
+        <button class="btn btn-warning w-100" (click)="clear()">
           {{ 'PANEL.BTN_LIMPIAR' | translate }}
         </button>
       </div>
     </div>
   </div>
+  </div>
+
+  <div class="empty-state-sales fade-in">
+
+    <div class="circle-bg">
+      <img src="assets/images/logo_r.png" alt="KO2 Logo" class="brand-watermark">
+    </div>
+
+    <div class="text-content mt-4">
+      <h3 class="fw-bold text-dark">{{ 'PANEL.READY_TITLE' | translate }}</h3>
+      <p class="text-muted fs-5">
+        {{ 'PANEL.READY_SUBTITLE' | translate }}
+      </p>
+    </div>
+
+  </div>
+
 </div>
 
 <div *ngIf="mostrarResultados">

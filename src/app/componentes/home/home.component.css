@@ -1,110 +1,123 @@
-.contenedor_gral{
-    background-color: #EEEEEE;
+/* --- 1. CONFIGURACIÓN GENERAL --- */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
 }
 
-.logo img{
-    width: 35%;
-    height: auto;
-}
-header h6{
-    font-weight: bold;
-}
-main h1{
-    margin-top: 10%;
-    font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: white;
+/* --- 2. SIDEBAR (Color: Dark Slate - Elegante y Profesional) --- */
+.sidebar {
+  width: 280px;
+  background-color: #1E293B; /* <--- GRIS AZULADO OSCURO (Mucho mejor que el azul chillón) */
+  transition: all 0.3s;
+  z-index: 100;
 }
 
-
-
-/***** Aside *****/
-#aside-div{
-    background-color: #EEEEEE;
-
-}
-aside {
-height: 100vh;
-position: sticky;
-top: 0;
-overflow-y: auto;
-
+/* LOGO */
+.logo-grande {
+  max-height: 80px;
+  width: auto;
+  /* Sombra blanca suave para que resalte sobre oscuro */
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
 }
 
-aside a {
-    display: flex;
-    width: 100%; /* Para que abarquen el ancho completo */
-}
-.custom-width{
-    width: 75%;
-}
-
-
-aside a:hover {
-background-color: #e8f5e9;
-border-radius: 8px;
-}
-
-.bi {
-flex-shrink: 0;
-}
-#aside-div{
-grid-template-columns: 1fr 3fr; gap: 0;
+/* --- 3. BOTONES DEL MENÚ --- */
+.nav-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: #CBD5E1; /* Gris perla claro para el texto */
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
-
-/*<!--2- tabla--> */
-#main_rest{
-    margin-right: 20%;
+/* EL TRUCO DE LOS SVGs (INVERTIR COLOR) */
+.menu-icon {
+  transition: all 0.2s;
+  /* Invierte el negro a blanco para que se vea en el fondo oscuro */
+  filter: invert(1) brightness(2);
 }
 
-.tabla-main {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100%; /* Asegúrate de que el contenedor tenga altura */
-  
+.icon-wrapper {
+  width: 30px; /* Ancho fijo para alinear iconos */
+  display: flex;
+  justify-content: center;
+  margin-right: 15px;
 }
 
-.boton-td-red svg:hover{
-    background-color: #DC3545;
-    border-radius: 100%;
-
-}
-.boton-td-green svg:hover{
-    background-color: #198754;
-    border-radius: 100%;
-
+/* HOVER */
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  padding-left: 25px; /* Pequeño desplazamiento */
 }
 
-/* Estilos base */
-.menu-item {
-    display: flex;
-    width: 100%; /* Que abarque el ancho completo */
-    background: none;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 16px;
-    color: #212529; /* Color del texto */
-    text-decoration: none;
-    align-items: center;
+/* --- ESTADO ACTIVO (AMARILLO + NEGRO) --- */
+.nav-btn.active {
+  background-color: #FFC107; /* Amarillo marca */
+  color: #000000; /* Texto negro */
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Mantener el efecto al pasar el mouse */
-.menu-item:hover {
-    background-color: #e8f5e9;
-    border-radius: 8px;
+/* Cuando está activo, el icono vuelve a ser NEGRO (quitamos el invert) */
+.nav-btn.active .menu-icon {
+  filter: none;
 }
 
-/* Evita el borde azul al hacer clic */
-.menu-item:focus {
-    outline: none;
+/* --- 4. MAIN CONTENT (Gris Muy Claro) --- */
+.main-area {
+  background-color: #F8FAFC; /* Casi blanco, muy limpio */
 }
 
-/* Hace que el cursor se vea como en un enlace */
-.menu-item:hover,
-.menu-item:focus {
-    cursor: pointer;
+/* --- 5. LOGOUT --- */
+.btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #EF4444; /* Rojo suave */
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.logout-icon {
+  /* El icono de logout lo ponemos rojo directamente con filtro sepia/hue o invert */
+  /* Truco: hacerlo blanco primero, luego rojo al hover */
+  filter: invert(1);
+  width: 20px;
+}
+
+.btn-logout:hover {
+  background: #EF4444;
+  color: white;
+  border-color: #EF4444;
+}
+
+.btn-logout:hover .logout-icon {
+  filter: invert(1); /* Se vuelve blanco sobre fondo rojo */
+}
+
+/* Separador */
+.divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 10px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar { width: 80px; }
+  .nav-btn span, .btn-logout span { display: none; }
+  .nav-btn { justify-content: center; padding: 15px 0; }
+  .icon-wrapper { margin-right: 0; }
+  .logo-grande { max-height: 40px; }
 }

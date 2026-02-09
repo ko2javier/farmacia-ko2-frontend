@@ -109,7 +109,33 @@
             <td>{{ articulo.categoria }}</td>
             <td>{{articulo.codigo}}</td>
             <td class="fw-bold">{{ articulo.precio | currency:'EUR' }}</td>
-            <td> {{ articulo.cantidad }}  </td>
+
+            <td class="align-middle">
+              <div class="d-flex justify-content-center">
+
+                <span *ngIf="articulo.cantidad > 5" class="text-dark">
+                    {{ articulo.cantidad }}
+                </span>
+
+                <span *ngIf="articulo.cantidad > 0 && articulo.cantidad <= 5"
+                      class="badge rounded-pill border border-warning text-warning-emphasis bg-warning-subtle shadow-sm px-3"
+                      title="{{ 'ALMACEN.STOCK_BAJO' | translate }}"
+                      style="cursor: help;">
+                     {{ articulo.cantidad }}
+                    <span class="ms-1">⚠️</span>
+                </span>
+
+                <span *ngIf="articulo.cantidad === 0"
+                      class="badge rounded-pill border border-danger text-danger-emphasis bg-danger-subtle shadow-sm px-3"
+                      title="{{ 'ALMACEN.STOCK_CRITICO' | translate }}"
+                      style="cursor: help;">
+            0
+                  <span class="ms-1">🚫</span>
+                </span>
+
+              </div>
+            </td>
+
             <td *ngIf="isAdmin">
               <div class="d-flex justify-content-center align-items-center flex-nowrap gap-2">
                 <button class="btn bton_accion btn-sm border-0" (click)="eliminarArticulo(articulo.id)">
