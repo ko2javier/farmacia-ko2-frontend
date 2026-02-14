@@ -1,21 +1,19 @@
-<div class="container mt-5 mb-5 fade-in">
-
-  <div class="d-flex align-items-center justify-content-center mb-4 gap-2">
-  </div>
+<div class="contenedor-seccion container mb-5 fade-in">
 
   <div class="row g-4">
 
-    <div class="col-md-6">
-      <div class="card shadow border-0 h-100">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
         <div class="card-header bg-white border-0 py-3">
-          <h5 class="card-title text-center text-success fw-bold m-0">
-            {{ 'ESTADISTICAS.TITULO_VENTAS' | translate }}
+          <h5 class="card-title text-center text-success fw-bold m-0 d-flex align-items-center justify-content-center gap-2">
+             {{ 'ESTADISTICAS.TITULO_VENTAS' | translate }}
           </h5>
         </div>
-        <div class="card-body d-flex justify-content-center align-items-center">
+
+        <div class="card-body p-0 d-flex justify-content-center" style="height: 400px; overflow: hidden;">
 
           <ngx-charts-bar-vertical
-            [view]="[400, 320]"
+            class="chart-container"
             [results]="ventasPorVendedor"
             [scheme]="colorSchemeVentas"
             [gradient]="true"
@@ -25,28 +23,30 @@
             [showXAxisLabel]="true"
             [showYAxisLabel]="true"
             [xAxisLabel]="'ESTADISTICAS.EJE_X_VENDEDOR' | translate"
-            [yAxisLabel]="'ESTADISTICAS.EJE_Y_TOTAL' | translate">
-          </ngx-charts-bar-vertical>
+            [yAxisLabel]="'ESTADISTICAS.EJE_Y_TOTAL' | translate"
+            [barPadding]="8"
+            [roundEdges]="false"> </ngx-charts-bar-vertical>
 
-          <div *ngIf="ventasPorVendedor.length === 0" class="text-muted">
-            {{ 'ESTADISTICAS.CARGANDO' | translate }}
+          <div *ngIf="ventasPorVendedor.length === 0" class="d-flex align-items-center justify-content-center h-100 w-100 text-muted">
+            <p>{{ 'ESTADISTICAS.CARGANDO' | translate }}</p>
           </div>
 
         </div>
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div class="card shadow border-0 h-100">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
         <div class="card-header bg-white border-0 py-3">
-          <h5 class="card-title text-center text-danger fw-bold m-0">
-            {{ 'ESTADISTICAS.TITULO_CANCELACIONES' | translate }}
+          <h5 class="card-title text-center text-danger fw-bold m-0 d-flex align-items-center justify-content-center gap-2">
+             {{ 'ESTADISTICAS.TITULO_CANCELACIONES' | translate }}
           </h5>
         </div>
-        <div class="card-body d-flex justify-content-center align-items-center">
+
+        <div class="card-body p-0 d-flex justify-content-center" style="height: 400px; overflow: hidden;">
 
           <ngx-charts-bar-horizontal
-            [view]="[400, 300]"
+            class="chart-container"
             [results]="cancelacionesPorResponsable"
             [scheme]="colorSchemeCancelaciones"
             [gradient]="true"
@@ -56,11 +56,12 @@
             [showXAxisLabel]="true"
             [showYAxisLabel]="true"
             [xAxisLabel]="'ESTADISTICAS.EJE_X_CANTIDAD' | translate"
-            [yAxisLabel]="'ESTADISTICAS.EJE_Y_RESPONSABLE' | translate">
+            [yAxisLabel]="'ESTADISTICAS.EJE_Y_RESPONSABLE' | translate"
+            [barPadding]="8">
           </ngx-charts-bar-horizontal>
 
-          <div *ngIf="cancelacionesPorResponsable.length === 0" class="text-muted">
-            {{ 'ESTADISTICAS.SIN_CANCELACIONES' | translate }}
+          <div *ngIf="cancelacionesPorResponsable.length === 0" class="d-flex align-items-center justify-content-center h-100 w-100 text-muted">
+            <p>{{ 'ESTADISTICAS.SIN_CANCELACIONES' | translate }}</p>
           </div>
 
         </div>

@@ -114,10 +114,66 @@
 }
 
 /* RESPONSIVE */
+/*
 @media (max-width: 768px) {
   .sidebar { width: 80px; }
   .nav-btn span, .btn-logout span { display: none; }
   .nav-btn { justify-content: center; padding: 15px 0; }
   .icon-wrapper { margin-right: 0; }
   .logo-grande { max-height: 40px; }
+}*/
+
+/* --- ESTILOS BASE (Móvil First) --- */
+
+.sidebar {
+  position: fixed; /* Flotante en móvil */
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px; /* Ancho fijo del sidebar */
+  z-index: 1050; /* Por encima de todo */
+  background-color: #212529; /* Color oscuro base */
+  transition: transform 0.3s ease-in-out; /* Animación suave */
+  transform: translateX(-100%); /* OCULTO por defecto en móvil */
+}
+
+/* Cuando la clase 'active' está presente (toggleMenu true), se muestra */
+.sidebar.active {
+  transform: translateX(0);
+}
+
+/* El fondo oscuro para cerrar al hacer clic fuera */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Semitransparente */
+  z-index: 1040; /* Debajo del sidebar, encima del contenido */
+  backdrop-filter: blur(2px); /* Efecto borroso opcional y elegante */
+}
+
+.main-area {
+  width: 100%;
+  margin-left: 0;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* --- VISTA ESCRITORIO (md y superior) --- */
+@media (min-width: 768px) {
+  .sidebar {
+    position: relative; /* Vuelve a ser parte del flujo normal */
+    transform: none !important; /* Siempre visible */
+    width: 250px; /* Puedes ajustar el ancho en escritorio si quieres */
+  }
+
+  .main-area {
+    /* No necesitamos margin-left porque con flexbox se acomoda solo */
+    width: auto;
+  }
+
+  .overlay {
+    display: none !important; /* Nunca mostrar overlay en escritorio */
+  }
 }

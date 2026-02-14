@@ -52,8 +52,6 @@
 
 }
 
-
-
 /* Estilos de paginación */
 
 .pagination .page-item .page-link {
@@ -79,3 +77,8 @@
 }
 /**/
 
+@media (min-width: 768px) {
+  .w-md-auto {
+    width: auto !important;
+  }
+}

@@ -1,35 +1,36 @@
-<div class="d-flex w-100 vh-100 overflow-hidden font-poppins">
+<div class="d-flex w-100 vh-100 overflow-hidden font-poppins position-relative">
 
-  <aside class="sidebar d-flex flex-column flex-shrink-0 text-white shadow-lg">
+  <aside class="sidebar d-flex flex-column flex-shrink-0 text-white shadow-lg" [class.active]="menuAbierto">
 
     <div class="sidebar-header p-4 text-center mb-2">
+      <button class="btn-close btn-close-white position-absolute top-0 end-0 m-3 d-md-none" (click)="cerrarMenu()"></button>
       <img src="assets/images/logo_r.png" alt="logo" class="img-fluid logo-grande">
     </div>
 
     <nav class="nav flex-column flex-grow-1 px-3 gap-2 overflow-auto custom-scrollbar">
 
-      <button (click)="cambiarSeccion('almacen')" class="nav-btn" [class.active]="currentSection === 'almacen'">
+      <button (click)="cambiarSeccion('almacen'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'almacen'">
         <div class="icon-wrapper">
           <svg fill="#000000" height="24px" width="24px" viewBox="0 0 256 230" class="menu-icon"><path d="M61.2,106h37.4v31.2H61.2V106z M61.2,178.7h37.4v-31.2H61.2V178.7z M61.2,220.1h37.4v-31.2H61.2V220.1z M109.7,178.7H147 v-31.2h-37.4V178.7z M109.7,220.1H147v-31.2h-37.4V220.1z M158.2,188.9v31.2h37.4v-31.2H158.2z M255,67.2L128.3,7.6L1.7,67.4 l7.9,16.5l16.1-7.7v144h18.2V75.6h169v144.8h18.2v-144l16.1,7.5L255,67.2z"></path></svg>
         </div>
         <span>{{ 'SIDEBAR.ALMACEN' | translate }}</span>
       </button>
 
-      <button (click)="cambiarSeccion('Historial Ventas')" class="nav-btn" [class.active]="currentSection === 'Historial Ventas'">
+      <button (click)="cambiarSeccion('Historial Ventas'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'Historial Ventas'">
         <div class="icon-wrapper">
           <svg class="menu-icon" width="24px" height="24px" viewBox="0 0 512 512" fill="#000000"><path d="M429.75,56.692c-5.641-4-12.891-5.031-19.422-2.734l-242.875,85c-30.625-1.453-51.484-9.844-65.859-19.203 c-4.328-2.813-5.266-4.469-5.266-4.469c-2.594-2.594-3.594-6.188-2.859-9.891c0.75-3.703,3.391-6.734,6.953-7.984l217.359-76.063 c3.266-1.156,6.891-0.641,9.703,1.359c0.25,0.188,0.469,0.438,0.703,0.625l15.906-5.75c-0.984-5.453-3.938-10.391-8.547-13.641 c-5.641-4.016-12.891-5.031-19.422-2.75l-228.578,80c-8.563,3-14.297,11.094-14.297,20.156v5.578v352.312 c0,0,15.063,49,94.203,52.766l242.688-84.938c17.125-6,28.609-22.171,28.609-40.328V74.114 C438.75,67.192,435.391,60.692,429.75,56.692z"></path></svg>
         </div>
         <span>{{ 'SIDEBAR.HISTORIAL' | translate }}</span>
       </button>
 
-      <button (click)="cambiarSeccion('panel ventas')" class="nav-btn" [class.active]="currentSection === 'panel ventas'">
+      <button (click)="cambiarSeccion('panel ventas'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'panel ventas'">
         <div class="icon-wrapper">
           <svg class="menu-icon" height="24px" width="24px" viewBox="0 0 297 297" fill="#000000"><g> <path d="M51.65,104.728H245.35c3.354,0,6.083-2.728,6.083-6.082V69.988c0-3.354-2.729-6.082-6.083-6.082H51.65 c-3.354,0-6.083,2.728-6.083,6.082v28.658C45.567,102,48.296,104.728,51.65,104.728z"></path> <path d="M290.918,156.645h-25.034l8.207,20.386h16.827c3.354,0,6.082-2.728,6.082-6.082v-8.221 C297,159.374,294.272,156.645,290.918,156.645z"></path> <polygon points="83.089,156.645 74.882,177.031 222.118,177.031 213.911,156.645 "></polygon> <path d="M78.187,122.157c-1.39-2.058-3.61-3.238-6.093-3.238h-5.526c-3.016,0-5.694,1.809-6.821,4.608l-40.046,99.469 c-0.928,2.303-0.662,4.804,0.728,6.862c1.39,2.057,3.61,3.237,6.093,3.237h5.526c3.017,0,5.694-1.809,6.821-4.607l40.046-99.47 C79.842,126.714,79.577,124.214,78.187,122.157z"></path> <path d="M31.116,156.645H6.082c-3.354,0-6.082,2.729-6.082,6.083v8.221c0,3.354,2.728,6.082,6.082,6.082h16.827L31.116,156.645z"></path> <path d="M237.253,123.526c-1.127-2.798-3.805-4.607-6.821-4.607h-5.526c-2.483,0-4.703,1.18-6.093,3.238 c-1.39,2.057-1.655,4.557-0.728,6.861l40.046,99.471c1.127,2.797,3.804,4.606,6.821,4.606h5.526c2.483,0,4.703-1.18,6.093-3.237 c1.39-2.058,1.655-4.558,0.728-6.862L237.253,123.526z"></path> </g></svg>
         </div>
         <span>{{ 'SIDEBAR.PANEL' | translate }}</span>
       </button>
 
-      <button (click)="cambiarSeccion('carrito')" class="nav-btn d-flex  justify-content-between align-items-center" [class.active]="currentSection === 'carrito'">
+      <button (click)="cambiarSeccion('carrito'); cerrarMenu()" class="nav-btn d-flex justify-content-between align-items-center" [class.active]="currentSection === 'carrito'">
         <div class="d-flex align-items-center gap-3">
           <div class="icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class=" menu-icon bi bi-cart" viewBox="0 0 16 16"><path
@@ -41,7 +42,7 @@
         <span *ngIf="carritoService.obtenerCantidadTotal() > 0" class="badge rounded-pill bg-warning text-dark">{{ carritoService.obtenerCantidadTotal() }}</span>
       </button>
 
-      <button (click)="cambiarSeccion('estadisticas')" class="nav-btn" [class.active]="currentSection === 'estadisticas'">
+      <button (click)="cambiarSeccion('estadisticas'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'estadisticas'">
         <div class="icon-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="menu-icon bi bi-bar-chart" viewBox="0 0 16 16"><path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/></svg>
         </div>
@@ -51,14 +52,14 @@
       <ng-container *ngIf="userRole!='SELLER'">
         <div class="divider my-2"></div>
 
-        <button (click)="cambiarSeccion('Gestión Usuarios')" class="nav-btn" [class.active]="currentSection === 'Gestión Usuarios'">
+        <button (click)="cambiarSeccion('Gestión Usuarios'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'Gestión Usuarios'">
           <div class="icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="menu-icon bi bi-people-fill" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
           </div>
           <span>{{ 'SIDEBAR.USUARIOS' | translate }}</span>
         </button>
 
-        <button (click)="cambiarSeccion('ventas-canceladas')" class="nav-btn" [class.active]="currentSection === 'ventas-canceladas'">
+        <button (click)="cambiarSeccion('ventas-canceladas'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'ventas-canceladas'">
           <div class="icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="menu-icon bi bi-bag-x" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708"/><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/></svg>
           </div>
@@ -76,6 +77,8 @@
     </div>
   </aside>
 
+  <div *ngIf="menuAbierto" class="overlay d-md-none" (click)="cerrarMenu()"></div>
+
 
   <main class="flex-grow-1 d-flex flex-column overflow-hidden main-area">
 
@@ -83,8 +86,11 @@
       <h4 class="m-0 fw-bold text-dark d-flex align-items-center gap-2">
         <span class="text-warning">|</span> {{ getSectionTranslationKey() | translate }}
       </h4>
-      <button class="btn btn-light d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#asideMenu">
-        <i class="bi bi-list fs-4"></i>
+
+      <button class="btn btn-light d-md-none" type="button" (click)="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
       </button>
     </header>
 

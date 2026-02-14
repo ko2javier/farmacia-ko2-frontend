@@ -17,8 +17,11 @@ export class HomeComponent {
   /* Defino las variables de los NgIf para mostrar un componente
   insertado o no
   */
+
   currentSection: string = 'almacen'; // Al iniciar, muestra 'almacen'
   userRole: string = '';
+  // Variable para controlar el menú en móvil
+  menuAbierto: boolean = false;
 
   // 1. DICCIONARIO DE TRADUCCIÓN
   // Relaciona: "Valor de tu variable" : "Clave del JSON"
@@ -74,11 +77,19 @@ export class HomeComponent {
     this.cambiarSeccion(event);
   }
 
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
 
-
+  cerrarMenu() {
+    this.menuAbierto = false;
+  }
 
 }
+
 function jwt_decode(token: string) {
   throw new Error('Function not implemented.');
 }
+
+
 

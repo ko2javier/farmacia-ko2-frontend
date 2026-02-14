@@ -26,3 +26,23 @@
   background: transparent !important;
   text-align: center;
 }
+/* Forzamos al contenedor del gráfico a ocupar todo el ancho disponible */
+.chart-container {
+  display: flex;
+  width: 100% !important;
+  height: 100% !important;
+  justify-content: center;
+}
+
+/* Ajustes para el texto de los ejes en móvil */
+::ng-deep .ngx-charts text {
+  fill: #6c757d !important; /* Color gris suave */
+  font-size: 12px !important;
+}
+
+/* En pantallas muy pequeñas, reducimos el margen */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 0.5rem !important;
+  }
+}
