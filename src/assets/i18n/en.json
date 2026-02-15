@@ -200,6 +200,9 @@
       "ERROR_TITULO": "Error",
       "ERROR_TEXTO": "There was a problem connecting to the server."
     }
+  },
+  "GLOBAL": {
+    "DEMO_NOTE": "Note: Product data is demo content and available in Spanish only."
   }
 
 }

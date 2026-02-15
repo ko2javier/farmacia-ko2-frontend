@@ -200,6 +200,8 @@
       "ERROR_TITULO": "Error",
       "ERROR_TEXTO": "Hubo un problema al conectar con el servidor."
     }
-  }
+  },"GLOBAL": {
+  "DEMO_NOTE": "Nota: Los datos del producto son contenido de demostración."
+}
 
 }

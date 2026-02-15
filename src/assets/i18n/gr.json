@@ -200,5 +200,7 @@
       "ERROR_TITULO": "Fehler",
       "ERROR_TEXTO": "Es gab ein Problem bei der Verbindung zum Server."
     }
-  }
+  },"GLOBAL": {
+  "DEMO_NOTE": "Hinweis: Die Produktdaten sind Demo-Inhalte und nur auf Spanisch verfügbar."
+}
 }

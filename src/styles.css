@@ -105,3 +105,27 @@ body {
   padding: 1.5rem;
   font-weight: 600;
 }
+
+.table-disclaimer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Lo alinea a la derecha, queda más pro */
+  gap: 8px;
+  padding: 10px 15px;
+  background-color: #F1F5F9; /* Un gris muy, muy suave (Slate 100) */
+  color: #64748B;            /* Texto gris medio (Slate 500) */
+  font-size: 0.8rem;         /* Letra pequeñita */
+  font-style: italic;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-top: -1px;          /* Truco para que pegue con el borde de la tabla */
+  border: 1px solid #E2E8F0; /* Mismo borde que suelen tener las tablas */
+  border-top: none;          /* Quitamos el borde de arriba para unirlo a la tabla */
+}
+
+/* Icono pequeño */
+.disclaimer-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
