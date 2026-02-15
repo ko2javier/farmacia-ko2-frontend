@@ -70,7 +70,7 @@
 .contenedor-seccion {
   /* Ajusta este valor. Si tu header mide unos 60px,
      100px de padding dará una sensación de ~160px total */
-  padding-top: 100px;
+ /* padding-top: 2%;*/
 
   width: 100%;
   min-height: 100vh; /* Opcional: asegura que ocupe el alto */

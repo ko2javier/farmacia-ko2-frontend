@@ -41,6 +41,8 @@
     "DE": "of",
     "STOCK_BAJO": "Critical Stock!",
     "STOCK_CRITICO": "Out of Stock",
+    "PLACEHOLDER_BUSCAR": "Search product, category or code...",
+    "BTN_LIMPIAR": "Clear",
     "MSG": {
       "ERROR_TITULO": "Error",
       "EXITO_TITULO": "Success",

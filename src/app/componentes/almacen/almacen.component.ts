@@ -21,14 +21,19 @@ export class AlmacenComponent {
 
   rowsPerPage: number = 8;
   currentPage: number = 1;
-  totalPages: number = 0;
-  paginatedArticulos: Articulo[] = [];
+  totalPages: number = 1;
+  //paginatedArticulos: Articulo[] = [];
   operation: 'insert' | 'update' | 'none' = 'none';
+  // --- VARIABLES DE DATOS ---
+  articulosOriginal: any[] = [];   // Copia de seguridad de la Base de Datos
+  articulosFiltrados: any[] = [];  // Lista donde aplicamos el buscador
+  paginatedArticulos: any[] = [];  // Lista recortada (8 items) que se ve en la tabla
 
   selectedArticulo = { id: 0, nombre: '', categoria: '', precio: 0, cantidad: 0, codigo: '' };
   insertDto: InsertDto = { nombre: '', categoria: '', precio: 0, cantidad: 0 };
 
   isAdmin: boolean = false;
+  textoBusqueda: string = '';
 
   constructor(
     private articuloService: ArticuloService,
@@ -38,12 +43,30 @@ export class AlmacenComponent {
   ) {}
 
   ngOnInit() {
-    this.cargarArticulos();
+    //this.cargarArticulos();
+    this.cargarDatosReales();
     this.checkRole();
   }
 
   cambiarIdioma(idioma: string) {
     this.translate.use(idioma);
+  }
+
+  cargarDatosReales(): void {
+    this.articuloService.cargarArticulos().subscribe(
+      (data: any[]) => { // Aseguramos que data es un array
+        console.log("✅ Datos cargados:", data);
+
+        // 1. Guardamos la copia original y la filtrada (al inicio son iguales)
+        this.articulosOriginal = data;
+
+        // 2. Si hay texto en el buscador, reaplicamos el filtro, si no, mostramos todo
+        this.aplicarFiltros();
+      },
+      (error) => {
+        console.error("❌ Error al cargar artículos:", error);
+      }
+    );
   }
 
   cargarArticulos() {
@@ -72,10 +95,51 @@ export class AlmacenComponent {
     }
   }
 
+  // --- LÓGICA DEL BUSCADOR ---
+  aplicarFiltros(): void {
+    let temporal = this.articulosOriginal;
+
+    // Si hay texto escrito, filtramos
+    if (this.textoBusqueda && this.textoBusqueda.trim() !== '') {
+      const texto = this.textoBusqueda.toLowerCase();
+
+      temporal = temporal.filter(item => {
+        // Usamos ?. para evitar errores si algún campo viene vacío (null)
+        const nombre = item.nombre?.toLowerCase() || '';
+        const categoria = item.categoria?.toLowerCase() || '';
+        const codigo = item.codigo?.toString().toLowerCase() || '';
+
+        return nombre.includes(texto) || categoria.includes(texto) || codigo.includes(texto);
+      });
+    }
+
+    // Actualizamos la lista filtrada
+    this.articulosFiltrados = temporal;
+
+    // Volvemos a la página 1 y recalculamos la tabla visual
+    this.currentPage = 1;
+    this.calcularPaginacion();
+  }
+
+  limpiarFiltros(): void {
+    this.textoBusqueda = '';
+    this.aplicarFiltros(); // Esto restaurará la lista original
+  }
+
+  // --- LÓGICA DE PAGINACIÓN ---
+  calcularPaginacion(): void {
+    this.totalPages = Math.ceil(this.articulosFiltrados.length / this.rowsPerPage);
+    if (this.totalPages === 0) this.totalPages = 1;
+
+    this.displayTable(this.currentPage);
+  }
+
   displayTable(page: number): void {
     const start = (page - 1) * this.rowsPerPage;
     const end = start + this.rowsPerPage;
-    this.paginatedArticulos = this.articulos.slice(start, end);
+
+    // Cortamos de la lista FILTRADA, no de la original
+    this.paginatedArticulos = this.articulosFiltrados.slice(start, end);
   }
 
   changePage(page: number): void {
@@ -85,8 +149,6 @@ export class AlmacenComponent {
     }
   }
 
-  decrementQuantity(id:number) { }
-  incrementQuantity(id:number) { }
 
   // Metodo para eliminar articulo (TRADUCIDO)
   eliminarArticulo(id: number): void {
@@ -108,7 +170,8 @@ export class AlmacenComponent {
               this.translate.instant('ALMACEN.MSG.ELIMINADO_TEXTO'),
               'success'
             );
-            this.cargarArticulos();
+            //this.cargarArticulos();
+            this.cargarDatosReales();
           },
           error: (err) => {
             Swal.fire(
@@ -171,7 +234,8 @@ export class AlmacenComponent {
           false, 'Success'
         );
 
-        this.cargarArticulos();
+        //this.cargarArticulos();
+        this.cargarDatosReales();
         this.selectedArticulo = { id: 0, nombre: '', categoria: '', precio: 0, cantidad: 0, codigo: '' };
         this.operation = 'none';
       },
@@ -225,7 +289,8 @@ export class AlmacenComponent {
           false, 'Success'
         );
 
-        this.cargarArticulos();
+       // this.cargarArticulos();
+        this.cargarDatosReales();
         this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
         this.setMode('none');
       },

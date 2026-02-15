@@ -41,6 +41,8 @@
     "DE": "de",
     "STOCK_BAJO": "¡Stock Crítico! ",
     "STOCK_CRITICO": "Agotado",
+    "PLACEHOLDER_BUSCAR": "Buscar producto, categoría o código...",
+    "BTN_LIMPIAR": "Limpiar",
     "MSG": {
       "ERROR_TITULO": "Error",
       "EXITO_TITULO": "Éxito",
