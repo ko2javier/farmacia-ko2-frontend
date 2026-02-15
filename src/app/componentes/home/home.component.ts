@@ -59,7 +59,7 @@ export class HomeComponent {
   }
   logout(): void {
     // Aquí puedes eliminar el token de autenticación
-    localStorage.removeItem('token'); // O donde sea que guardes el token
+    localStorage.removeItem('jwtToken'); // O donde sea que guardes el token
     // Redirige al usuario a la página de login
     console.log("redirecciono a login");
     this.router.navigate(['/login']);

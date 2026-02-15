@@ -3,23 +3,34 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* --- 2. SIDEBAR (Color: Dark Slate - Elegante y Profesional) --- */
+/* --- 2. SIDEBAR (CONTENEDOR PRINCIPAL) --- */
 .sidebar {
-  width: 280px;
-  background-color: #1E293B; /* <--- GRIS AZULADO OSCURO (Mucho mejor que el azul chillón) */
-  transition: all 0.3s;
-  z-index: 100;
+  background-color: #1E293B;
+  transition: all 0.3s ease-in-out;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
 }
 
 /* LOGO */
 .logo-grande {
   max-height: 80px;
   width: auto;
-  /* Sombra blanca suave para que resalte sobre oscuro */
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+  flex-shrink: 0;
 }
 
-/* --- 3. BOTONES DEL MENÚ --- */
+/* --- 3. SECCIÓN MENÚ (SCROLLABLE) --- */
+.sidebar-menu {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+}
+
+/* ESTILO DEL BOTÓN (CONTENEDOR) */
 .nav-btn {
   display: flex;
   align-items: center;
@@ -27,7 +38,7 @@
   padding: 12px 20px;
   border: none;
   background: transparent;
-  color: #CBD5E1; /* Gris perla claro para el texto */
+  color: #CBD5E1;
   font-size: 1rem;
   font-weight: 500;
   border-radius: 8px;
@@ -35,63 +46,76 @@
   cursor: pointer;
   text-align: left;
   margin-bottom: 5px;
+  box-sizing: border-box;
 }
 
-/* EL TRUCO DE LOS SVGs (INVERTIR COLOR) */
-.menu-icon {
-  transition: all 0.2s;
-  /* Invierte el negro a blanco para que se vea en el fondo oscuro */
-  filter: invert(1) brightness(2);
-}
-
+/* ICONO WRAPPER */
 .icon-wrapper {
-  width: 30px; /* Ancho fijo para alinear iconos */
+  width: 30px;
   display: flex;
   justify-content: center;
   margin-right: 15px;
+  flex-shrink: 0;
 }
 
-/* HOVER */
+.menu-icon {
+  transition: all 0.2s;
+  filter: invert(1) brightness(2);
+}
+
+/* --- REGLA CORREGIDA PARA EL TEXTO (IGNORA EL BADGE) --- */
+/* Solo aplica la lógica del idioma al texto, NO al badge */
+.nav-btn span:not(.badge-circular) {
+  flex: 1;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.2;
+  display: block;
+}
+
+/* HOVER Y ACTIVO */
 .nav-btn:hover {
   background-color: rgba(255, 255, 255, 0.08);
   color: white;
-  padding-left: 25px; /* Pequeño desplazamiento */
+  padding-left: 25px;
 }
 
-/* --- ESTADO ACTIVO (AMARILLO + NEGRO) --- */
 .nav-btn.active {
-  background-color: #FFC107; /* Amarillo marca */
-  color: #000000; /* Texto negro */
+  background-color: #FFC107;
+  color: #000000;
   font-weight: 700;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Cuando está activo, el icono vuelve a ser NEGRO (quitamos el invert) */
 .nav-btn.active .menu-icon {
   filter: none;
 }
 
-/* --- 4. MAIN CONTENT (Gris Muy Claro) --- */
-.main-area {
-  background-color: #F8FAFC; /* Casi blanco, muy limpio */
+/* --- 4. SECCIÓN LOGOUT (FOOTER) --- */
+.sidebar-footer {
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: #1E293B;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
 }
 
-/* --- 5. LOGOUT --- */
 .btn-logout {
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
-  color: #EF4444; /* Rojo suave */
+  color: #EF4444;
   border: 1px solid rgba(239, 68, 68, 0.3);
   padding: 12px;
   border-radius: 8px;
   transition: 0.2s;
+  width: 100%;
 }
 
 .logout-icon {
-  /* El icono de logout lo ponemos rojo directamente con filtro sepia/hue o invert */
-  /* Truco: hacerlo blanco primero, luego rojo al hover */
   filter: invert(1);
   width: 20px;
 }
@@ -103,77 +127,81 @@
 }
 
 .btn-logout:hover .logout-icon {
-  filter: invert(1); /* Se vuelve blanco sobre fondo rojo */
+  filter: invert(1);
 }
 
-/* Separador */
 .divider {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
   margin: 10px 0;
 }
 
-/* RESPONSIVE */
-/*
-@media (max-width: 768px) {
-  .sidebar { width: 80px; }
-  .nav-btn span, .btn-logout span { display: none; }
-  .nav-btn { justify-content: center; padding: 15px 0; }
-  .icon-wrapper { margin-right: 0; }
-  .logo-grande { max-height: 40px; }
-}*/
-
-/* --- ESTILOS BASE (Móvil First) --- */
-
-.sidebar {
-  position: fixed; /* Flotante en móvil */
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 280px; /* Ancho fijo del sidebar */
-  z-index: 1050; /* Por encima de todo */
-  background-color: #212529; /* Color oscuro base */
-  transition: transform 0.3s ease-in-out; /* Animación suave */
-  transform: translateX(-100%); /* OCULTO por defecto en móvil */
+/* --- 5. CONTENIDO PRINCIPAL --- */
+.main-area {
+  background-color: #F8FAFC;
+  width: 100%;
+  margin-left: 0;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-/* Cuando la clase 'active' está presente (toggleMenu true), se muestra */
-.sidebar.active {
-  transform: translateX(0);
-}
-
-/* El fondo oscuro para cerrar al hacer clic fuera */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Semitransparente */
-  z-index: 1040; /* Debajo del sidebar, encima del contenido */
-  backdrop-filter: blur(2px); /* Efecto borroso opcional y elegante */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  backdrop-filter: blur(2px);
 }
 
-.main-area {
-  width: 100%;
-  margin-left: 0;
-  transition: margin-left 0.3s ease-in-out;
+/* --- 6. RESPONSIVE --- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  height: 100dvh;
+  transform: translateX(-100%);
 }
 
-/* --- VISTA ESCRITORIO (md y superior) --- */
+.sidebar.active {
+  transform: translateX(0);
+}
+
 @media (min-width: 768px) {
   .sidebar {
-    position: relative; /* Vuelve a ser parte del flujo normal */
-    transform: none !important; /* Siempre visible */
-    width: 250px; /* Puedes ajustar el ancho en escritorio si quieres */
+    position: relative;
+    transform: none !important;
+    width: 250px;
+    height: 100vh;
   }
+  .main-area { width: auto; }
+  .overlay { display: none !important; }
+  .sidebar-footer { padding-bottom: 20px; }
+}
 
-  .main-area {
-    /* No necesitamos margin-left porque con flexbox se acomoda solo */
-    width: auto;
-  }
+/* --- ARREGLO FINAL DEL BADGE (ESTILO IMAGEN 2) --- */
+.badge-circular {
+  background-color: #FFC107; /* Amarillo */
+  color: #1E293B;            /* Texto oscuro */
+  font-weight: bold;
+  font-size: 0.75rem;
 
-  .overlay {
-    display: none !important; /* Nunca mostrar overlay en escritorio */
-  }
+  /* Dimensiones FIJAS y forma */
+  width: 22px !important;    /* Tamaño pequeño como en la foto */
+  height: 22px !important;
+  min-width: 22px !important;
+  border-radius: 50%;
+
+  /* Flexbox para centrar el número */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  /* Reseteo de propiedades heredadas */
+  flex: none !important;      /* NO crecer */
+  margin-left: auto;          /* Empujar a la derecha si es necesario */
+  line-height: 1 !important;
 }

@@ -22,6 +22,11 @@ export class AppComponent implements OnInit {
 
 /** Aplico el toast de manera global !! */
   ngOnInit() {
+    /*
+  // console.log("🧹 Limpieza total realizada");
+  localStorage.clear();
+  sessionStorage.clear();*/
+
     this.toastService.toast$.subscribe((data: ToastData) => {
       this.toast = data;
 
