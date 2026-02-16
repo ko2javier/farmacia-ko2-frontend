@@ -7,7 +7,8 @@
     "ESTADISTICAS": "Statistics",
     "USUARIOS": "User Management",
     "CANCELADAS": "Canceled Sales",
-    "RESULTADOS": "Search Results"
+    "RESULTADOS": "Search Results",
+    "CATALOGO": "Warehouse | National Catalog"
   },
   "NAVBAR": {
     "LOGOUT": "Logout",
@@ -45,6 +46,7 @@
     "BTN_LIMPIAR": "Clear",
     "MSG": {
       "ERROR_TITULO": "Error",
+      "ERROR_DUPLICADO": "The item '{{nombre}}' already exists in the warehouse.",
       "EXITO_TITULO": "Success",
       "ELIMINAR_TITULO": "Are you sure?",
       "ELIMINAR_TEXTO": "You won't be able to revert this!",
@@ -109,6 +111,7 @@
     "BTN_LIMPIAR": "Clear",
     "READY_TITLE": "Sales Panel",
     "READY_SUBTITLE": "Search above to start a sale."
+
   },
   "BUSQUEDA": {
     "TITULO": "Search Results",
@@ -203,6 +206,27 @@
   },
   "GLOBAL": {
     "DEMO_NOTE": "Note: Product data is demo content and available in Spanish only."
+  },
+  "PAGINACION": {
+    "ANTERIOR": "Previous",
+    "SIGUIENTE": "Next",
+    "PAGINA": "Page"
+  },
+  "CATALOGO": {
+    "TITULO": "National AEMPS Catalog",
+    "CONECTADO": "Connected to Ministry of Health",
+    "BUSCADOR_PLACEHOLDER": "Type name (e.g., Paracetamol...)",
+    "BTN_BUSCAR": "Search",
+    "BTN_BUSCANDO": "Searching...",
+    "TABLA": {
+      "NOMBRE": "OFFICIAL NAME",
+      "LABORATORIO": "LABORATORY",
+      "CODIGO": "CODE",
+      "ACCION": "ACTION"
+    },
+    "BTN_IMPORTAR": "Import",
+    "BTN_VOLVER": "Back to Warehouse",
+    "MSG_VACIO": "Use the search bar to find official medicines."
   }
 
 }

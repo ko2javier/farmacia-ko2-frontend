@@ -1,0 +1,11 @@
+{
+  "/cima-api": {
+    "target": "https://cima.aemps.es",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/cima-api": ""
+    },
+    "logLevel": "debug"
+  }
+}

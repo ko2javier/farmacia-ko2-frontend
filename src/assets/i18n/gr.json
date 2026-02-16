@@ -7,7 +7,8 @@
     "ESTADISTICAS": "Statistiken",
     "USUARIOS": "Benutzerverwaltung",
     "CANCELADAS": "Stornierte Verkäufe",
-    "RESULTADOS": "Suchergebnisse"
+    "RESULTADOS": "Suchergebnisse",
+    "CATALOGO": "Lager | Nationaler Katalog"
   },
   "NAVBAR": {
     "LOGOUT": "Abmelden",
@@ -45,6 +46,7 @@
     "BTN_LIMPIAR": "Leeren",
     "MSG": {
       "ERROR_TITULO": "Fehler",
+      "ERROR_DUPLICADO": "Der Artikel '{{nombre}}' existiert bereits im Lager.",
       "EXITO_TITULO": "Erfolg",
       "ELIMINAR_TITULO": "Sind Sie sicher?",
       "ELIMINAR_TEXTO": "Dies kann nicht rückgängig gemacht werden!",
@@ -109,7 +111,7 @@
     "BTN_LIMPIAR": "Leeren",
     "READY_TITLE": "Verkaufspanel",
     "READY_SUBTITLE": "Oben suchen, um einen Verkauf zu starten."
-  },
+      },
   "BUSQUEDA": {
     "TITULO": "Suchergebnisse",
     "NOMBRE": "Name",
@@ -202,5 +204,25 @@
     }
   },"GLOBAL": {
   "DEMO_NOTE": "Hinweis: Die Produktdaten sind Demo-Inhalte und nur auf Spanisch verfügbar."
-}
+},"PAGINACION": {
+  "ANTERIOR": "Zurück",
+  "SIGUIENTE": "Weiter",
+  "PAGINA": "Seite"
+},
+  "CATALOGO": {
+    "TITULO": "Nationaler AEMPS-Katalog",
+    "CONECTADO": "Verbunden mit Gesundheitsministerium",
+    "BUSCADOR_PLACEHOLDER": "Namen eingeben (z.B. Paracetamol...)",
+    "BTN_BUSCAR": "Suchen",
+    "BTN_BUSCANDO": "Suchen...",
+    "TABLA": {
+      "NOMBRE": "OFFIZIELLER NAME",
+      "LABORATORIO": "LABOR",
+      "CODIGO": "CODE",
+      "ACCION": "AKTION"
+    },
+    "BTN_IMPORTAR": "Importieren",
+    "BTN_VOLVER": "Zurück zum Lager",
+    "MSG_VACIO": "Verwenden Sie die Suche, um offizielle Medikamente zu finden."
+  }
 }

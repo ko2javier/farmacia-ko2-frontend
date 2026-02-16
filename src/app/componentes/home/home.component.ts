@@ -22,6 +22,7 @@ export class HomeComponent {
   userRole: string = '';
   // Variable para controlar el menú en móvil
   menuAbierto: boolean = false;
+  productoImportadoTemp: any = null;
 
   // 1. DICCIONARIO DE TRADUCCIÓN
   // Relaciona: "Valor de tu variable" : "Clave del JSON"
@@ -33,7 +34,8 @@ export class HomeComponent {
     'estadisticas': 'SIDEBAR.ESTADISTICAS',
     'Gestión Usuarios': 'SIDEBAR.USUARIOS',
     'ventas-canceladas': 'SIDEBAR.CANCELADAS',
-    'resultados': 'SIDEBAR.RESULTADOS' // Para cuando busques productos
+    'resultados': 'SIDEBAR.RESULTADOS',
+    'catalogo-externo':'SIDEBAR.CATALOGO',
   };
 
 
@@ -83,6 +85,16 @@ export class HomeComponent {
 
   cerrarMenu() {
     this.menuAbierto = false;
+  }
+// Funcion para conectar los emitters del catalogo externo!!
+  recibirProductoImportado(producto: any) {
+    console.log("Datos recibidos de la AEMPS:", producto);
+
+    // Guardamos el dato en la variable temporal
+    this.productoImportadoTemp = producto;
+
+    // Cambiamos la vista: Esto destruye el catálogo y crea el Almacén de nuevo
+    this.cambiarSeccion('almacen');
   }
 
 }

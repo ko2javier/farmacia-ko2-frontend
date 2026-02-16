@@ -1,58 +1,60 @@
 .table {
-    border-radius: 8px;
-    overflow: hidden;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 th {
-    text-transform: uppercase;
+  text-transform: uppercase;
+  font-size: 0.85rem; /* Un pelín más pequeño para que quepa mejor */
 }
 
 td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .btn-success {
-    font-size: 0.9rem;
-    padding: 6px 12px;
+  font-size: 0.9rem;
+  padding: 6px 12px;
 }
 
-/*Referente al boton de añadir cosas al carrito de la compra*/
-
+/* Referente al boton de añadir cosas al carrito de la compra */
 .boton {
-    /* border: 2px solid #FFD814!important; */
-    color: #343535 !important; /* Texto en verde */
-    background-color: transparent !important; /* Fondo transparente */
-    padding: 6px 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 50px; /* Bordes redondeados */
-}
-
-.boton svg {
-    transition: all 0.3s ease-in-out;
-}
-
-/* Hover sobre el ícono "+" */
-
-.boton-td-red_svg:hover{
-    background-color: #DC3545;
-    border-radius: 100%;
-    color: white;
-
-}
-.boton-td-green_svg:hover{
-    background-color: #198754;
-    border-radius: 100%;
-    color: white;
-    
+  color: #343535 !important;
+  background-color: transparent !important;
+  padding: 6px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 50px;
 }
 
 .button_mod {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 14px;
-    height: 48px !important; /* Ajusta si es necesario */
-    padding: 10px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px;
+  height: 48px !important;
+  padding: 10px 20px !important;
+}
+
+/* --- ESTILOS NUEVOS PARA EL NOMBRE Y PAGINACIÓN --- */
+
+/* 1. Control estricto de la celda del nombre */
+.nombre-producto-celda {
+  max-width: 140px; /* Límite máximo en pantallas grandes */
+}
+
+/* En móviles, reducimos aún más el ancho para dar espacio a los botones */
+@media (max-width: 576px) {
+  .nombre-producto-celda {
+    max-width: 100px;
+  }
+}
+
+/* 2. Clase para cortar el texto con "..." */
+.nombre-producto {
+  white-space: nowrap;    /* Obliga a una sola línea */
+  overflow: hidden;       /* Oculta lo que sobresale */
+  text-overflow: ellipsis; /* Añade los tres puntos (...) */
+  display: block;         /* Necesario para que el width funcione */
 }

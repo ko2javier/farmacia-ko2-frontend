@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import { ArticuloService } from '../../services/articulo.service';
 import { Articulo } from '../../models/articulo';
 import Swal from 'sweetalert2';
@@ -35,6 +35,13 @@ export class AlmacenComponent {
   isAdmin: boolean = false;
   textoBusqueda: string = '';
 
+  // 2. Crear el "Emisor" para hablar con el Home
+  @Output() irSeccion = new EventEmitter<string>();
+
+  // Variable para recibir el "papelito" con datos del Catálogo
+  @Input() datoExterno: any = null;
+  @Output() limpiarDatoPadre = new EventEmitter<void>();
+
   constructor(
     private articuloService: ArticuloService,
     private toastService: ToastService,
@@ -43,7 +50,14 @@ export class AlmacenComponent {
   ) {}
 
   ngOnInit() {
-    //this.cargarArticulos();
+    // Si traemos un medicamento importado, preparamos el formulario
+    if (this.datoExterno) {
+      this.cargarDatosExternos(); // <--- Función nueva que crearemos abajo
+      // 2. Avisamos al padre que ya lo cargamos
+       this.limpiarDatoPadre.emit();
+    }
+
+    // Lo que ya tenías (sigue funcionando igual)
     this.cargarDatosReales();
     this.checkRole();
   }
@@ -275,11 +289,98 @@ export class AlmacenComponent {
   }
 
   // INSERTAR (TRADUCIDO)
+  // --- FUNCIÓN AUXILIAR: LIMPIEZA Y RECORTE (15 CARACTERES) ---
+  procesarNombre(nombreSucio: string): string {
+    if (!nombreSucio) return '';
+
+    let nombre = nombreSucio;
+
+    // 1. Limpieza de palabras basura (Igual que antes)
+    const palabrasProhibidas = [
+      'comprimidos', 'capsulas', 'recubiertos', 'pelicula', 'efg',
+      'duras', 'inyectable', 'solucion', 'polvo', 'suspension', 'oral', 'sobre',
+      'mg', 'g' // Añadí mg y g para limpiar más
+    ];
+
+    palabrasProhibidas.forEach(palabra => {
+      const regex = new RegExp('\\b' + palabra + '\\b', 'gi');
+      nombre = nombre.replace(regex, '');
+    });
+
+    // 2. Limpieza de espacios
+    nombre = nombre.replace(/\s+/g, ' ').trim();
+
+    // 3. CAPITALIZAR (Primera mayúscula)
+    nombre = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+
+    // --- AQUÍ ESTÁ LA MAGIA DEL CORTE INTELIGENTE ---
+    const limite = 18; // Damos un poco más de aire (15 a veces es muy poco)
+
+    if (nombre.length > limite) {
+      // Cortamos a lo bruto en el límite
+      let corte = nombre.substring(0, limite);
+
+      // Buscamos dónde está el último espacio en ese corte
+      const ultimoEspacio = corte.lastIndexOf(' ');
+
+      // Si hay un espacio, cortamos ahí para no dejar "Roxitromicina s"
+      // Si NO hay espacio (es una palabra gigante), ni modo, cortamos en el límite.
+      if (ultimoEspacio > 0) {
+        corte = corte.substring(0, ultimoEspacio);
+      }
+
+      nombre = corte;
+    }
+
+    return nombre;
+  }
+
+  // --- INSERTAR ARTÍCULO BLINDADO ---
   insertArticulo() {
+    // 1. Validaciones básicas (precio, cantidad, largos mínimos)
     if (!this.chequear_art()) {
       return;
     }
 
+    // 2. PROCESADO DEL NOMBRE (Limpieza y Corte a 15 chars)
+    // Esto modifica el insertDto antes de enviarlo
+    const nombreProcesado = this.procesarNombre(this.insertDto.nombre);
+
+    // Si después de limpiar se queda vacío (ej: solo puso "comprimidos"), paramos
+    if (nombreProcesado.length < 2) {
+      this.toastService.showToast(
+        this.translate.instant('ALMACEN.MSG.ERROR_TITULO'),
+        'El nombre es demasiado corto tras limpiarlo.',
+        true, 'Error'
+      );
+      return;
+    }
+
+    // 3. VERIFICACIÓN DE DUPLICADOS
+    // Buscamos en la lista original si ya existe ese nombre exacto
+    const existe = this.articulosOriginal.some(item =>
+      item.nombre.toLowerCase() === nombreProcesado.toLowerCase()
+    );
+
+    if (existe) {
+      // Obtenemos el mensaje traducido e inyectamos el nombre procesado
+      const mensajeError = this.translate.instant(
+        'ALMACEN.MSG.ERROR_DUPLICADO',
+        { nombre: nombreProcesado } // <--- Aquí pasamos la variable al JSON
+      );
+
+      this.toastService.showToast(
+        this.translate.instant('ALMACEN.MSG.ERROR_TITULO'),
+        mensajeError, // <--- Usamos el mensaje traducido
+        true, 'Error'
+      );
+      return;
+    }
+
+    // 4. Asignamos el nombre limpio al DTO final
+    this.insertDto.nombre = nombreProcesado;
+
+    // 5. Llamada a la API (Solo si pasó todo lo anterior)
     this.articuloService.insert_item(this.insertDto).subscribe({
       next: (articuloCreado) => {
         console.log('Artículo creado:', articuloCreado);
@@ -289,9 +390,10 @@ export class AlmacenComponent {
           false, 'Success'
         );
 
-       // this.cargarArticulos();
         this.cargarDatosReales();
-        this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
+
+        // Limpieza total del formulario y modo
+        this.insertDto = { nombre: '', categoria: '', precio: 0, cantidad: 0 };
         this.setMode('none');
       },
       error: (err) => {
@@ -305,4 +407,29 @@ export class AlmacenComponent {
     });
   }
 
+
+  // 3. Funcion del ir al catalogo!!
+  irAlCatalogo() {
+    // Le dice al padre: "Por favor, carga el componente 'catalogo-externo'"
+    this.irSeccion.emit('catalogo-externo');
+  }
+
+  // Función para rellenar el formulario con datos de la AEMPS
+  cargarDatosExternos() {
+    console.log("📥 Importando dato externo:", this.datoExterno);
+
+    // 1. Cambiamos el modo a 'insert' para que se vea el formulario
+    this.operation = 'insert';
+
+    // 2. Rellenamos tu objeto insertDto con los datos que vienen de fuera
+    this.insertDto = {
+      nombre: this.datoExterno.nombreCorto || '',   // El nombre limpio
+      categoria: this.datoExterno.laboratorio || '', // El laboratorio como categoría
+      precio: 0,    // El precio lo pone el usuario
+      cantidad: 0   // La cantidad la pone el usuario
+    };
+
+    // Opcional: Si tuvieras campo 'codigo' en el insertDto, lo pondrías aquí también
+    // this.insertDto.codigo = this.datoExterno.registro;
+  }
 }

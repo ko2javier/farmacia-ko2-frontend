@@ -7,7 +7,8 @@
     "ESTADISTICAS": "Estadísticas",
     "USUARIOS": "Gestión Usuarios",
     "CANCELADAS": "Ventas Canceladas",
-    "RESULTADOS": "Resultados de Búsqueda"
+    "RESULTADOS": "Resultados de Búsqueda",
+    "CATALOGO": "Almacén | Catálogo Nacional"
   },
   "NAVBAR": {
     "LOGOUT": "Cerrar Sesión",
@@ -45,6 +46,7 @@
     "BTN_LIMPIAR": "Limpiar",
     "MSG": {
       "ERROR_TITULO": "Error",
+      "ERROR_DUPLICADO": "El artículo '{{nombre}}' ya existe en el almacén.",
       "EXITO_TITULO": "Éxito",
       "ELIMINAR_TITULO": "¿Estás seguro?",
       "ELIMINAR_TEXTO": "No podrás revertir esta acción",
@@ -109,6 +111,7 @@
     "BTN_LIMPIAR": "Limpiar",
     "READY_TITLE": "Panel de Ventas",
     "READY_SUBTITLE": "Realiza una búsqueda arriba para comenzar una venta."
+
   },
   "BUSQUEDA": {
     "TITULO": "Resultados de la Búsqueda",
@@ -202,6 +205,26 @@
     }
   },"GLOBAL": {
   "DEMO_NOTE": "Nota: Los datos del producto son contenido de demostración."
-}
-
+},
+  "PAGINACION": {
+    "ANTERIOR": "Anterior",
+    "SIGUIENTE": "Siguiente",
+    "PAGINA": "Página"
+  },
+  "CATALOGO": {
+    "TITULO": "Catálogo Nacional AEMPS",
+    "CONECTADO": "Conectado al Ministerio de Sanidad",
+    "BUSCADOR_PLACEHOLDER": "Escribe el nombre (ej: Paracetamol...)",
+    "BTN_BUSCAR": "Buscar",
+    "BTN_BUSCANDO": "Buscando...",
+    "TABLA": {
+      "NOMBRE": "NOMBRE OFICIAL",
+      "LABORATORIO": "LABORATORIO",
+      "CODIGO": "CÓDIGO",
+      "ACCION": "ACCIÓN"
+    },
+    "BTN_IMPORTAR": "Importar",
+    "BTN_VOLVER": "Volver al Almacén",
+    "MSG_VACIO": "Usa el buscador para encontrar medicamentos oficiales."
+  }
 }

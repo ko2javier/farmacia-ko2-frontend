@@ -21,6 +21,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CatalogoExternoComponent } from './componentes/catalogo-externo/catalogo-externo.component';
+import {CommonModule} from '@angular/common';
+
 
 
 // Función necesaria para compilar la traducción (AOT)
@@ -41,8 +44,8 @@ export function HttpLoaderFactory(http: any) {
     ResultadosBusquedaComponent,
     CarritoComponent,
     UsersComponent,
-    VentasCanceladasComponent
-
+    VentasCanceladasComponent,
+    CatalogoExternoComponent
 
 
   ],
@@ -56,6 +59,8 @@ export function HttpLoaderFactory(http: any) {
     EstadisticasComponent,
     BrowserAnimationsModule,
     NgxChartsModule,
+    CommonModule,
+    HttpClientModule,
 
     TranslateModule.forRoot({
       loader: {
@@ -63,7 +68,9 @@ export function HttpLoaderFactory(http: any) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+
+
 
   ],
   providers: [

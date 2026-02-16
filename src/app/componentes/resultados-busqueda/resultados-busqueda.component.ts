@@ -75,4 +75,34 @@ export class ResultadosBusquedaComponent implements OnInit {
     this.navegarAlCarrito.emit('carrito');
   }
 
+  // Variables de paginación
+  page: number = 1;
+  pageSize: number = 8; // Muestra 8 productos por página
+
+// Getter: Calcula dinámicamente qué productos mostrar según la página
+  get productosPaginados() {
+    const start = (this.page - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    return this.panelVentasService.resultadosBusqueda.slice(start, end);
+  }
+
+// Getter: Calcula el total de páginas
+  get totalPages() {
+    return Math.ceil(this.panelVentasService.resultadosBusqueda.length / this.pageSize) || 1;
+  }
+
+// Función Siguiente
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+    }
+  }
+
+// Función Anterior
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+    }
+  }
+
 }
