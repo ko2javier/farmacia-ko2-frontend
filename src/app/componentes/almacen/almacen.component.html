@@ -135,12 +135,14 @@
               <span class="d-none d-md-inline">{{ 'ALMACEN.PRECIO' | translate }}</span>
             </th>
 
-            <th class="py-2" style="width: 15%;">
-              <span class="d-md-none">{{ 'ALMACEN.CANTIDAD' | translate }}</span> <span class="d-none d-md-inline">{{ 'ALMACEN.CANTIDAD' | translate }}</span>
+            <th class="py-2 text-center" style="width: 15%;">
+              <span class="d-md-none">{{ 'ALMACEN.CANTIDAD_CORTA' | translate }}</span>
+              <span class="d-none d-md-inline">{{ 'ALMACEN.CANTIDAD' | translate }}</span>
             </th>
 
-            <th *ngIf="isAdmin" class="py-2 pe-3" style="width: 100px;">
-              <span class="d-md-none">{{ 'ALMACEN.ACCION' | translate }}</span> <span class="d-none d-md-inline">{{ 'ALMACEN.ACCION' | translate }}</span>
+            <th *ngIf="isAdmin" class="py-2 text-center" style="width: 80px;">
+              <span class="d-md-none">{{ 'ALMACEN.ACCION_CORTA' | translate }}</span>
+              <span class="d-none d-md-inline">{{ 'ALMACEN.ACCION' | translate }}</span>
             </th>
           </tr>
           </thead>

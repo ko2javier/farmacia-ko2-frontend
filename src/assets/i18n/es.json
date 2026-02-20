@@ -39,6 +39,8 @@
     "ANTERIOR": "Anterior",
     "SIGUIENTE": "Siguiente",
     "PAGINA": "Página",
+    "CANTIDAD_CORTA": "Cant.",
+    "ACCION_CORTA": "Acc.",
     "DE": "de",
     "STOCK_BAJO": "¡Stock Crítico! ",
     "STOCK_CRITICO": "Agotado",

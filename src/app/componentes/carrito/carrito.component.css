@@ -2,6 +2,9 @@
 .carrito-container{
     margin-top: 8%;
 }
+td, th {
+  vertical-align: middle !important;
+}
 .boton-td-red svg:hover{
     background-color: #DC3545;
     border-radius: 100%;

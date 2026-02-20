@@ -44,6 +44,8 @@
     "STOCK_CRITICO": "Nicht vorrätig",
     "PLACEHOLDER_BUSCAR": "Produkt, Kategorie oder Code suchen...",
     "BTN_LIMPIAR": "Leeren",
+    "CANTIDAD_CORTA": "Stk.",
+    "ACCION_CORTA": "Akt.",
     "MSG": {
       "ERROR_TITULO": "Fehler",
       "ERROR_DUPLICADO": "Der Artikel '{{nombre}}' existiert bereits im Lager.",

@@ -6,6 +6,9 @@
     margin-left: -5%;
 
 }
+td, th {
+  vertical-align: middle !important;
+}
 
 .boton-td-red svg:hover{
     background-color: #DC3545;

@@ -44,6 +44,8 @@
     "STOCK_CRITICO": "Out of Stock",
     "PLACEHOLDER_BUSCAR": "Search product, category or code...",
     "BTN_LIMPIAR": "Clear",
+    "CANTIDAD_CORTA": "Qty.",
+    "ACCION_CORTA": "Act.",
     "MSG": {
       "ERROR_TITULO": "Error",
       "ERROR_DUPLICADO": "The item '{{nombre}}' already exists in the warehouse.",
