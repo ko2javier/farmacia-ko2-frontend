@@ -1,0 +1,32 @@
+/* Asegura que en móviles el nombre no ocupe más espacio del disponible */
+.text-truncate-mobile {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* Ancho máximo en móvil */
+  display: block;
+}
+
+/* MÓVIL: Nombre corto para dejar sitio al botón */
+.text-truncate-mobile {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px; /* Ajustado para que quepa en 360px (S8+) */
+  display: block;
+}
+
+/* TABLET/PC: Nombre completo */
+@media (min-width: 768px) {
+  .text-truncate-mobile {
+    max-width: none;
+    white-space: normal;
+  }
+
+  /* Restauramos el estilo del botón normal si quieres en PC */
+  .btn-circle-responsive {
+    border-radius: 4px;
+    width: auto;
+    padding: 6px 12px;
+  }
+}
