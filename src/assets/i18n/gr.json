@@ -78,6 +78,9 @@
     "SELECCIONAR": "Wählen...",
     "DNI": "DNI (Personalausweis)",
     "NIE": "NIE (Ausländer-ID)",
+    "CANTIDAD_CORTA": "Stk.",
+    "ACCION_CORTA": "Akt.",
+    "IMPORTE_CORTO": "€",
     "MSG": {
       "ERROR_TITULO": "Fehler",
       "EXITO_TITULO": "Erfolg",

@@ -78,6 +78,9 @@
     "SELECCIONAR": "Elige...",
     "DNI": "DNI",
     "NIE": "NIE",
+    "CANTIDAD_CORTA": "Cant.",
+    "ACCION_CORTA": "Acc.",
+    "IMPORTE_CORTO": "€",
     "MSG": {
       "ERROR_TITULO": "Error",
       "EXITO_TITULO": "Éxito",

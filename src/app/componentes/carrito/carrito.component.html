@@ -5,50 +5,64 @@
     <div class="table-responsive shadow-sm rounded">
       <table class="table table-hover table-bordered align-middle table-sm mb-0" style="table-layout: fixed; width: 100%;">
         <thead class="table-dark text-center small">
-        <tr>
-          <th class="py-2" style="width: 45%;">{{ 'CARRITO.NOMBRE' | translate }}</th>
+          <tr>
+          <th class="py-2 col-nombre">
+            <span class="d-md-none">{{ 'CARRITO.NOMBRE' | translate }}</span>
+            <span class="d-none d-md-inline">{{ 'CARRITO.NOMBRE' | translate }}</span>
+          </th>
 
-          <th class="d-none d-md-table-cell">{{ 'CARRITO.PRECIO' | translate }}</th>
+          <th class="d-none d-md-table-cell col-precio">
+            {{ 'CARRITO.PRECIO' | translate }}
+          </th>
 
-          <th class="py-2" style="width: 30%;">{{ 'CARRITO.CANTIDAD' | translate }}</th>
+          <th class="py-2 col-cantidad">
+            <span class="d-md-none">{{ 'CARRITO.CANTIDAD_CORTA' | translate }}</span>
+            <span class="d-none d-md-inline">{{ 'CARRITO.CANTIDAD' | translate }}</span>
+          </th>
 
-          <th class="py-2" style="width: 25%;">{{ 'CARRITO.IMPORTE' | translate }}</th>
+          <th class="py-2 col-importe">
+            <span class="d-md-none">{{ 'CARRITO.IMPORTE_CORTO' | translate }}</span>
+            <span class="d-none d-md-inline">{{ 'CARRITO.IMPORTE' | translate }}</span>
+          </th>
         </tr>
         </thead>
-        <tbody class="text-center small"> <tr *ngFor="let producto of carrito" class="text-center">
+        <tbody class="text-center small">
+        <tr *ngFor="let producto of carrito" class="text-center">
 
-          <td class="text-start text-md-center fw-bold text-break align-middle">
+          <td class="text-center fw-bold text-break align-middle">
             {{ producto.articulo.nombre }}
           </td>
 
-          <td class="d-none d-md-table-cell align-middle">
+          <td class="d-none d-md-table-cell text-center align-middle">
             <strong>{{ producto.articulo.precio | currency:'EUR' }}</strong>
           </td>
 
-          <td class="align-middle px-0"> <div class="d-flex justify-content-center align-items-center gap-1"> <button class="btn btn-sm boton-td-red border-0 p-0"
-                                                                                                                      (click)="carritoService.reducirCantidad(producto.articulo.id)"
-                                                                                                                      [disabled]="producto.cantidadCompra === 0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-            </svg>
-          </button>
+          <td class="align-middle px-0">
+            <div class="d-flex justify-content-center align-items-center gap-1">
+              <button class="btn btn-sm boton-td-red border-0 p-0"
+                      (click)="carritoService.reducirCantidad(producto.articulo.id)"
+                      [disabled]="producto.cantidadCompra === 0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                </svg>
+              </button>
 
-            <span class="fw-bold" style="min-width: 18px; font-size: 0.9rem;">
-                {{ producto.cantidadCompra }}
-              </span>
+              <span class="fw-bold" style="min-width: 18px; font-size: 0.9rem;">
+                  {{ producto.cantidadCompra }}
+                </span>
 
-            <button class="btn btn-sm boton-td-green border-0 p-0"
-                    (click)="carritoService.aumentarCantidad(producto.articulo.id)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-              </svg>
-            </button>
-          </div>
+              <button class="btn btn-sm boton-td-green border-0 p-0"
+                      (click)="carritoService.aumentarCantidad(producto.articulo.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+              </button>
+            </div>
           </td>
 
-          <td class="fw-bold text-success align-middle px-0" style="font-size: 0.85rem;">
+          <td class="fw-bold text-success text-center align-middle px-0" style="font-size: 0.85rem;">
             {{ producto.cantidadCompra * producto.articulo.precio | currency:'EUR'}}
           </td>
         </tr>
@@ -60,7 +74,7 @@
             {{ 'CARRITO.TOTAL' | translate }}
           </td>
 
-          <td colspan="3" class="text-end fw-bold d-none d-md-table-cell align-middle">
+          <td colspan="3" class="text-center fw-bold d-none d-md-table-cell align-middle">
             {{ 'CARRITO.TOTAL' | translate }}
           </td>
 

@@ -34,3 +34,20 @@ td, th {
   border-radius: 5px;
   margin: 0;
 }
+
+/* MÓVIL: Tus porcentajes exactos originales (45+30+25 = 100%) */
+@media (max-width: 767px) {
+  .col-nombre   { width: 45%; }
+  .col-cantidad { width: 30%; }
+  .col-importe  { width: 25%; }
+}
+
+/* PC: Repartimos el 100% entre las 4 columnas (40+15+25+20 = 100%) */
+@media (min-width: 768px) {
+  .col-nombre   { width: 40%; }
+  .col-precio   { width: 15%; }
+  .col-cantidad { width: 25%; }
+  .col-importe  { width: 20%; }
+}
+
+

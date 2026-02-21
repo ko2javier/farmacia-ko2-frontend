@@ -78,6 +78,9 @@
     "SELECCIONAR": "Choose...",
     "DNI": "DNI (ID Card)",
     "NIE": "NIE (Foreigner ID)",
+    "CANTIDAD_CORTA": "Qty.",
+    "ACCION_CORTA": "Act.",
+    "IMPORTE_CORTO": "€",
     "MSG": {
       "ERROR_TITULO": "Error",
       "EXITO_TITULO": "Success",
