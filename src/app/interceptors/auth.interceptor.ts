@@ -27,8 +27,6 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         // Si el error es 401 (No autorizado) o 403 (Prohibido/Token expirado en Spring)
         if (error.status === 401 || error.status === 403) {
-          console.warn('Acceso denegado o sesión expirada. Limpiando datos...');
-
           // 1. Borramos el token para que no estorbe más
           localStorage.removeItem('jwtToken');
 

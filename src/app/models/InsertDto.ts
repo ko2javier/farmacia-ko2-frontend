@@ -3,5 +3,5 @@ export interface InsertDto {
     categoria: string;
     precio: number;
     cantidad: number;
-    // codigo?: string; // si el front a veces lo pasa
+    aempsCode?: string | null;
   }

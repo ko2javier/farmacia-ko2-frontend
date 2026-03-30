@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, Input} from '@angular/core';
+import {Component, EventEmitter, Output, Input, ViewChild} from '@angular/core';
 import { ArticuloService } from '../../services/articulo.service';
 import { Articulo } from '../../models/articulo';
 import Swal from 'sweetalert2';
@@ -8,6 +8,8 @@ import { InsertDto } from '../../models/InsertDto';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PdfGeneratorService } from '../../services/pdf-generator.service';
+import { ArticuloDetalleModalComponent } from '../articulo-detalle-modal/articulo-detalle-modal.component';
 
 @Component({
   selector: 'app-almacen',
@@ -35,6 +37,8 @@ export class AlmacenComponent {
   isAdmin: boolean = false;
   textoBusqueda: string = '';
 
+  @ViewChild('detalleModal') detalleModal!: ArticuloDetalleModalComponent;
+
   // 2. Crear el "Emisor" para hablar con el Home
   @Output() irSeccion = new EventEmitter<string>();
 
@@ -46,7 +50,8 @@ export class AlmacenComponent {
     private articuloService: ArticuloService,
     private toastService: ToastService,
     private authService: AuthService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private pdfService: PdfGeneratorService
   ) {}
 
   ngOnInit() {
@@ -69,8 +74,6 @@ export class AlmacenComponent {
   cargarDatosReales(): void {
     this.articuloService.cargarArticulos().subscribe(
       (data: any[]) => { // Aseguramos que data es un array
-        console.log("✅ Datos cargados:", data);
-
         // 1. Guardamos la copia original y la filtrada (al inicio son iguales)
         this.articulosOriginal = data;
 
@@ -78,7 +81,7 @@ export class AlmacenComponent {
         this.aplicarFiltros();
       },
       (error) => {
-        console.error("❌ Error al cargar artículos:", error);
+        // TODO: añadir manejo de error UI
       }
     );
   }
@@ -92,7 +95,7 @@ export class AlmacenComponent {
         this.displayTable(1);
       },
       (error) => {
-        console.error('Error al obtener artículos', error);
+        // TODO: añadir manejo de error UI
       }
     );
   }
@@ -241,7 +244,6 @@ export class AlmacenComponent {
 
     this.articuloService.updateItem(updates).subscribe({
       next: (articuloActualizado) => {
-        console.log('Artículo actualizado con éxito:', articuloActualizado);
         this.toastService.showToast(
           this.translate.instant('ALMACEN.MSG.EXITO_TITULO'),
           this.translate.instant('ALMACEN.MSG.ACTUALIZADO_EXITO'),
@@ -254,7 +256,6 @@ export class AlmacenComponent {
         this.operation = 'none';
       },
       error: (err) => {
-        console.error('Error al actualizar artículo:', err);
         this.toastService.showToast(
           this.translate.instant('ALMACEN.MSG.ERROR_TITULO'),
           this.translate.instant('ALMACEN.MSG.ACTUALIZAR_ERROR'),
@@ -383,7 +384,6 @@ export class AlmacenComponent {
     // 5. Llamada a la API (Solo si pasó todo lo anterior)
     this.articuloService.insert_item(this.insertDto).subscribe({
       next: (articuloCreado) => {
-        console.log('Artículo creado:', articuloCreado);
         this.toastService.showToast(
           this.translate.instant('ALMACEN.MSG.EXITO_TITULO'),
           this.translate.instant('ALMACEN.MSG.CREADO_EXITO'),
@@ -397,7 +397,6 @@ export class AlmacenComponent {
         this.setMode('none');
       },
       error: (err) => {
-        console.error('Error al crear artículo:', err);
         this.toastService.showToast(
           this.translate.instant('ALMACEN.MSG.ERROR_TITULO'),
           this.translate.instant('ALMACEN.MSG.CREAR_ERROR'),
@@ -414,22 +413,32 @@ export class AlmacenComponent {
     this.irSeccion.emit('catalogo-externo');
   }
 
+  exportarPdf(): void {
+    this.pdfService.generateInventoryPdf(this.articulosOriginal);
+  }
+
+  abrirDetalle(articulo: Articulo): void {
+    this.detalleModal.abrir(articulo);
+  }
+
+  onArticuloActualizado(actualizado: Articulo): void {
+    const idx = this.articulosOriginal.findIndex(a => a.id === actualizado.id);
+    if (idx !== -1) this.articulosOriginal[idx] = actualizado;
+    this.aplicarFiltros();
+  }
+
   // Función para rellenar el formulario con datos de la AEMPS
   cargarDatosExternos() {
-    console.log("📥 Importando dato externo:", this.datoExterno);
-
     // 1. Cambiamos el modo a 'insert' para que se vea el formulario
     this.operation = 'insert';
 
     // 2. Rellenamos tu objeto insertDto con los datos que vienen de fuera
     this.insertDto = {
-      nombre: this.datoExterno.nombreCorto || '',   // El nombre limpio
-      categoria: this.datoExterno.laboratorio || '', // El laboratorio como categoría
-      precio: 0,    // El precio lo pone el usuario
-      cantidad: 0   // La cantidad la pone el usuario
+      nombre: this.datoExterno.nombreCorto || '',
+      categoria: this.datoExterno.laboratorio || '',
+      precio: 0,
+      cantidad: 0,
+      aempsCode: this.datoExterno.registro || null
     };
-
-    // Opcional: Si tuvieras campo 'codigo' en el insertDto, lo pondrías aquí también
-    // this.insertDto.codigo = this.datoExterno.registro;
   }
 }

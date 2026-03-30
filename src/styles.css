@@ -1,43 +1,219 @@
 /* 1. IMPORTAR LA FUENTE POPPINS (Automáticamente desde Google) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-/* 2. CUERPO DE LA PÁGINA */
-body {
-  /* Tu gradiente original (era bueno, lo mantenemos) */
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  background-attachment: fixed;
-  min-height: 100vh;
-
-  /* EL CAMBIO CLAVE: Usamos Poppins */
-  font-family: 'Poppins', sans-serif;
-  color: #343a40; /* Gris oscuro suave, mejor que negro puro */
-  -webkit-font-smoothing: antialiased; /* Hace que la fuente se vea nítida */
+/* === CSS CUSTOM PROPERTIES (LIGHT MODE por defecto) === */
+:root {
+  --bg-body: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --color-text: #343a40;
+  --color-surface: #ffffff;
+  --color-table-bg: rgba(255, 255, 255, 0.6);
+  --color-table-hover: #f8f9fa;
+  --color-table-border: #f1f3f5;
+  --color-thead-bg: #212529;
+  --color-thead-text: #ffffff;
+  --color-disclaimer-bg: #F1F5F9;
+  --color-disclaimer-text: #64748B;
+  --color-disclaimer-border: #E2E8F0;
+  --color-card-header-border: #f0f0f0;
 }
 
-/* 3. TABLAS MODERNAS (Estilo Tarjeta Flotante) */
-/* --- MODIFICACIÓN: TABLAS LIMPIAS (SIN FONDO BLANCO) --- */
+/* === DARK MODE: sobrescribe variables cuando <body> tiene clase "dark" === */
+body.dark {
+  --bg-body: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --color-text: #e2e8f0;
+  --color-surface: #1e293b;
+  --color-table-bg: rgba(15, 23, 42, 0.85);
+  --color-table-hover: #273549;
+  --color-table-border: #334155;
+  --color-thead-bg: #0f172a;
+  --color-thead-text: #f1f5f9;
+  --color-disclaimer-bg: #1e293b;
+  --color-disclaimer-text: #94a3b8;
+  --color-disclaimer-border: #334155;
+  --color-card-header-border: #334155;
 
+  /* Bootstrap body variables — necesario para form-control, borders, etc. */
+  --bs-body-color: #e2e8f0;
+  --bs-body-bg: #0f172a;
+  --bs-secondary-bg: #1e293b;
+  --bs-tertiary-bg: #273549;
+  --bs-border-color: #334155;
+  --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
+
+  /* Bootstrap table variables — base para tablas sin variante de color */
+  --bs-table-color: #e2e8f0;
+  --bs-table-bg: transparent;
+  --bs-table-border-color: #334155;
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+  --bs-table-striped-color: #e2e8f0;
+  --bs-table-hover-bg: #273549;
+  --bs-table-hover-color: #e2e8f0;
+  --bs-table-active-bg: #1e293b;
+  --bs-table-active-color: #e2e8f0;
+}
+
+/* === DARK MODE: texto celdas tabla === */
+body.dark .table tbody td {
+  color: #e2e8f0 !important;
+}
+
+/* === DARK MODE: tablas con clase Bootstrap table-light === */
+body.dark .table-light {
+  --bs-table-color: #e2e8f0;
+  --bs-table-bg: transparent;
+  --bs-table-border-color: #334155;
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+  --bs-table-striped-color: #e2e8f0;
+  --bs-table-hover-bg: #273549;
+  --bs-table-hover-color: #e2e8f0;
+  --bs-table-active-bg: #1e293b;
+  --bs-table-active-color: #e2e8f0;
+}
+
+/* === DARK MODE: Bootstrap utility classes con colores hardcodeados === */
+body.dark .bg-light,
+body.dark .bg-white {
+  background-color: var(--color-surface) !important;
+}
+
+body.dark .text-dark {
+  color: var(--color-text) !important;
+}
+
+body.dark .text-muted {
+  color: #94a3b8 !important;
+}
+
+/* === DARK MODE: Formularios === */
+body.dark .form-control {
+  background-color: var(--color-surface);
+  border-color: var(--color-table-border);
+  color: var(--color-text);
+}
+
+body.dark .form-select {
+  background-color: #2d3748 !important;
+  border-color: var(--color-table-border);
+  color: #cbd5e1 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cbd5e1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+body.dark .form-control:focus,
+body.dark .form-select:focus {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-color: #4a7c9e;
+  box-shadow: 0 0 0 0.25rem rgba(74, 124, 158, 0.25);
+}
+
+body.dark .form-control:disabled {
+  background-color: #2d3748 !important;
+  color: #cbd5e1 !important;
+}
+
+body.dark .form-control:disabled::placeholder {
+  color: #94a3b8;
+}
+
+body.dark .input-group-text {
+  background-color: var(--color-surface);
+  border-color: var(--color-table-border);
+  color: var(--color-text);
+}
+
+body.dark .form-control::placeholder,
+body.dark .form-floating > .form-control::placeholder {
+  color: #94a3b8 !important;
+}
+
+body.dark .form-floating > label {
+  color: #94a3b8 !important;
+}
+
+body.dark .form-control:disabled + label,
+body.dark .form-control:disabled ~ label {
+  color: #94a3b8 !important;
+}
+
+body.dark .form-select option {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+/* === DARK MODE: Cart — colores intencionales === */
+body.dark .table .text-success {
+  color: #4ade80 !important;
+}
+
+body.dark .table tfoot .bg-warning {
+  background-color: #854d0e !important;
+  color: #fef08a !important;
+}
+
+body.dark .table tbody tr {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+body.dark .table tbody tr:nth-of-type(odd) {
+  background-color: #243044;
+}
+
+/* === DARK MODE: Calendar picker icon === */
+body.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* === DARK MODE: Paginación === */
+body.dark .page-link {
+  background-color: var(--color-surface);
+  border-color: var(--color-table-border);
+  color: var(--color-text);
+}
+
+body.dark .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+body.dark .page-link:hover {
+  background-color: var(--color-table-hover);
+  color: var(--color-text);
+}
+
+/* 2. CUERPO DE LA PÁGINA */
+body {
+  background: var(--bg-body);
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 3. TABLAS MODERNAS */
 .table-responsive {
-  /* Quitamos el blanco sólido y el padding grueso */
-  background: rgba(255, 255, 255, 0.6); /* Transparencia sutil */
-  backdrop-filter: blur(10px);          /* Efecto cristal borroso moderno */
-  border-radius: 16px;                  /* Mantenemos las esquinas redondas */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra mucho más suave */
-  padding: 0;                           /* ¡Esto quita el marco blanco! */
+  background: var(--color-table-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 0;
   border: none;
   margin-bottom: 2rem;
-  overflow: hidden; /* Asegura que las esquinas redondas recorten la tabla */
+  overflow: hidden;
 }
 
 .table {
   margin-bottom: 0;
-  background-color: transparent !important; /* La tabla en sí es transparente */
+  background-color: transparent !important;
 }
 
-/* Cabecera oscura (Mantenemos esto, se ve profesional) */
+/* Cabecera */
 .table thead th {
-  background-color: #212529;
-  color: #ffffff;
+  background-color: var(--color-thead-bg);
+  color: var(--color-thead-text);
   border: none;
   padding: 16px;
   font-weight: 500;
@@ -46,86 +222,104 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* El resto de estilos (botones, hover, fuente body) DÉJALOS COMO ESTABAN */
-/* Solo hemos cambiado el bloque .table-responsive y .table */
-
-/* Redondeamos las esquinas superiores de la cabecera */
 .table thead th:first-child { border-top-left-radius: 10px; }
 .table thead th:last-child { border-top-right-radius: 10px; }
 
 /* Cuerpo de la tabla */
 .table tbody td {
-  vertical-align: middle; /* Todo centrado verticalmente */
+  vertical-align: middle;
   padding: 14px 16px;
-  border-bottom: 1px solid #f1f3f5; /* Líneas muy sutiles */
+  border-bottom: 1px solid var(--color-table-border);
   font-size: 0.95rem;
 }
 
-/* Efecto HOVER en las filas (La magia interactiva) */
+/* Hover en filas */
 .table tbody tr {
   transition: all 0.2s ease-in-out;
 }
 
 .table tbody tr:hover {
-  background-color: #f8f9fa !important;
-  transform: scale(1.002); /* Un zoom microscópico */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra al pasar el ratón */
+  background-color: var(--color-table-hover) !important;
+  transform: scale(1.002);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   z-index: 10;
   position: relative;
 }
 
-/* 4. BOTONES DE ACCIÓN (Más bonitos) */
+/* 4. BOTONES DE ACCIÓN */
 .btn {
-  border-radius: 8px; /* Botones más cuadrados/modernos */
+  border-radius: 8px;
   font-weight: 500;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn:hover {
-  transform: translateY(-2px); /* Se levantan un poco */
+  transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Iconos dentro de botones (Papelera, etc) */
 .bi, svg {
-  vertical-align: -0.125em; /* Alineación perfecta del icono con el texto */
+  vertical-align: -0.125em;
 }
 
-/* 5. TARJETAS (CARDS) GENERALES (Para formularios de Login, Insertar, etc) */
+/* 5. TARJETAS (CARDS) */
 .card {
   border: none;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  background: #ffffff;
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: background 0.3s ease;
 }
 
 .card-header {
   background-color: transparent;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-card-header-border);
   padding: 1.5rem;
   font-weight: 600;
 }
 
+/* 6. DISCLAIMER */
 .table-disclaimer {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Lo alinea a la derecha, queda más pro */
+  justify-content: flex-end;
   gap: 8px;
   padding: 10px 15px;
-  background-color: #F1F5F9; /* Un gris muy, muy suave (Slate 100) */
-  color: #64748B;            /* Texto gris medio (Slate 500) */
-  font-size: 0.8rem;         /* Letra pequeñita */
+  background-color: var(--color-disclaimer-bg);
+  color: var(--color-disclaimer-text);
+  font-size: 0.8rem;
   font-style: italic;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  margin-top: -1px;          /* Truco para que pegue con el borde de la tabla */
-  border: 1px solid #E2E8F0; /* Mismo borde que suelen tener las tablas */
-  border-top: none;          /* Quitamos el borde de arriba para unirlo a la tabla */
+  margin-top: -1px;
+  border: 1px solid var(--color-disclaimer-border);
+  border-top: none;
 }
 
-/* Icono pequeño */
 .disclaimer-icon {
   width: 16px;
   height: 16px;
   opacity: 0.7;
+}
+
+/* === SIDEBAR: light mode overrides (aquí, no en el componente, por Angular View Encapsulation) === */
+
+/* 1. Título "KO2 Pharma" — Bootstrap text-white → oscuro */
+body:not(.dark) .sidebar h3 {
+  color: #1e293b !important;
+}
+
+/* 2. Iconos — fill="#000000" ya son negros, fill="currentColor" forzados a negro */
+body:not(.dark) .sidebar .icon-wrapper {
+  color: #000000 !important;
+}
+
+body:not(.dark) .sidebar .menu-icon {
+  filter: none !important;
+}
+
+/* 3. Hover — texto oscuro, no blanco */
+body:not(.dark) .sidebar .nav-btn:hover {
+  color: #1e293b !important;
 }

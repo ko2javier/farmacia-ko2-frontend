@@ -96,7 +96,6 @@ export class CarritoComponent implements OnInit {
 
   Completar() {
     if (!this.validarIdentificacion(this.tipoDocumento, this.identificacion)) {
-      console.warn("No se puede completar la compra: Identificación no válida.");
       return;
     }
     this.registrarVenta();
@@ -137,8 +136,6 @@ export class CarritoComponent implements OnInit {
 
     this.ventasService.registrarVentas(ventasDTO).subscribe({
       next: (response: VentaUsuario[]) => {
-        console.log('Ventas registradas con éxito:', response);
-
         // 3) SWEET ALERT TRADUCIDO 🍬
         Swal.fire({
           title: this.translate.instant('CARRITO.MSG.SWAL_TITULO'),
@@ -169,7 +166,6 @@ export class CarritoComponent implements OnInit {
 
       },
       error: (err: any) => {
-        console.error('Error al registrar ventas:', err);
         const tituloError = this.translate.instant('CARRITO.MSG.ERROR_TITULO');
         this.toastService.showToast(tituloError, this.translate.instant('CARRITO.MSG.ERROR_REGISTRO'), true, 'Error');
       }
@@ -186,8 +182,8 @@ export class CarritoComponent implements OnInit {
       }));
 
     this.articuloService.updateStockBatch(updates).subscribe({
-      next: (response) => console.log('Stock actualizado:', response),
-      error: (err) => console.error('Error stock:', err)
+      next: () => {},
+      error: () => { /* TODO: añadir manejo de error UI */ }
     });
   }
 

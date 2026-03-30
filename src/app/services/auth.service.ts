@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   //private baseUrl = 'http://localhost:5000/auth'; // Cambia a la URL de tu backend
-  private baseUrl = 'https://distinguished-vibrancy-production.up.railway.app/auth'; // Cambia a la URL de tu backend
+  private baseUrl = 'https://farmacia-ko2-back-production.up.railway.app/auth'; // Cambia a la URL de tu backend
 
   constructor(private http: HttpClient) { }
 

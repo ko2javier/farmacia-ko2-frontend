@@ -1,3 +1,18 @@
+/* === CSS CUSTOM PROPERTIES LOCALES (light por defecto) === */
+:root {
+  --color-sidebar-bg: #1E293B;
+  --color-main-area-bg: #F8FAFC;
+  --color-header-bg: #ffffff;
+  --color-header-text: #212529;
+}
+
+body.dark {
+  --color-sidebar-bg: #0f172a;
+  --color-main-area-bg: #0f172a;
+  --color-header-bg: #1e293b;
+  --color-header-text: #f1f5f9;
+}
+
 /* --- 1. CONFIGURACIÓN GENERAL --- */
 .font-poppins {
   font-family: 'Poppins', sans-serif;
@@ -5,7 +20,7 @@
 
 /* --- 2. SIDEBAR (CONTENEDOR PRINCIPAL) --- */
 .sidebar {
-  background-color: #1E293B;
+  background-color: var(--color-sidebar-bg);
   transition: all 0.3s ease-in-out;
   z-index: 1050;
   display: flex;
@@ -63,8 +78,7 @@
   filter: invert(1) brightness(2);
 }
 
-/* --- REGLA CORREGIDA PARA EL TEXTO (IGNORA EL BADGE) --- */
-/* Solo aplica la lógica del idioma al texto, NO al badge */
+/* --- TEXTO DEL MENÚ (IGNORA EL BADGE) --- */
 .nav-btn span:not(.badge-circular) {
   flex: 1;
   min-width: 0;
@@ -84,7 +98,7 @@
 }
 
 .nav-btn.active {
-  background-color: #FFC107;
+  background-color: #F5C518;
   color: #000000;
   font-weight: 700;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -94,11 +108,11 @@
   filter: none;
 }
 
-/* --- 4. SECCIÓN LOGOUT (FOOTER) --- */
+/* --- 4. FOOTER DEL SIDEBAR --- */
 .sidebar-footer {
   flex-shrink: 0;
   padding: 20px;
-  background-color: #1E293B;
+  background-color: var(--color-sidebar-bg);
   padding-bottom: calc(20px + env(safe-area-inset-bottom));
 }
 
@@ -138,10 +152,21 @@
 
 /* --- 5. CONTENIDO PRINCIPAL --- */
 .main-area {
-  background-color: #F8FAFC;
+  background-color: var(--color-main-area-bg);
   width: 100%;
   margin-left: 0;
-  transition: margin-left 0.3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out, background-color 0.3s ease;
+}
+
+/* Header (sobreescribe Bootstrap bg-white en dark mode) */
+.main-area header {
+  background-color: var(--color-header-bg) !important;
+  color: var(--color-header-text);
+  transition: background-color 0.3s ease;
+}
+
+.main-area header h4 {
+  color: var(--color-header-text) !important;
 }
 
 .overlay {
@@ -182,26 +207,110 @@
   .sidebar-footer { padding-bottom: 20px; }
 }
 
-/* --- ARREGLO FINAL DEL BADGE (ESTILO IMAGEN 2) --- */
+/* --- 7. HEADER USER CHIP --- */
+.header-user {
+  color: var(--color-header-text);
+  opacity: 0.65;
+  font-size: 0.85rem;
+}
+
+/* --- 8. BADGE CARRITO --- */
 .badge-circular {
-  background-color: #FFC107; /* Amarillo */
-  color: #1E293B;            /* Texto oscuro */
+  background-color: #F5C518;
+  color: #1E293B;
   font-weight: bold;
   font-size: 0.75rem;
-
-  /* Dimensiones FIJAS y forma */
-  width: 22px !important;    /* Tamaño pequeño como en la foto */
+  width: 22px !important;
   height: 22px !important;
   min-width: 22px !important;
   border-radius: 50%;
-
-  /* Flexbox para centrar el número */
   display: flex !important;
   align-items: center;
   justify-content: center;
-
-  /* Reseteo de propiedades heredadas */
-  flex: none !important;      /* NO crecer */
-  margin-left: auto;          /* Empujar a la derecha si es necesario */
+  flex: none !important;
+  margin-left: auto;
   line-height: 1 !important;
+}
+
+/* --- 9. TOGGLE DARK/LIGHT MODE --- */
+.theme-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.625rem 0.25rem;
+  margin-bottom: 0.75rem;
+  min-width: 0; /* permite que flexbox encoja el contenedor */
+}
+
+.theme-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #CBD5E1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-width: 0;   /* permite que el texto se recorte si es necesario */
+  overflow: hidden;
+}
+
+.theme-toggle-label span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theme-icon {
+  width: 1.125em;
+  height: 1.125em;
+  flex-shrink: 0;
+}
+
+/* Switch — todo en em, relativo al font-size heredado */
+.toggle-switch {
+  position: relative;
+  /* 2.75em × 1.5em ≈ 44px × 24px a 1rem=16px */
+  width: 2.75em;
+  height: 1.5em;
+  flex-shrink: 0;
+  font-size: 1rem; /* ancla explícita: el switch no hereda cambios de escala del label */
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background-color: #475569;
+  border-radius: 1.5em;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+/* Thumb: ocupa (height - 2*offset) de lado */
+/* offset = (1.5em - 1.125em) / 2 = 0.1875em */
+.toggle-track::before {
+  content: '';
+  position: absolute;
+  width: 1.125em;
+  height: 1.125em;
+  left: 0.1875em;
+  top: 0.1875em;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+
+.toggle-switch input:checked + .toggle-track {
+  background-color: #F5C518;
+}
+
+/* travel = track-width - thumb-width - 2*offset = 2.75 - 1.125 - 0.375 = 1.25em */
+.toggle-switch input:checked + .toggle-track::before {
+  transform: translateX(1.25em);
 }

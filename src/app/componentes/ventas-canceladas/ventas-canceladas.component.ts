@@ -41,8 +41,6 @@ export class VentasCanceladasComponent implements OnInit {
   cargarDatosReales(): void {
     this.ventasCanceladasService.getCancelaciones().subscribe(
       (data) => {
-        console.log("✅ Datos recibidos de la DB:", data);
-
         // Guardamos en Original y en Filtrada (al inicio son iguales)
         this.cancelacionesOriginal = data;
         this.cancelacionesFiltradas = data;
@@ -51,7 +49,7 @@ export class VentasCanceladasComponent implements OnInit {
         this.calcularPaginacion();
       },
       (error) => {
-        console.error("❌ Error al obtener cancelaciones:", error);
+        // TODO: añadir manejo de error UI
       }
     );
   }

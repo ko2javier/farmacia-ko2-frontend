@@ -105,7 +105,11 @@
     "EJE_X_CANTIDAD": "Cantidad Cancelada",
     "EJE_Y_RESPONSABLE": "Responsable",
     "CARGANDO": "Cargando datos o sin ventas...",
-    "SIN_CANCELACIONES": "Sin cancelaciones registradas."
+    "SIN_CANCELACIONES": "Sin cancelaciones registradas.",
+    "TOTAL_VENDIDO": "Total Vendido",
+    "VENTAS_HOY": "Ventas Hoy",
+    "STOCK_BAJO": "Stock Bajo",
+    "TASA_CANCELACION": "Tasa Cancelación"
   },
   "PANEL": {
     "NOMBRE": "Nombre",

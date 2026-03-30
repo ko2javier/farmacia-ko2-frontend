@@ -41,13 +41,12 @@ export class PanelComponent implements OnInit {
   cargarProductos() {
     this.articuloService.cargarArticulos().subscribe(
       (data) => {
-        console.log("📦 Productos cargados en memoria:", data.length);
         this.articulosOriginal = data;
 
         // Inicializamos el servicio vacío o con todo, según prefieras
         this.panelVentasService.setProductos(data);
       },
-      (error) => console.error("❌ Error al obtener productos:", error)
+      (error) => { /* TODO: añadir manejo de error UI */ }
     );
   }
 
@@ -76,7 +75,6 @@ export class PanelComponent implements OnInit {
     }
 
     // 🟢 4. Pasamos el resultado limpio al servicio para que lo pinte la tabla
-    console.log(`🔍 Encontrados ${resultados.length} productos`);
     this.panelVentasService.resultadosBusqueda = resultados;
   }
 

@@ -13,8 +13,8 @@ export class ArticuloService {
   //private apiUrl = 'http://localhost:5000/articulos/All'; // URL del backend
   //private apiUrl2 = 'http://localhost:5000/articulos'; // URL del backend
 
-   private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/articulos/All'; // URL del backend
-  private apiUrl2 = 'https://distinguished-vibrancy-production.up.railway.app/articulos'; // URL del backend
+   private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/articulos/All'; // URL del backend
+  private apiUrl2 = 'https://farmacia-ko2-back-production.up.railway.app/articulos'; // URL del backend
 
 
   constructor(private http: HttpClient) {}
@@ -68,5 +68,15 @@ deleteArticulo(id: number): Observable<void> {
   return this.http.delete<void>(`${this.apiUrl2}/${id}`);
 }
 
+patchAemps(id: number, aempsCode: string, laboratorio: string): Observable<Articulo> {
+  return this.http.patch<Articulo>(`${this.apiUrl2}/${id}/aemps`, { aempsCode, laboratorio });
+}
+
+actualizarArticuloLocal(actualizado: Articulo): void {
+  const lista = this.articulosSubject.value.map(a =>
+    a.id === actualizado.id ? actualizado : a
+  );
+  this.articulosSubject.next(lista);
+}
 
 }

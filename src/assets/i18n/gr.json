@@ -105,7 +105,11 @@
     "EJE_X_CANTIDAD": "Stornierte Menge",
     "EJE_Y_RESPONSABLE": "Verantwortlicher",
     "CARGANDO": "Daten werden geladen oder keine Verkäufe...",
-    "SIN_CANCELACIONES": "Keine Stornierungen registriert."
+    "SIN_CANCELACIONES": "Keine Stornierungen registriert.",
+    "TOTAL_VENDIDO": "Gesamtverkauf",
+    "VENTAS_HOY": "Verkäufe heute",
+    "STOCK_BAJO": "Niedriger Bestand",
+    "TASA_CANCELACION": "Stornierungsrate"
   },
   "PANEL": {
     "NOMBRE": "Name",

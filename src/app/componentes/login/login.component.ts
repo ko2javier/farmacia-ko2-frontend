@@ -33,11 +33,9 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token); // Guarda el token
-        console.log(response.token);
         this.router.navigate(['/home']); // Redirige al componente "Home"
       },
       error: (error) => {
-        console.error('Error during login:', error);
         this.errorMessage = 'Invalid username or password.';
 
         this.toastService.showToast(

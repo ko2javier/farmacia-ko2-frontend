@@ -20,9 +20,10 @@ export class HomeComponent {
 
   currentSection: string = 'almacen'; // Al iniciar, muestra 'almacen'
   userRole: string = '';
-  // Variable para controlar el menú en móvil
+  username: string = '';
   menuAbierto: boolean = false;
   productoImportadoTemp: any = null;
+  isDarkMode: boolean = false;
 
   // 1. DICCIONARIO DE TRADUCCIÓN
   // Relaciona: "Valor de tu variable" : "Clave del JSON"
@@ -48,7 +49,25 @@ export class HomeComponent {
     if (token) {
       const decoded = jwtDecode<TokenPayload>(token);
       this.userRole = decoded.role;
-      console.log('Rol obtenido del JWT:', this.userRole);
+      this.username = decoded.sub || '';
+    }
+
+    // Restaurar tema guardado
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.isDarkMode = true;
+      document.body.classList.add('dark');
+    }
+  }
+
+  toggleTheme(): void {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }
 //  2. FUNCIÓN PARA OBTENER LA CLAVE
@@ -63,19 +82,15 @@ export class HomeComponent {
     // Aquí puedes eliminar el token de autenticación
     localStorage.removeItem('jwtToken'); // O donde sea que guardes el token
     // Redirige al usuario a la página de login
-    console.log("redirecciono a login");
     this.router.navigate(['/login']);
   }
 
   cambiarSeccion(seccion: string) {
-    console.log(`✅ Sección cambiada a: ${seccion}`);
-
     this.currentSection = seccion;
     this.cdr.detectChanges();  // 🔄 Forzar actualización de la UI
   }
 
   debugEvent(event: any) {
-    console.log("📢 Evento recibido en HomeComponent: ", event);
     this.cambiarSeccion(event);
   }
 
@@ -88,8 +103,6 @@ export class HomeComponent {
   }
 // Funcion para conectar los emitters del catalogo externo!!
   recibirProductoImportado(producto: any) {
-    console.log("Datos recibidos de la AEMPS:", producto);
-
     // Guardamos el dato en la variable temporal
     this.productoImportadoTemp = producto;
 

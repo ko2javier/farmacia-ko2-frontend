@@ -22,10 +22,10 @@ export class AppComponent implements OnInit {
 
 /** Aplico el toast de manera global !! */
   ngOnInit() {
-    /*
-  // console.log("🧹 Limpieza total realizada");
-  localStorage.clear();
-  sessionStorage.clear();*/
+    // Aplicar tema guardado al arrancar la app
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
 
     this.toastService.toast$.subscribe((data: ToastData) => {
       this.toast = data;

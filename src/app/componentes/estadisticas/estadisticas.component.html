@@ -1,5 +1,67 @@
 <div class="contenedor-seccion container mb-5 fade-in">
 
+  <!-- KPI CARDS -->
+  <div class="row g-3 mb-4">
+
+    <div class="col-6 col-lg-3">
+      <div class="card kpi-card border-0 shadow-sm h-100 kpi-verde">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center py-4">
+          <div class="kpi-icon mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.051zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.07-.742 1.74-1.852 1.895V8.818z"/>
+            </svg>
+          </div>
+          <div class="kpi-valor fw-bold">{{ kpiTotalVendido | number:'1.0-0' }} €</div>
+          <div class="kpi-titulo small mt-1">{{ 'ESTADISTICAS.TOTAL_VENDIDO' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+      <div class="card kpi-card border-0 shadow-sm h-100 kpi-azul">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center py-4">
+          <div class="kpi-icon mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+          </div>
+          <div class="kpi-valor fw-bold">{{ kpiVentasHoy }}</div>
+          <div class="kpi-titulo small mt-1">{{ 'ESTADISTICAS.VENTAS_HOY' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+      <div class="card kpi-card border-0 shadow-sm h-100 kpi-naranja">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center py-4">
+          <div class="kpi-icon mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+          </div>
+          <div class="kpi-valor fw-bold">{{ kpiStockBajo }}</div>
+          <div class="kpi-titulo small mt-1">{{ 'ESTADISTICAS.STOCK_BAJO' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+      <div class="card kpi-card border-0 shadow-sm h-100 kpi-rojo">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center py-4">
+          <div class="kpi-icon mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </div>
+          <div class="kpi-valor fw-bold">{{ kpiCancelacion }}%</div>
+          <div class="kpi-titulo small mt-1">{{ 'ESTADISTICAS.TASA_CANCELACION' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <div class="row g-4">
 
     <div class="col-12 col-lg-6">
@@ -69,4 +131,5 @@
     </div>
 
   </div>
+
 </div>

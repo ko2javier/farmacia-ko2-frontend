@@ -22,6 +22,7 @@ import { EstadisticasComponent } from './componentes/estadisticas/estadisticas.c
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CatalogoExternoComponent } from './componentes/catalogo-externo/catalogo-externo.component';
+import { ArticuloDetalleModalComponent } from './componentes/articulo-detalle-modal/articulo-detalle-modal.component';
 import {CommonModule} from '@angular/common';
 
 
@@ -45,7 +46,8 @@ export function HttpLoaderFactory(http: any) {
     CarritoComponent,
     UsersComponent,
     VentasCanceladasComponent,
-    CatalogoExternoComponent
+    CatalogoExternoComponent,
+    ArticuloDetalleModalComponent
 
 
   ],

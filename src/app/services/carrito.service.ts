@@ -55,7 +55,6 @@ vaciarCarrito(){
     if (productoExistente && productoExistente.articulo.cantidad > 0) {
       productoExistente.cantidadCompra += 1;
     } else {
-      console.warn('❌ No se puede agregar más de la cantidad disponible en stock o producto no encontrado.');
       return;
     }
     this.carritoSubject.next(this.carrito);
@@ -79,8 +78,6 @@ vaciarCarrito(){
     if (producto && producto.cantidadCompra < producto.articulo.cantidad) {
       producto.cantidadCompra += 1;
       this.carritoSubject.next(this.carrito);
-    } else {
-      console.warn("No hay suficiente stock disponible.");
     }
   }
   

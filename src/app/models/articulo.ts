@@ -5,6 +5,6 @@ export interface Articulo {
     precio: number;
     cantidad: number;
     codigo: string;
-
+    aempsCode?: string | null;
+    laboratorio?: string | null;
   }
-  

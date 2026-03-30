@@ -84,4 +84,69 @@ export class PdfGeneratorService {
     // 2. Guardar PDF
     doc.save(`Ticket_Venta_${idTicket}.pdf`);
   }
+
+  generateInventoryPdf(articulos: any[]): void {
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const fecha = new Date().toLocaleDateString('es-ES');
+
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0);
+      const logoData = canvas.toDataURL('image/png');
+
+      // --- CABECERA ---
+      doc.addImage(logoData, 'PNG', 15, 10, 60, 30);
+
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text('FARMACIA KO2', 195, 20, { align: 'right' });
+
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Warehouse Inventory', 195, 28, { align: 'right' });
+
+      doc.setFontSize(10);
+      doc.text(`Generated: ${fecha}`, 195, 34, { align: 'right' });
+
+      doc.setDrawColor(200, 200, 200);
+      doc.line(15, 45, 195, 45);
+
+      // --- TABLA ---
+      const bodyData = articulos.map(a => [
+        a.nombre,
+        a.categoria,
+        a.codigo || '—',
+        `${parseFloat(a.precio).toFixed(2)} €`,
+        a.cantidad
+      ]);
+
+      autoTable(doc, {
+        startY: 50,
+        head: [['Name', 'Category', 'Prod. Code', 'Price', 'Quantity']],
+        body: bodyData,
+        theme: 'striped',
+        headStyles: { fillColor: [52, 58, 64], textColor: 255 },
+        styles: { fontSize: 9, cellPadding: 3 },
+        columnStyles: {
+          3: { halign: 'right' },
+          4: { halign: 'center' }
+        }
+      });
+
+      // --- FOOTER ---
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(100);
+      doc.text('FARMACIA KO2 — Todos los derechos reservados', 105, 288, { align: 'center' });
+
+      const fechaArchivo = new Date().toISOString().split('T')[0];
+      doc.save(`Inventory_${fechaArchivo}.pdf`);
+    };
+
+    img.src = 'assets/images/logo.png';
+  }
 }

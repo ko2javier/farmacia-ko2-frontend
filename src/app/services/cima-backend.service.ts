@@ -10,7 +10,8 @@ export class CimaBackendService {
 
   // AQUÍ ESTÁ LA MAGIA: Apuntamos al Backend en Railway
   // El backend hará de "puente" para evitar el bloqueo CORS del navegador.
-  private readonly BASE_URL = 'https://distinguished-vibrancy-production.up.railway.app/api/cima/buscar';
+  private readonly BASE_URL = 'https://farmacia-ko2-back-production.up.railway.app/api/cima/buscar';
+  private readonly AEMPS_DIRECTO = '/cima-api/cima/rest/medicamento';
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +42,18 @@ export class CimaBackendService {
           })
         };
       })
+    );
+  }
+
+  getByNregistro(nregistro: string): Observable<any> {
+    return this.http.get<any>(`${this.AEMPS_DIRECTO}?nregistro=${nregistro}`).pipe(
+      map(med => ({
+        nregistro: med.nregistro,
+        nombre: med.nombre,
+        laboratorio: med.labtitular,
+        principioActivo: (med.principiosActivos || []).map((p: any) => p.nombre).join(', '),
+        formaFarmaceutica: med.formaFarmaceutica?.nombre || ''
+      }))
     );
   }
 }

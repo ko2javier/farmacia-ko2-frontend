@@ -1,0 +1,130 @@
+<div #modalEl class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- CABECERA -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-semibold">{{ articulo?.nombre }}</h5>
+        <button type="button" class="btn-close" (click)="cerrar()"></button>
+      </div>
+
+      <!-- CUERPO -->
+      <div class="modal-body" *ngIf="articulo">
+
+        <!-- Datos del producto -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <span class="text-muted small d-block">Categoría</span>
+            <span class="fw-medium">{{ articulo.categoria }}</span>
+          </div>
+          <div class="col-6">
+            <span class="text-muted small d-block">Código</span>
+            <span class="fw-medium">{{ articulo.codigo }}</span>
+          </div>
+          <div class="col-6">
+            <span class="text-muted small d-block">Precio</span>
+            <span class="fw-bold text-success">{{ articulo.precio | currency:'EUR' }}</span>
+          </div>
+          <div class="col-6">
+            <span class="text-muted small d-block">Cantidad</span>
+            <span class="fw-medium">{{ articulo.cantidad }}</span>
+          </div>
+        </div>
+
+        <hr class="my-2">
+
+        <!-- SECCIÓN AEMPS -->
+        <div class="mt-3">
+
+          <!-- Cargando datos AEMPS -->
+          <div *ngIf="cargandoAemps" class="text-center py-3">
+            <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+            <span class="text-muted small">Consultando AEMPS...</span>
+          </div>
+
+          <!-- Error al cargar AEMPS -->
+          <div *ngIf="errorAemps" class="alert alert-warning py-2 small mb-0">
+            {{ errorAemps }}
+          </div>
+
+          <!-- Datos AEMPS cargados -->
+          <div *ngIf="aempsData && !cargandoAemps">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-success">AEMPS verificado</span>
+              <span class="text-muted small">Nº {{ aempsData.nregistro }}</span>
+            </div>
+            <div class="row g-2">
+              <div class="col-12">
+                <span class="text-muted small d-block">Laboratorio</span>
+                <span class="fw-medium">{{ aempsData.laboratorio }}</span>
+              </div>
+              <div class="col-12" *ngIf="aempsData.principioActivo">
+                <span class="text-muted small d-block">Principio activo</span>
+                <span class="fw-medium">{{ aempsData.principioActivo }}</span>
+              </div>
+              <div class="col-12" *ngIf="aempsData.formaFarmaceutica">
+                <span class="text-muted small d-block">Forma farmacéutica</span>
+                <span class="fw-medium">{{ aempsData.formaFarmaceutica }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sin aempsCode: buscador AEMPS -->
+          <div *ngIf="!articulo.aempsCode && !aempsData && !cargandoAemps">
+            <p class="text-muted small mb-2">
+              Este artículo no tiene código AEMPS vinculado. Busca el medicamento para vincularlo.
+            </p>
+
+            <div class="input-group mb-2">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Buscar en AEMPS (mín. 3 caracteres)"
+                [(ngModel)]="terminoBusqueda"
+                (keyup.enter)="buscarAemps()">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                type="button"
+                [disabled]="terminoBusqueda.trim().length < 3 || buscando"
+                (click)="buscarAemps()">
+                <span *ngIf="buscando" class="spinner-border spinner-border-sm me-1"></span>
+                Buscar
+              </button>
+            </div>
+
+            <!-- Resultados de búsqueda -->
+            <div *ngIf="resultadosBusqueda.length > 0" class="list-group list-group-flush border rounded"
+                 style="max-height: 220px; overflow-y: auto;">
+              <button
+                *ngFor="let r of resultadosBusqueda"
+                type="button"
+                class="list-group-item list-group-item-action py-2 px-3 text-start"
+                [disabled]="guardando"
+                (click)="seleccionarMedicamento(r)">
+                <div class="fw-medium small">{{ r.nombreCorto }}</div>
+                <div class="text-muted" style="font-size: 0.75rem;">{{ r.laboratorio }}</div>
+              </button>
+            </div>
+
+            <div *ngIf="resultadosBusqueda.length === 0 && !buscando && terminoBusqueda.trim().length >= 3"
+                 class="text-muted small mt-2">
+              Sin resultados. Prueba con otro término.
+            </div>
+
+            <div *ngIf="guardando" class="text-center mt-2">
+              <div class="spinner-border spinner-border-sm text-success me-1"></div>
+              <span class="text-muted small">Guardando...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PIE -->
+      <div class="modal-footer py-2">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="cerrar()">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

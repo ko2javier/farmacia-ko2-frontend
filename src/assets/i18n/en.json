@@ -105,7 +105,11 @@
     "EJE_X_CANTIDAD": "Quantity Cancelled",
     "EJE_Y_RESPONSABLE": "Responsible",
     "CARGANDO": "Loading data or no sales...",
-    "SIN_CANCELACIONES": "No cancellations registered."
+    "SIN_CANCELACIONES": "No cancellations registered.",
+    "TOTAL_VENDIDO": "Total Sold",
+    "VENTAS_HOY": "Sales Today",
+    "STOCK_BAJO": "Low Stock",
+    "TASA_CANCELACION": "Cancellation Rate"
   },
   "PANEL": {
     "NOMBRE": "Name",

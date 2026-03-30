@@ -1,3 +1,38 @@
+/* --- KPI CARDS --- */
+.kpi-card {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.kpi-verde   { border-left: 4px solid #28a745; }
+.kpi-azul    { border-left: 4px solid #0d6efd; }
+.kpi-naranja { border-left: 4px solid #fd7e14; }
+.kpi-rojo    { border-left: 4px solid #dc3545; }
+
+.kpi-verde   .kpi-icon { color: #28a745; }
+.kpi-azul    .kpi-icon { color: #0d6efd; }
+.kpi-naranja .kpi-icon { color: #fd7e14; }
+.kpi-rojo    .kpi-icon { color: #dc3545; }
+
+.kpi-valor {
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+.kpi-titulo {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+@media (max-width: 576px) {
+  .kpi-valor { font-size: 1.4rem; }
+}
+
 /* --- OPCIÓN NUCLEAR PARA QUITAR EL GRIS --- */
 
 /* 1. Atacamos al contenedor principal de la leyenda */

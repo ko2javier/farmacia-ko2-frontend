@@ -71,7 +71,6 @@ export class ResultadosBusquedaComponent implements OnInit {
     this.volverAlPanel.emit(); // ✅ Emitimos evento para que PanelComponent oculte la tabla
   }
   irAlCarrito() {
-    console.log("🔹 Emitiendo evento para ir al carrito...");
     this.navegarAlCarrito.emit('carrito');
   }
 

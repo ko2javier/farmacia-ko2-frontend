@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { VentasUserService } from '../../services/ventas-user.service';
 import { VentaUsuario } from '../../models/VentaUsuario';
 import { AuthService } from '../../services/auth.service';
@@ -27,6 +28,8 @@ export class VentasUsuarioComponent implements OnInit {
   totalPages: number = 0;
 
   isAdmin: boolean = false;
+
+  selectedVentas: Set<number> = new Set();
 
   constructor(
     private ventasService: VentasUserService,
@@ -64,7 +67,7 @@ export class VentasUsuarioComponent implements OnInit {
         this.calcularPaginacion();
       },
       (error) => {
-        console.error('❌ Error al obtener ventas:', error);
+        // TODO: añadir manejo de error UI
       }
     );
   }
@@ -97,6 +100,7 @@ export class VentasUsuarioComponent implements OnInit {
     this.fechaBusqueda = '';
     this.ventasFiltradas = this.ventasOriginal;
     this.currentPage = 1;
+    this.selectedVentas.clear();
     this.calcularPaginacion();
   }
 
@@ -114,8 +118,85 @@ export class VentasUsuarioComponent implements OnInit {
     const nuevaPagina = this.currentPage + delta;
     if (nuevaPagina >= 1 && nuevaPagina <= this.totalPages) {
       this.currentPage = nuevaPagina;
+      this.selectedVentas.clear();
       this.calcularPaginacion();
     }
+  }
+
+  toggleSeleccion(id: number): void {
+    if (this.selectedVentas.has(id)) {
+      this.selectedVentas.delete(id);
+    } else {
+      this.selectedVentas.add(id);
+    }
+  }
+
+  estaSeleccionado(id: number): boolean {
+    return this.selectedVentas.has(id);
+  }
+
+  get todosSeleccionados(): boolean {
+    return this.paginatedArticulos.length > 0 &&
+      this.paginatedArticulos.every(v => this.selectedVentas.has(v.id));
+  }
+
+  get numSeleccionados(): number {
+    return this.selectedVentas.size;
+  }
+
+  toggleSeleccionTodo(): void {
+    if (this.todosSeleccionados) {
+      this.paginatedArticulos.forEach(v => this.selectedVentas.delete(v.id));
+    } else {
+      this.paginatedArticulos.forEach(v => this.selectedVentas.add(v.id));
+    }
+  }
+
+  cancelarSeleccionadas(): void {
+    const ids = [...this.selectedVentas];
+
+    Swal.fire({
+      title: this.translate.instant('HISTORIAL.MSG.CANCELAR_TITULO'),
+      text: this.translate.instant('HISTORIAL.MSG.CANCELAR_TEXTO'),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: this.translate.instant('HISTORIAL.MSG.BTN_SI_CANCELAR'),
+      cancelButtonText: this.translate.instant('HISTORIAL.MSG.BTN_NO_VOLVER')
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+
+      const token = this.authService.getToken();
+      let responsable = 'Desconocido';
+      if (token) {
+        try {
+          const decoded: any = jwtDecode(token);
+          responsable = decoded.sub || decoded.username || 'Admin';
+        } catch (e) {}
+      }
+
+      forkJoin(ids.map(id => this.ventasService.cancelarVenta(id, responsable))).subscribe({
+        next: () => {
+          Swal.fire(
+            this.translate.instant('HISTORIAL.MSG.EXITO_TITULO'),
+            this.translate.instant('HISTORIAL.MSG.EXITO_TEXTO'),
+            'success'
+          );
+          this.selectedVentas.clear();
+          this.obtenerVentas();
+        },
+        error: () => {
+          Swal.fire(
+            this.translate.instant('HISTORIAL.MSG.ERROR_TITULO'),
+            this.translate.instant('HISTORIAL.MSG.ERROR_TEXTO'),
+            'error'
+          );
+          this.selectedVentas.clear();
+          this.obtenerVentas();
+        }
+      });
+    });
   }
 
   cancelarVenta(venta: any): void {
@@ -140,7 +221,7 @@ export class VentasUsuarioComponent implements OnInit {
             const decoded: any = jwtDecode(token);
             responsable = decoded.sub || decoded.username || 'Admin';
           } catch (e) {
-            console.error("Error leyendo token", e);
+            // TODO: añadir manejo de error UI
           }
         }
 
@@ -154,7 +235,6 @@ export class VentasUsuarioComponent implements OnInit {
             this.obtenerVentas();
           },
           error: (err) => {
-            console.error('❌ Error al cancelar:', err);
             if (err.status === 200) {
               Swal.fire(
                 this.translate.instant('HISTORIAL.MSG.EXITO_TITULO'),

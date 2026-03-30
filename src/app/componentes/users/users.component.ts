@@ -45,7 +45,6 @@ export class UsersComponent implements OnInit{
         this.displayTable(1);
       },
       error: (err) => {
-        console.error('Error al cargar usuarios:', err);
         // TRADUCIDO
         const titulo = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
         const msg = this.translate.instant('USUARIOS.MSG.CARGAR_ERROR');
@@ -180,7 +179,6 @@ export class UsersComponent implements OnInit{
         this.setMode('none');
       },
       error: (err) => {
-        console.error('Error al insertar usuario:', err);
         const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
         const msgError = this.translate.instant('USUARIOS.MSG.CREAR_ERROR');
         this.toastService.showToast(tituloError, msgError, true, 'Error');
@@ -205,7 +203,6 @@ export class UsersComponent implements OnInit{
         this.setMode('none');
       },
       error: (err) => {
-        console.error('Error al update usuario:', err);
         const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
         const msgError = this.translate.instant('USUARIOS.MSG.ACTUALIZAR_ERROR');
         this.toastService.showToast(tituloError, msgError, true, 'Error');

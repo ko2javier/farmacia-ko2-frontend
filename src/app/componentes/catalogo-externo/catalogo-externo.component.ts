@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CimaService } from '../../services/cima.service';
 import Swal from 'sweetalert2';
-import {CimaBackendService} from '../../services/cima-backend.service';
 
 @Component({
   selector: 'app-catalogo-externo',
@@ -22,7 +21,7 @@ export class CatalogoExternoComponent {
   @Output() importar = new EventEmitter<any>();
   @Output() volver = new EventEmitter<void>();
 
-  constructor(private cimaService: CimaService, private cima_Service: CimaBackendService) {}
+  constructor(private cimaService: CimaService) {}
 
   // Busca y trae los 25 resultados de golpe
   buscar() {
@@ -33,22 +32,8 @@ export class CatalogoExternoComponent {
     this.resultados = [];
 
     // Pedimos siempre la página 1 a la API (trae 25 items por defecto)
-    /*
     this.cimaService.buscarMedicamentos(this.terminoBusqueda, 1).subscribe({
       next: (data) => {
-        // Guardamos todo el array (aprox 25 items)
-        this.resultados = data.resultados || [];
-        this.cargando = false;
-      },
-      error: () => {
-        this.cargando = false;
-        Swal.fire('Error', 'No se pudo conectar con AEMPS', 'error');
-      }
-    });*/
-
-    this.cima_Service.buscar(this.terminoBusqueda, 1).subscribe({
-      next: (data) => {
-        // Guardamos todo el array (aprox 25 items)
         this.resultados = data.resultados || [];
         this.cargando = false;
       },

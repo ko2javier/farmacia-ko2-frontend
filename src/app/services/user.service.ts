@@ -12,8 +12,8 @@ export class UserService {
   private apiUrl = 'http://localhost:5000/users/all';
   private apiUrl2 = 'http://localhost:5000/users';*/
 
-  private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/users/all';
-  private apiUrl2 = 'https://distinguished-vibrancy-production.up.railway.app/users';
+  private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/users/all';
+  private apiUrl2 = 'https://farmacia-ko2-back-production.up.railway.app/users';
 
   // Almacena los usuarios en un BehaviorSubject para compartirlos entre componentes
   private usersSubject = new BehaviorSubject<Usuarios[]>([]);

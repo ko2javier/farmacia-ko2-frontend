@@ -37,8 +37,6 @@ export class PanelVentasService {
   }
 
   buscarProductos(searchNombre: string, searchCategoria: string) {
-    console.log("🔍 Buscando productos con:", searchNombre, searchCategoria);
-
     this.resultadosBusqueda = this.productos.filter(producto =>
       (searchNombre.trim() === '' || producto.nombre.toLowerCase().includes(searchNombre.toLowerCase())) &&
       (searchCategoria.trim() === '' || producto.categoria.toLowerCase().includes(searchCategoria.toLowerCase()))
@@ -46,7 +44,6 @@ export class PanelVentasService {
   }
 
   limpiarBusqueda() {
-    console.log("🧹 Limpiando búsqueda...");
     this.resultadosBusqueda = [];
   }
 }

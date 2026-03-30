@@ -10,7 +10,7 @@ export class VentasCanceladasService {
 
   // 
   //private apiUrl = 'http://localhost:5000/cancelaciones'; 
-  private apiUrl = 'https://distinguished-vibrancy-production.up.railway.app/cancelaciones'; 
+  private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/cancelaciones';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
