@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CimaBackendService {
 
-  // AQUÍ ESTÁ LA MAGIA: Apuntamos al Backend en Railway
-  // El backend hará de "puente" para evitar el bloqueo CORS del navegador.
   private readonly BASE_URL = 'https://farmacia-ko2-back-production.up.railway.app/api/cima/buscar';
-  private readonly AEMPS_DIRECTO = '/cima-api/cima/rest/medicamento';
+  private readonly MEDICAMENTO_URL = environment.apiCimaMedicamento;
 
   constructor(private http: HttpClient) { }
 
@@ -46,7 +45,7 @@ export class CimaBackendService {
   }
 
   getByNregistro(nregistro: string): Observable<any> {
-    return this.http.get<any>(`${this.AEMPS_DIRECTO}?nregistro=${nregistro}`).pipe(
+    return this.http.get<any>(`${this.MEDICAMENTO_URL}?nregistro=${nregistro}`).pipe(
       map(med => ({
         nregistro: med.nregistro,
         nombre: med.nombre,
