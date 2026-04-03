@@ -240,19 +240,39 @@
   "HELP": {
     "WAREHOUSE": {
       "TITLE": "Hilfe — Lager",
-      "CONTENT": "In diesem Bereich können Sie das Apothekenlagerverwaltung. Verwenden Sie die Suchleiste, um nach Produktname, Kategorie oder Code zu filtern. Klicken Sie auf eine Zeile, um Produktdetails anzuzeigen und es mit AEMPS zu verknüpfen. Die Schaltfläche 'Insert New' ermöglicht das manuelle Hinzufügen von Produkten. Die Schaltfläche 'AEMPS' öffnet den Nationalkatalog. 'Export PDF' erstellt ein vollständiges Bestands-PDF mit dem Apothekenlogo. Das Papierkorbsymbol löscht das Produkt. Das Diskettensymbol ermöglicht die Bearbeitung von Preis und Menge."
+      "ITEM_1": "Suche: filtert in Echtzeit nach Name, Kategorie oder Code",
+      "ITEM_2": "Detail: Zeile anklicken, um die Produktkarte anzuzeigen und es mit AEMPS zu verknüpfen",
+      "ITEM_3": "Insert New: fügt ein Produkt manuell zum Inventar hinzu",
+      "ITEM_4": "AEMPS: importiert aus dem offiziellen Katalog des Gesundheitsministeriums",
+      "ITEM_5": "Export PDF: lädt das gesamte Inventar als PDF mit Logo herunter",
+      "ITEM_6": "Diskette: bearbeitet Preis und Menge",
+      "ITEM_7": "Papierkorb: löscht das Produkt (unwiderrufliche Aktion)"
     },
     "SALES_HISTORY": {
       "TITLE": "Hilfe — Verkaufshistorie",
-      "CONTENT": "Dieser Bereich zeigt den vollständigen Verlauf der registrierten Verkäufe. Sie können nach Verkäufer oder Kunde filtern oder nach Datum filtern. Um Verkäufe in großen Mengen zu stornieren, wählen Sie eine oder mehrere Zeilen mit den Kontrollkästchen aus und klicken Sie auf 'Cancel Selected'. Stornierte Verkäufe werden automatisch in das Modul Canceled Sales verschoben und die KPIs werden aktualisiert. Die Schaltfläche 'Export Excel' lädt den vollständigen Verlauf als .xlsx-Datei herunter."
+      "ITEM_1": "Verlauf: zeigt alle registrierten Verkäufe",
+      "ITEM_2": "Suche: filtert nach Verkäufer oder Kunde",
+      "ITEM_3": "Datum: filtert nach Tag mit der Kalenderauswahl",
+      "ITEM_4": "Massenabbruch: Verkäufe mit Kontrollkästchen markieren und Cancel Selected klicken",
+      "ITEM_5": "Stornierte Verkäufe werden zu Canceled Sales verschoben und die KPIs aktualisiert",
+      "ITEM_6": "Export Excel: lädt den Verlauf als .xlsx-Datei herunter"
     },
     "SALES_PANEL": {
       "TITLE": "Hilfe — Verkaufspanel",
-      "CONTENT": "Von hier aus können Sie Lagerprodukte suchen, um sie dem Warenkorb hinzuzufügen. Geben Sie den Produktnamen oder die Kategorie in die Suchleiste ein. Nur Benutzer mit der Rolle Admin oder Seller können Verkäufe durchführen. Ausverkaufte Produkte sind deaktiviert. Sobald Sie die Produkte ausgewählt haben, gehen Sie zum Warenkorb-Modul, um den Verkauf abzuschließen."
+      "STEP_1": "Produkt nach Name oder Kategorie suchen",
+      "STEP_2": "Hinzufügen klicken — ausverkaufte Produkte erscheinen deaktiviert",
+      "STEP_3": "Wiederholen, um weitere Produkte zum gleichen Verkauf hinzuzufügen",
+      "STEP_4": "Zum Warenkorb gehen, um abzuschließen",
+      "NOTE": "Nur Admin und Seller können Verkäufe durchführen"
     },
     "CART": {
       "TITLE": "Hilfe — Warenkorb",
-      "CONTENT": "Überprüfen Sie die ausgewählten Produkte, bevor Sie den Verkauf abschließen. Verwenden Sie die Schaltflächen '+' und '-', um die Menge jedes Artikels anzupassen. Die Schaltfläche 'Empty Cart' leert den Warenkorb vollständig. Wenn Sie bereit sind, klicken Sie auf 'Complete Shop', geben Sie die DNI oder NIE des Kunden ein und klicken Sie auf 'Bezahlen'. Bei korrekten Daten wird der Verkauf registriert, der Bestand automatisch aktualisiert und ein herunterladbares PDF-Ticket erstellt."
+      "STEP_1": "Produkte vor der Zahlung überprüfen",
+      "STEP_2": "Mengen mit + und − anpassen",
+      "STEP_3": "Empty Cart leert den gesamten Warenkorb",
+      "STEP_4": "Complete Shop zum Fortfahren zur Zahlung",
+      "STEP_5": "DNI/NIE eingeben und Bezahlen klicken",
+      "NOTE": "Nach Abschluss der Zahlung wird ein PDF-Ticket erstellt und der Bestand aktualisiert"
     }
   }
 }

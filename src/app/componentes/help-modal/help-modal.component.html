@@ -1,7 +1,8 @@
 <div class="modal-backdrop fade show" (click)="onClose()"></div>
 <div class="modal d-block" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
+
       <div class="modal-header">
         <h5 class="modal-title">
           <i class="bi bi-question-circle-fill me-2"></i>
@@ -9,14 +10,65 @@
         </h5>
         <button type="button" class="btn-close" (click)="onClose()"></button>
       </div>
+
       <div class="modal-body">
-        <p>{{ contentKey | translate }}</p>
+
+        <!-- WAREHOUSE -->
+        <ul *ngIf="section === 'warehouse'" class="help-list list-unstyled mb-0">
+          <li><i class="bi bi-search me-2 text-primary"></i>{{ 'HELP.WAREHOUSE.ITEM_1' | translate }}</li>
+          <li><i class="bi bi-info-circle me-2 text-primary"></i>{{ 'HELP.WAREHOUSE.ITEM_2' | translate }}</li>
+          <li><i class="bi bi-plus-circle me-2 text-success"></i>{{ 'HELP.WAREHOUSE.ITEM_3' | translate }}</li>
+          <li><i class="bi bi-globe me-2 text-info"></i>{{ 'HELP.WAREHOUSE.ITEM_4' | translate }}</li>
+          <li><i class="bi bi-file-earmark-pdf me-2 text-danger"></i>{{ 'HELP.WAREHOUSE.ITEM_5' | translate }}</li>
+          <li><i class="bi bi-floppy me-2 text-secondary"></i>{{ 'HELP.WAREHOUSE.ITEM_6' | translate }}</li>
+          <li><i class="bi bi-trash me-2 text-danger"></i>{{ 'HELP.WAREHOUSE.ITEM_7' | translate }}</li>
+        </ul>
+
+        <!-- SALES_HISTORY -->
+        <ul *ngIf="section === 'sales_history'" class="help-list list-unstyled mb-0">
+          <li><i class="bi bi-list-ul me-2 text-primary"></i>{{ 'HELP.SALES_HISTORY.ITEM_1' | translate }}</li>
+          <li><i class="bi bi-search me-2 text-primary"></i>{{ 'HELP.SALES_HISTORY.ITEM_2' | translate }}</li>
+          <li><i class="bi bi-calendar me-2 text-primary"></i>{{ 'HELP.SALES_HISTORY.ITEM_3' | translate }}</li>
+          <li><i class="bi bi-check2-square me-2 text-warning"></i>{{ 'HELP.SALES_HISTORY.ITEM_4' | translate }}</li>
+          <li><i class="bi bi-check2-square me-2 text-success"></i>{{ 'HELP.SALES_HISTORY.ITEM_5' | translate }}</li>
+          <li><i class="bi bi-file-earmark-excel me-2 text-success"></i>{{ 'HELP.SALES_HISTORY.ITEM_6' | translate }}</li>
+        </ul>
+
+        <!-- SALES_PANEL -->
+        <div *ngIf="section === 'sales_panel'">
+          <ol class="help-steps">
+            <li>{{ 'HELP.SALES_PANEL.STEP_1' | translate }}</li>
+            <li>{{ 'HELP.SALES_PANEL.STEP_2' | translate }}</li>
+            <li>{{ 'HELP.SALES_PANEL.STEP_3' | translate }}</li>
+            <li>{{ 'HELP.SALES_PANEL.STEP_4' | translate }}</li>
+          </ol>
+          <p class="text-muted fst-italic small mb-0">
+            <i class="bi bi-exclamation-circle me-1"></i>{{ 'HELP.SALES_PANEL.NOTE' | translate }}
+          </p>
+        </div>
+
+        <!-- CART -->
+        <div *ngIf="section === 'cart'">
+          <ol class="help-steps">
+            <li>{{ 'HELP.CART.STEP_1' | translate }}</li>
+            <li>{{ 'HELP.CART.STEP_2' | translate }}</li>
+            <li>{{ 'HELP.CART.STEP_3' | translate }}</li>
+            <li>{{ 'HELP.CART.STEP_4' | translate }}</li>
+            <li>{{ 'HELP.CART.STEP_5' | translate }}</li>
+          </ol>
+          <p class="text-muted fst-italic small mb-0">
+            <i class="bi bi-exclamation-circle me-1"></i>{{ 'HELP.CART.NOTE' | translate }}
+          </p>
+        </div>
+
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="onClose()">
           {{ 'COMMON.CLOSE' | translate }}
         </button>
       </div>
+
     </div>
   </div>
 </div>

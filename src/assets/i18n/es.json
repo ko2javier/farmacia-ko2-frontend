@@ -242,19 +242,39 @@
   "HELP": {
     "WAREHOUSE": {
       "TITLE": "Ayuda — Almacén",
-      "CONTENT": "En esta sección puedes gestionar el inventario de la farmacia. Usa el buscador para filtrar por nombre, categoría o código de producto. Haz clic en una fila para ver el detalle del producto y vincularlo con AEMPS si tiene registro oficial. El botón 'Insert New' permite añadir productos manualmente. El botón 'AEMPS' abre el Catálogo Nacional para importar medicamentos directamente desde el Ministerio de Sanidad. 'Export PDF' genera un PDF del inventario completo con el logo de la farmacia. El icono de papelera elimina el producto (acción irreversible). El icono de disquete permite editar el precio y la cantidad."
+      "ITEM_1": "Buscar: filtra por nombre, categoría o código en tiempo real",
+      "ITEM_2": "Detalle: haz clic en una fila para ver la ficha del producto y vincularlo con AEMPS",
+      "ITEM_3": "Insert New: añade un producto manualmente al inventario",
+      "ITEM_4": "AEMPS: importa desde el catálogo oficial del Ministerio de Sanidad",
+      "ITEM_5": "Export PDF: descarga el inventario completo en PDF con el logo",
+      "ITEM_6": "Disquete: edita el precio y la cantidad",
+      "ITEM_7": "Papelera: elimina el producto (acción irreversible)"
     },
     "SALES_HISTORY": {
       "TITLE": "Ayuda — Historial de Ventas",
-      "CONTENT": "Aquí se muestra el historial completo de ventas registradas en el sistema. Puedes filtrar por vendedor o cliente usando el buscador de texto, o filtrar por fecha con el selector de calendario. Para cancelar ventas en lote, selecciona una o varias filas con los checkboxes y pulsa 'Cancel Selected'. Las ventas canceladas quedan registradas automáticamente en el módulo Canceled Sales y los KPIs de estadísticas se actualizan. El botón 'Export Excel' descarga el historial completo en formato .xlsx."
+      "ITEM_1": "Historial: muestra todas las ventas registradas",
+      "ITEM_2": "Buscar: filtra por vendedor o cliente",
+      "ITEM_3": "Fecha: filtra por día con el selector de calendario",
+      "ITEM_4": "Cancelar en lote: marca varias ventas con los checkboxes y pulsa Cancel Selected",
+      "ITEM_5": "Las canceladas pasan a Canceled Sales y los KPIs se actualizan",
+      "ITEM_6": "Export Excel: descarga el historial en .xlsx"
     },
     "SALES_PANEL": {
       "TITLE": "Ayuda — Panel de Ventas",
-      "CONTENT": "Desde aquí puedes buscar productos del inventario para añadirlos al carrito. Escribe el nombre o la categoría del producto en el buscador. Solo los usuarios con rol Admin o Seller pueden realizar ventas. Los productos agotados aparecen deshabilitados y no pueden añadirse. Una vez seleccionados los productos, ve al módulo Carrito para completar la venta. Recuerda que necesitarás introducir el DNI o NIE del cliente antes de finalizar el pago."
+      "STEP_1": "Busca el producto por nombre o categoría",
+      "STEP_2": "Pulsa Añadir — los productos agotados aparecen deshabilitados",
+      "STEP_3": "Repite para añadir más productos a la misma venta",
+      "STEP_4": "Ve al Carrito para finalizar",
+      "NOTE": "Solo Admin y Seller pueden realizar ventas"
     },
     "CART": {
       "TITLE": "Ayuda — Carrito",
-      "CONTENT": "Revisa los productos seleccionados antes de completar la venta. Usa los botones '+' y '-' para ajustar la cantidad de cada artículo. El botón 'Empty Cart' vacía el carrito completamente. Cuando estés listo, pulsa 'Complete Shop', introduce el DNI o NIE del cliente y pulsa 'Pagar'. Si los datos son correctos, la venta quedará registrada, el stock se actualizará automáticamente y se generará un ticket en PDF descargable."
+      "STEP_1": "Revisa los productos antes de pagar",
+      "STEP_2": "Ajusta cantidades con + y −",
+      "STEP_3": "Empty Cart vacía el carrito completo",
+      "STEP_4": "Complete Shop para ir al pago",
+      "STEP_5": "Introduce el DNI/NIE y pulsa Pagar",
+      "NOTE": "Al completar el pago se genera un ticket PDF y el stock se actualiza"
     }
   }
 }
