@@ -191,9 +191,17 @@ export class UsersComponent implements OnInit{
         this.setMode('none');
       },
       error: (err) => {
-        const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
-        const msgError = this.translate.instant('USUARIOS.MSG.CREAR_ERROR');
-        this.toastService.showToast(tituloError, msgError, true, 'Error');
+        if (err.status === 409) {
+          Swal.fire({
+            icon: 'error',
+            title: this.translate.instant('USERS.DUPLICATE_TITLE'),
+            text: this.translate.instant('USERS.DUPLICATE_TEXT')
+          });
+        } else {
+          const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
+          const msgError = this.translate.instant('USUARIOS.MSG.CREAR_ERROR');
+          this.toastService.showToast(tituloError, msgError, true, 'Error');
+        }
       }
     });
   }
