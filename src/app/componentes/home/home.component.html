@@ -139,6 +139,7 @@
           </svg>
           <div class="d-flex flex-column align-items-center lh-sm">
             <span class="fw-bold fs-6">{{ username }}</span>
+            <span *ngIf="userRole === 'SUPERADMIN'" class="badge bg-danger px-2 py-1 mt-1">SUPERADMIN</span>
             <span *ngIf="userRole === 'ADMIN'" class="badge bg-warning text-dark px-2 py-1 mt-1">ADMIN</span>
             <span *ngIf="userRole === 'SELLER'" class="badge bg-success px-2 py-1 mt-1">SELLER</span>
           </div>
