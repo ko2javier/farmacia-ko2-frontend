@@ -276,5 +276,9 @@
       "STEP_5": "DNI/NIE eingeben und Bezahlen klicken",
       "NOTE": "Nach Abschluss der Zahlung wird ein PDF-Ticket erstellt und der Bestand aktualisiert"
     }
+  },
+  "USERS": {
+    "DUPLICATE_TITLE": "Benutzer existiert bereits",
+    "DUPLICATE_TEXT": "Dieser Benutzername ist bereits im System registriert. Bitte wählen Sie einen anderen Namen."
   }
 }

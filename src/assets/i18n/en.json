@@ -279,5 +279,9 @@
       "STEP_5": "Enter the DNI/NIE and click Pay",
       "NOTE": "Completing the payment generates a PDF ticket and updates the stock"
     }
+  },
+  "USERS": {
+    "DUPLICATE_TITLE": "User already exists",
+    "DUPLICATE_TEXT": "This username is already registered in the system. Please choose a different name."
   }
 }

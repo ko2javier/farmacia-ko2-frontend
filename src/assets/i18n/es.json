@@ -278,5 +278,9 @@
       "STEP_5": "Introduce el DNI/NIE y pulsa Pagar",
       "NOTE": "Al completar el pago se genera un ticket PDF y el stock se actualiza"
     }
+  },
+  "USERS": {
+    "DUPLICATE_TITLE": "Usuario ya existe",
+    "DUPLICATE_TEXT": "El nombre de usuario ya está registrado en el sistema. Elige otro nombre."
   }
 }

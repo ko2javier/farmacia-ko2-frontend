@@ -170,6 +170,16 @@ export class UsersComponent implements OnInit{
       return;
     }
 
+    const existe = this.lista_usuarios.some(u => u.username.toLowerCase() === this.newUser.username.toLowerCase());
+    if (existe) {
+      Swal.fire({
+        icon: 'error',
+        title: this.translate.instant('USERS.DUPLICATE_TITLE'),
+        text: this.translate.instant('USERS.DUPLICATE_TEXT')
+      });
+      return;
+    }
+
     this.user_service.insertUser(this.newUser).subscribe({
       next: (usuarioCreado: Usuarios) => {
         const tituloExito = this.translate.instant('USUARIOS.MSG.EXITO_TITULO');
