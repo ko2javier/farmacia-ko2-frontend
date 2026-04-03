@@ -8,7 +8,8 @@
     "USUARIOS": "User Management",
     "CANCELADAS": "Canceled Sales",
     "RESULTADOS": "Search Results",
-    "CATALOGO": "Warehouse | National Catalog"
+    "CATALOGO": "Warehouse | National Catalog",
+    "ACTIVITY_LOG": "Activity Log"
   },
   "NAVBAR": {
     "LOGOUT": "Logout",

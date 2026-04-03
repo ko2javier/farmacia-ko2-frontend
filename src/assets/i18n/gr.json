@@ -8,7 +8,8 @@
     "USUARIOS": "Benutzerverwaltung",
     "CANCELADAS": "Stornierte Verkäufe",
     "RESULTADOS": "Suchergebnisse",
-    "CATALOGO": "Lager | Nationaler Katalog"
+    "CATALOGO": "Lager | Nationaler Katalog",
+    "ACTIVITY_LOG": "Activity Log"
   },
   "NAVBAR": {
     "LOGOUT": "Abmelden",

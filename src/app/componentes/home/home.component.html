@@ -70,6 +70,15 @@
           </div>
           <span>{{ 'SIDEBAR.CANCELADAS' | translate }}</span>
         </button>
+
+        <ng-container *ngIf="userRole === 'SUPERADMIN'">
+          <button (click)="cambiarSeccion('activity-log'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'activity-log'">
+            <div class="icon-wrapper">
+              <i class="bi bi-clock-history" style="font-size:24px"></i>
+            </div>
+            <span>{{ 'SIDEBAR.ACTIVITY_LOG' | translate }}</span>
+          </button>
+        </ng-container>
       </ng-container>
 
       <div style="min-height: 50px; flex-shrink: 0;"></div>
@@ -175,6 +184,7 @@
       <app-carrito *ngIf="currentSection === 'carrito'"></app-carrito>
       <app-estadisticas *ngIf="currentSection === 'estadisticas'"></app-estadisticas>
       <app-users *ngIf="currentSection === 'Gestión Usuarios'" [userRole]="userRole"></app-users>
+      <app-activity-log *ngIf="currentSection === 'activity-log'"></app-activity-log>
     </div>
   </main>
 </div>

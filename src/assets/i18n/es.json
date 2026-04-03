@@ -8,7 +8,8 @@
     "USUARIOS": "Gestión Usuarios",
     "CANCELADAS": "Ventas Canceladas",
     "RESULTADOS": "Resultados de Búsqueda",
-    "CATALOGO": "Almacén | Catálogo Nacional"
+    "CATALOGO": "Almacén | Catálogo Nacional",
+    "ACTIVITY_LOG": "Activity Log"
   },
   "NAVBAR": {
     "LOGOUT": "Cerrar Sesión",
