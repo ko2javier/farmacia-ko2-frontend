@@ -125,10 +125,10 @@
           <span class="text-warning">|</span> {{ getSectionTranslationKey() | translate }}
         </h4>
         <button *ngIf="currentHelpSection"
-                class="btn btn-outline-secondary btn-sm help-trigger"
+                class="btn btn-warning btn-sm help-trigger ms-2 fw-bold"
                 (click)="showHelp = true"
                 title="Ayuda">
-          <i class="bi bi-question-circle"></i>
+          ?
         </button>
       </div>
       <div class="d-flex align-items-center gap-3">
