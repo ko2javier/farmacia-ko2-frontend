@@ -142,6 +142,7 @@
     "PERMISO": "Permiso",
     "ROL_SELLER": "Vendedor",
     "ROL_ADMIN": "Administrador",
+    "ROL_SUPERADMIN": "Super Admin",
     "BTN_INSERTAR": "Insertar",
     "BTN_VOLVER": "Volver",
     "BTN_GUARDAR": "Guardar Cambios",

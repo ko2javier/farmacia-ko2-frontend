@@ -174,7 +174,7 @@
       <app-resultados-busqueda *ngIf="currentSection === 'resultados'" (volverAlPanel)="cambiarSeccion('panel-ventas')"></app-resultados-busqueda>
       <app-carrito *ngIf="currentSection === 'carrito'"></app-carrito>
       <app-estadisticas *ngIf="currentSection === 'estadisticas'"></app-estadisticas>
-      <app-users *ngIf="currentSection === 'Gestión Usuarios'"></app-users>
+      <app-users *ngIf="currentSection === 'Gestión Usuarios'" [userRole]="userRole"></app-users>
     </div>
   </main>
 </div>

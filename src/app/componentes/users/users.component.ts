@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Usuarios } from '../../models/usuarios';
 import { ToastService } from '../../services/toast.service';
 import { UserService } from '../../services/user.service';
@@ -13,6 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit{
+
+  @Input() userRole: string = '';
 
   lista_usuarios: Usuarios[] = [];
   rowsPerPage: number = 8;

@@ -141,6 +141,7 @@
     "PERMISO": "Rolle/Berechtigung",
     "ROL_SELLER": "Verkäufer",
     "ROL_ADMIN": "Administrator",
+    "ROL_SUPERADMIN": "Super Admin",
     "BTN_INSERTAR": "Einfügen",
     "BTN_VOLVER": "Zurück",
     "BTN_GUARDAR": "Änderungen speichern",
