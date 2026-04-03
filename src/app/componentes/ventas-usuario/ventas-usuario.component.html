@@ -118,12 +118,6 @@
         </svg>
       </button>
 
-      <button class="btn btn-outline-secondary help-trigger shadow-sm p-2"
-              (click)="showHelp = true"
-              title="Ayuda">
-        <i class="bi bi-question-circle"></i>
-      </button>
-
       <button *ngIf="isAdmin && numSeleccionados > 0"
               class="btn btn-danger d-none d-lg-flex justify-content-center align-items-center p-2 shadow-sm"
               (click)="cancelarSeleccionadas()">
@@ -148,12 +142,6 @@
   </div>
 
 </div>
-
-<app-help-modal
-  *ngIf="showHelp"
-  [section]="'sales_history'"
-  (close)="showHelp = false">
-</app-help-modal>
 
 <!-- Banner flotante mobile para cancelación en lote -->
 <div *ngIf="isAdmin && numSeleccionados > 0"

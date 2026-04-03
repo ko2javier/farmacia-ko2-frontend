@@ -18,7 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './carrito.component.css'
 })
 export class CarritoComponent implements OnInit {
-  showHelp = false;
   mostrarFormulario = false;
   errorMessage: string = '';
   tipoDocumento: string = "";

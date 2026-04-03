@@ -24,6 +24,18 @@ export class HomeComponent {
   menuAbierto: boolean = false;
   productoImportadoTemp: any = null;
   isDarkMode: boolean = false;
+  showHelp: boolean = false;
+
+  private helpSectionMap: { [key: string]: string } = {
+    'almacen': 'warehouse',
+    'Historial Ventas': 'sales_history',
+    'panel ventas': 'sales_panel',
+    'carrito': 'cart'
+  };
+
+  get currentHelpSection(): string | null {
+    return this.helpSectionMap[this.currentSection] || null;
+  }
 
   // 1. DICCIONARIO DE TRADUCCIÓN
   // Relaciona: "Valor de tu variable" : "Clave del JSON"
@@ -87,6 +99,7 @@ export class HomeComponent {
 
   cambiarSeccion(seccion: string) {
     this.currentSection = seccion;
+    this.showHelp = false;
     this.cdr.detectChanges();  // 🔄 Forzar actualización de la UI
   }
 

@@ -117,11 +117,6 @@
       <button class="btn btn-success w-100 w-md-auto" (click)="showform()">
         {{ 'CARRITO.COMPLETAR' | translate }}
       </button>
-      <button class="btn btn-outline-secondary help-trigger"
-              (click)="showHelp = true"
-              title="Ayuda">
-        <i class="bi bi-question-circle"></i>
-      </button>
     </div>
 
   </div>
@@ -134,8 +129,3 @@
 
 </div>
 
-<app-help-modal
-  *ngIf="showHelp"
-  [section]="'cart'"
-  (close)="showHelp = false">
-</app-help-modal>
