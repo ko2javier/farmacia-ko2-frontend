@@ -74,7 +74,7 @@
         <ng-container *ngIf="userRole === 'SUPERADMIN'">
           <button (click)="cambiarSeccion('activity-log'); cerrarMenu()" class="nav-btn" [class.active]="currentSection === 'activity-log'">
             <div class="icon-wrapper">
-              <i class="bi bi-clock-history" style="font-size:24px"></i>
+              <i class="bi bi-clock-history" style="font-size: 22px;"></i>
             </div>
             <span>{{ 'SIDEBAR.ACTIVITY_LOG' | translate }}</span>
           </button>
