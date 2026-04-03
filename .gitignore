@@ -2,6 +2,7 @@
 
 # Claude Code memory
 MEMORY.md
+.claude/
 
 # Compiled output
 /dist
