@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './panel.component.css'
 })
 export class PanelComponent implements OnInit {
+  showHelp = false;
 
   // 🟢 1. Guardamos TODOS los productos aquí para no pedirlos siempre
   articulosOriginal: Articulo[] = [];

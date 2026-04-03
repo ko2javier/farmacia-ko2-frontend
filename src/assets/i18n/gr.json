@@ -233,5 +233,26 @@
     "BTN_IMPORTAR": "Importieren",
     "BTN_VOLVER": "Zurück zum Lager",
     "MSG_VACIO": "Verwenden Sie die Suche, um offizielle Medikamente zu finden."
+  },
+  "COMMON": {
+    "CLOSE": "Schließen"
+  },
+  "HELP": {
+    "WAREHOUSE": {
+      "TITLE": "Hilfe — Lager",
+      "CONTENT": "In diesem Bereich können Sie das Apothekenlagerverwaltung. Verwenden Sie die Suchleiste, um nach Produktname, Kategorie oder Code zu filtern. Klicken Sie auf eine Zeile, um Produktdetails anzuzeigen und es mit AEMPS zu verknüpfen. Die Schaltfläche 'Insert New' ermöglicht das manuelle Hinzufügen von Produkten. Die Schaltfläche 'AEMPS' öffnet den Nationalkatalog. 'Export PDF' erstellt ein vollständiges Bestands-PDF mit dem Apothekenlogo. Das Papierkorbsymbol löscht das Produkt. Das Diskettensymbol ermöglicht die Bearbeitung von Preis und Menge."
+    },
+    "SALES_HISTORY": {
+      "TITLE": "Hilfe — Verkaufshistorie",
+      "CONTENT": "Dieser Bereich zeigt den vollständigen Verlauf der registrierten Verkäufe. Sie können nach Verkäufer oder Kunde filtern oder nach Datum filtern. Um Verkäufe in großen Mengen zu stornieren, wählen Sie eine oder mehrere Zeilen mit den Kontrollkästchen aus und klicken Sie auf 'Cancel Selected'. Stornierte Verkäufe werden automatisch in das Modul Canceled Sales verschoben und die KPIs werden aktualisiert. Die Schaltfläche 'Export Excel' lädt den vollständigen Verlauf als .xlsx-Datei herunter."
+    },
+    "SALES_PANEL": {
+      "TITLE": "Hilfe — Verkaufspanel",
+      "CONTENT": "Von hier aus können Sie Lagerprodukte suchen, um sie dem Warenkorb hinzuzufügen. Geben Sie den Produktnamen oder die Kategorie in die Suchleiste ein. Nur Benutzer mit der Rolle Admin oder Seller können Verkäufe durchführen. Ausverkaufte Produkte sind deaktiviert. Sobald Sie die Produkte ausgewählt haben, gehen Sie zum Warenkorb-Modul, um den Verkauf abzuschließen."
+    },
+    "CART": {
+      "TITLE": "Hilfe — Warenkorb",
+      "CONTENT": "Überprüfen Sie die ausgewählten Produkte, bevor Sie den Verkauf abschließen. Verwenden Sie die Schaltflächen '+' und '-', um die Menge jedes Artikels anzupassen. Die Schaltfläche 'Empty Cart' leert den Warenkorb vollständig. Wenn Sie bereit sind, klicken Sie auf 'Complete Shop', geben Sie die DNI oder NIE des Kunden ein und klicken Sie auf 'Bezahlen'. Bei korrekten Daten wird der Verkauf registriert, der Bestand automatisch aktualisiert und ein herunterladbares PDF-Ticket erstellt."
+    }
   }
 }

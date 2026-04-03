@@ -228,6 +228,12 @@
             </svg>
           </button>
 
+          <button class="btn btn-outline-secondary help-trigger shadow-sm flex-grow-1 flex-md-grow-0 p-2"
+                  (click)="showHelp = true"
+                  title="Ayuda">
+            <i class="bi bi-question-circle"></i>
+          </button>
+
           <button class="btn btn-info d-flex justify-content-center align-items-center shadow-sm flex-grow-1 flex-md-grow-0 p-2 text-white"
                   (click)="irAlCatalogo()"> <span class="me-2 fw-bold">AEMPS</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
@@ -258,3 +264,9 @@
   #detalleModal
   (articuloActualizado)="onArticuloActualizado($event)">
 </app-articulo-detalle-modal>
+
+<app-help-modal
+  *ngIf="showHelp"
+  [section]="'warehouse'"
+  (close)="showHelp = false">
+</app-help-modal>

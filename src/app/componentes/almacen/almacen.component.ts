@@ -18,6 +18,7 @@ import { ArticuloDetalleModalComponent } from '../articulo-detalle-modal/articul
   styleUrl: './almacen.component.css'
 })
 export class AlmacenComponent {
+  showHelp = false;
   articulos: Articulo[] = [];
   respuesta: Boolean = false;
 

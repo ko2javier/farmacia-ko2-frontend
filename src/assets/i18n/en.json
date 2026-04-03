@@ -236,6 +236,26 @@
     "BTN_IMPORTAR": "Import",
     "BTN_VOLVER": "Back to Warehouse",
     "MSG_VACIO": "Use the search bar to find official medicines."
+  },
+  "COMMON": {
+    "CLOSE": "Close"
+  },
+  "HELP": {
+    "WAREHOUSE": {
+      "TITLE": "Help — Warehouse",
+      "CONTENT": "In this section you can manage the pharmacy inventory. Use the search bar to filter by product name, category or code. Click on a row to view product details and link it to AEMPS if it has an official registration. The 'Insert New' button lets you add products manually. The 'AEMPS' button opens the National Catalog to import medicines directly from the Ministry of Health. 'Export PDF' generates a full inventory PDF with the pharmacy logo. The trash icon deletes the product (irreversible). The disk icon lets you edit the price and quantity."
+    },
+    "SALES_HISTORY": {
+      "TITLE": "Help — Sales History",
+      "CONTENT": "This section shows the complete history of sales registered in the system. You can filter by seller or client using the text search, or filter by date using the calendar picker. To cancel sales in bulk, select one or more rows using the checkboxes and click 'Cancel Selected'. Cancelled sales are automatically moved to the Canceled Sales module and the statistics KPIs are updated. The 'Export Excel' button downloads the full history as a .xlsx file."
+    },
+    "SALES_PANEL": {
+      "TITLE": "Help — Sales Panel",
+      "CONTENT": "From here you can search for inventory products to add to the cart. Type the product name or category in the search bar. Only users with the Admin or Seller role can process sales. Out-of-stock products appear disabled and cannot be added. Once you have selected the products, go to the Cart module to complete the sale. Remember that you will need to enter the customer's ID (DNI/NIE) before finalising payment."
+    },
+    "CART": {
+      "TITLE": "Help — Cart",
+      "CONTENT": "Review the selected products before completing the sale. Use the '+' and '-' buttons to adjust the quantity of each item. The 'Empty Cart' button clears the cart completely. When ready, click 'Complete Shop', enter the customer's DNI or NIE and click 'Pay'. If the details are correct, the sale will be registered, stock will update automatically and a downloadable PDF ticket will be generated."
+    }
   }
-
 }

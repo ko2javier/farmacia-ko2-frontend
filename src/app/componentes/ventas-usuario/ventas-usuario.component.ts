@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./ventas-usuario.component.css']
 })
 export class VentasUsuarioComponent implements OnInit {
+  showHelp = false;
 
   ventasOriginal: VentaUsuario[] = [];
   ventasFiltradas: VentaUsuario[] = [];

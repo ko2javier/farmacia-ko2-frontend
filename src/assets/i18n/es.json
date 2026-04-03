@@ -235,5 +235,26 @@
     "BTN_IMPORTAR": "Importar",
     "BTN_VOLVER": "Volver al Almacén",
     "MSG_VACIO": "Usa el buscador para encontrar medicamentos oficiales."
+  },
+  "COMMON": {
+    "CLOSE": "Cerrar"
+  },
+  "HELP": {
+    "WAREHOUSE": {
+      "TITLE": "Ayuda — Almacén",
+      "CONTENT": "En esta sección puedes gestionar el inventario de la farmacia. Usa el buscador para filtrar por nombre, categoría o código de producto. Haz clic en una fila para ver el detalle del producto y vincularlo con AEMPS si tiene registro oficial. El botón 'Insert New' permite añadir productos manualmente. El botón 'AEMPS' abre el Catálogo Nacional para importar medicamentos directamente desde el Ministerio de Sanidad. 'Export PDF' genera un PDF del inventario completo con el logo de la farmacia. El icono de papelera elimina el producto (acción irreversible). El icono de disquete permite editar el precio y la cantidad."
+    },
+    "SALES_HISTORY": {
+      "TITLE": "Ayuda — Historial de Ventas",
+      "CONTENT": "Aquí se muestra el historial completo de ventas registradas en el sistema. Puedes filtrar por vendedor o cliente usando el buscador de texto, o filtrar por fecha con el selector de calendario. Para cancelar ventas en lote, selecciona una o varias filas con los checkboxes y pulsa 'Cancel Selected'. Las ventas canceladas quedan registradas automáticamente en el módulo Canceled Sales y los KPIs de estadísticas se actualizan. El botón 'Export Excel' descarga el historial completo en formato .xlsx."
+    },
+    "SALES_PANEL": {
+      "TITLE": "Ayuda — Panel de Ventas",
+      "CONTENT": "Desde aquí puedes buscar productos del inventario para añadirlos al carrito. Escribe el nombre o la categoría del producto en el buscador. Solo los usuarios con rol Admin o Seller pueden realizar ventas. Los productos agotados aparecen deshabilitados y no pueden añadirse. Una vez seleccionados los productos, ve al módulo Carrito para completar la venta. Recuerda que necesitarás introducir el DNI o NIE del cliente antes de finalizar el pago."
+    },
+    "CART": {
+      "TITLE": "Ayuda — Carrito",
+      "CONTENT": "Revisa los productos seleccionados antes de completar la venta. Usa los botones '+' y '-' para ajustar la cantidad de cada artículo. El botón 'Empty Cart' vacía el carrito completamente. Cuando estés listo, pulsa 'Complete Shop', introduce el DNI o NIE del cliente y pulsa 'Pagar'. Si los datos son correctos, la venta quedará registrada, el stock se actualizará automáticamente y se generará un ticket en PDF descargable."
+    }
   }
 }
