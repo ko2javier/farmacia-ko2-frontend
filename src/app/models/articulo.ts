@@ -7,4 +7,5 @@ export interface Articulo {
     codigo: string;
     aempsCode?: string | null;
     laboratorio?: string | null;
+    version?: number;
   }

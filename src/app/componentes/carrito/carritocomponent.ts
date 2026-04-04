@@ -183,7 +183,23 @@ export class CarritoComponent implements OnInit {
 
     this.articuloService.updateStockBatch(updates).subscribe({
       next: () => {},
-      error: () => { /* TODO: añadir manejo de error UI */ }
+      error: (err: any) => {
+        if (err.status === 409) {
+          this.toastService.showToast(
+            'Conflicto de stock',
+            'El stock fue modificado por otro usuario. Por favor recarga e inténtalo de nuevo.',
+            true,
+            'Error'
+          );
+        } else {
+          this.toastService.showToast(
+            'Error',
+            'No se pudo actualizar el stock. Contacta con el administrador.',
+            true,
+            'Error'
+          );
+        }
+      }
     });
   }
 
