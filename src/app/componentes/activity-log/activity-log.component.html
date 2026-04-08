@@ -11,7 +11,7 @@
           <input type="date" class="form-control form-control-sm"
                  [(ngModel)]="filterDate" (ngModelChange)="applyFilters()">
           <button class="btn btn-outline-secondary btn-sm text-nowrap" (click)="clearFilters()" type="button">
-            Clear
+            {{ 'ALMACEN.BTN_LIMPIAR' | translate }}
           </button>
         </div>
 
