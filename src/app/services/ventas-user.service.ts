@@ -5,17 +5,14 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { VentaUsuario } from '../models/VentaUsuario';
 import { VentaDTO } from '../models/VentaDTO';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VentasUserService {
-/*
-  private apiUrl = 'http://localhost:5000/ventas/all';
-  private sales_Url = 'http://localhost:5000/ventas';*/
-
-  private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/ventas/all';
-  private sales_Url = 'https://farmacia-ko2-back-production.up.railway.app/ventas';
+  private apiUrl = `${environment.apiUrl}/ventas/all`;
+  private sales_Url = `${environment.apiUrl}/ventas`;
 
   private ventasSubject = new BehaviorSubject<VentaUsuario[]>([]);
   ventas$ = this.ventasSubject.asObservable();

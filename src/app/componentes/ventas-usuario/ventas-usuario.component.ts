@@ -48,7 +48,7 @@ export class VentasUsuarioComponent implements OnInit {
     if (token) {
       try {
         const decoded: any = jwtDecode(token);
-        this.isAdmin = decoded.role === 'ADMIN' || decoded.role === 'ROLE_ADMIN';
+        this.isAdmin = decoded.role === 'ADMIN' || decoded.role === 'ROLE_ADMIN' || decoded.role === 'SUPERADMIN' || decoded.role === 'ROLE_SUPERADMIN';
       } catch (e) {
         this.isAdmin = false;
       }

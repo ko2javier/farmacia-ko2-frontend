@@ -25,6 +25,7 @@ import { CatalogoExternoComponent } from './componentes/catalogo-externo/catalog
 import { ArticuloDetalleModalComponent } from './componentes/articulo-detalle-modal/articulo-detalle-modal.component';
 import { HelpModalComponent } from './componentes/help-modal/help-modal.component';
 import { ActivityLogComponent } from './componentes/activity-log/activity-log.component';
+import { SugerenciasIaModalComponent } from './componentes/sugerencias-ia-modal/sugerencias-ia-modal.component';
 import {CommonModule} from '@angular/common';
 
 
@@ -51,7 +52,8 @@ export function HttpLoaderFactory(http: any) {
     CatalogoExternoComponent,
     ArticuloDetalleModalComponent,
     HelpModalComponent,
-    ActivityLogComponent
+    ActivityLogComponent,
+    SugerenciasIaModalComponent
 
 
   ],

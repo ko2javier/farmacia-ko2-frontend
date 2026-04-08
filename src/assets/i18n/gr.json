@@ -242,43 +242,69 @@
   "HELP": {
     "WAREHOUSE": {
       "TITLE": "Hilfe — Lager",
-      "ITEM_1": "Suche: filtert in Echtzeit nach Name, Kategorie oder Code",
-      "ITEM_2": "Detail: Zeile anklicken, um die Produktkarte anzuzeigen und es mit AEMPS zu verknüpfen",
-      "ITEM_3": "Insert New: fügt ein Produkt manuell zum Inventar hinzu",
-      "ITEM_4": "AEMPS: importiert aus dem offiziellen Katalog des Gesundheitsministeriums",
-      "ITEM_5": "Export PDF: lädt das gesamte Inventar als PDF mit Logo herunter",
-      "ITEM_6": "Diskette: bearbeitet Preis und Menge",
-      "ITEM_7": "Papierkorb: löscht das Produkt (unwiderrufliche Aktion)"
+      "SEARCH_TITLE": "Suchen",
+      "SEARCH_DESC": "Inventar in Echtzeit nach Name, Kategorie oder Code filtern während Sie tippen.",
+      "DETAIL_TITLE": "Detail",
+      "DETAIL_DESC": "Klicken Sie auf eine Zeile, um die vollständige Produktkarte anzuzeigen und sie mit der AEMPS-Datenbank zu verknüpfen.",
+      "INSERT_TITLE": "Insert New",
+      "INSERT_DESC": "Produkt manuell zum Inventar hinzufügen, indem Sie das Formular ausfüllen.",
+      "AEMPS_TITLE": "AEMPS",
+      "AEMPS_DESC": "Medikamente direkt aus dem offiziellen Katalog des Gesundheitsministeriums importieren.",
+      "PDF_TITLE": "Export PDF",
+      "PDF_DESC": "Das gesamte Inventar als PDF mit dem Apothekenlogo herunterladen.",
+      "EDIT_TITLE": "Diskette",
+      "EDIT_DESC": "Preis und Menge eines vorhandenen Produkts bearbeiten.",
+      "DELETE_TITLE": "Papierkorb",
+      "DELETE_DESC": "Ein Produkt aus dem Inventar löschen. Diese Aktion ist unwiderruflich."
     },
     "SALES_HISTORY": {
       "TITLE": "Hilfe — Verkaufshistorie",
-      "ITEM_1": "Verlauf: zeigt alle registrierten Verkäufe",
-      "ITEM_2": "Suche: filtert nach Verkäufer oder Kunde",
-      "ITEM_3": "Datum: filtert nach Tag mit der Kalenderauswahl",
-      "ITEM_4": "Massenabbruch: Verkäufe mit Kontrollkästchen markieren und Cancel Selected klicken",
-      "ITEM_5": "Stornierte Verkäufe werden zu Canceled Sales verschoben und die KPIs aktualisiert",
-      "ITEM_6": "Export Excel: lädt den Verlauf als .xlsx-Datei herunter"
+      "HISTORY_TITLE": "Verlauf",
+      "HISTORY_DESC": "Zeigt alle im System registrierten Verkäufe mit ihren Details.",
+      "SEARCH_TITLE": "Suchen",
+      "SEARCH_DESC": "Verlauf nach Verkäufer- oder Kundenname filtern.",
+      "DATE_TITLE": "Datum",
+      "DATE_DESC": "Verkäufe nach Tag mit der Datumsauswahl filtern.",
+      "BULK_TITLE": "Bulk Cancel",
+      "BULK_DESC": "Mehrere Verkäufe mit den Kontrollkästchen auswählen und \"Cancel Selected\" klicken, um sie in der Masse zu stornieren.",
+      "CANCELLED_TITLE": "Cancelled Sales",
+      "CANCELLED_DESC": "Stornierte Verkäufe werden in diesen Bereich verschoben und die KPIs werden automatisch aktualisiert.",
+      "EXCEL_TITLE": "Export Excel",
+      "EXCEL_DESC": "Die gefilterte Historie als .xlsx-Datei herunterladen."
     },
     "SALES_PANEL": {
       "TITLE": "Hilfe — Verkaufspanel",
-      "STEP_1": "Produkt nach Name oder Kategorie suchen",
-      "STEP_2": "Hinzufügen klicken — ausverkaufte Produkte erscheinen deaktiviert",
-      "STEP_3": "Wiederholen, um weitere Produkte zum gleichen Verkauf hinzuzufügen",
-      "STEP_4": "Zum Warenkorb gehen, um abzuschließen",
-      "NOTE": "Nur Admin und Seller können Verkäufe durchführen"
+      "SEARCH_TITLE": "Suchen",
+      "SEARCH_DESC": "Nach einem Produkt nach Name oder Kategorie suchen.",
+      "ADD_TITLE": "Hinzufügen",
+      "ADD_DESC": "Klicken, um es dem Warenkorb hinzuzufügen. Ausverkaufte Produkte erscheinen deaktiviert.",
+      "MULTIPLE_TITLE": "Mehrere Produkte",
+      "MULTIPLE_DESC": "Den Vorgang wiederholen, um weitere Produkte zum gleichen Verkauf hinzuzufügen.",
+      "CART_TITLE": "Warenkorb",
+      "CART_DESC": "Wenn alle Produkte bereit sind, zum Warenkorb gehen, um den Verkauf abzuschließen.",
+      "NOTE": "Nur Benutzer mit der Rolle Admin oder Seller können Verkäufe durchführen"
     },
     "CART": {
       "TITLE": "Hilfe — Warenkorb",
-      "STEP_1": "Produkte vor der Zahlung überprüfen",
-      "STEP_2": "Mengen mit + und − anpassen",
-      "STEP_3": "Empty Cart leert den gesamten Warenkorb",
-      "STEP_4": "Complete Shop zum Fortfahren zur Zahlung",
-      "STEP_5": "DNI/NIE eingeben und Bezahlen klicken",
+      "REVIEW_TITLE": "Bestellung prüfen",
+      "REVIEW_DESC": "Produkte und Mengen vor der Zahlungsbestätigung überprüfen.",
+      "QUANTITY_TITLE": "Mengen anpassen",
+      "QUANTITY_DESC": "Die Schaltflächen + und − verwenden, um die Einheiten jedes Produkts zu erhöhen oder zu verringern.",
+      "EMPTY_TITLE": "Warenkorb leeren",
+      "EMPTY_DESC": "Alle Produkte aus dem Warenkorb entfernen und einen neuen Verkauf von Grund auf beginnen.",
+      "COMPLETE_TITLE": "Kauf abschließen",
+      "COMPLETE_DESC": "Auf \"Complete Shop\" klicken, um zum Zahlungsschritt zu gelangen und die Transaktion zu bestätigen.",
+      "DNI_TITLE": "DNI / NIE des Kunden",
+      "DNI_DESC": "DNI oder NIE des Kunden eingeben und auf Bezahlen klicken. Das PDF-Ticket wird erstellt und der Bestand aktualisiert.",
       "NOTE": "Nach Abschluss der Zahlung wird ein PDF-Ticket erstellt und der Bestand aktualisiert"
     }
   },
   "USERS": {
     "DUPLICATE_TITLE": "Benutzer existiert bereits",
     "DUPLICATE_TEXT": "Dieser Benutzername ist bereits im System registriert. Bitte wählen Sie einen anderen Namen."
+  },
+  "VALIDAR_IA": {
+    "GENERICO_TITLE": "Name zu allgemein",
+    "GENERICO_TEXT": "Die KI konnte kein spezifisches Medikament identifizieren. Versuchen Sie einen präziseren Namen einzugeben — zum Beispiel mit dem Wirkstoff und der Dosis wie 'Ibuprofen 600mg'. Falls Sie das Medikament nicht finden, können Sie es direkt über die AEMPS-Schaltfläche im Lager suchen."
   }
 }

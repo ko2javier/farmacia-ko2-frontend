@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  //private baseUrl = 'http://localhost:5000/auth'; // Cambia a la URL de tu backend
-  private baseUrl = 'https://farmacia-ko2-back-production.up.railway.app/auth'; // Cambia a la URL de tu backend
+  private baseUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient) { }
 

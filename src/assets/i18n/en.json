@@ -245,43 +245,69 @@
   "HELP": {
     "WAREHOUSE": {
       "TITLE": "Help — Warehouse",
-      "ITEM_1": "Search: filter by name, category or code in real time",
-      "ITEM_2": "Detail: click a row to view the product sheet and link it to AEMPS",
-      "ITEM_3": "Insert New: add a product manually to the inventory",
-      "ITEM_4": "AEMPS: import from the official Ministry of Health catalogue",
-      "ITEM_5": "Export PDF: download the full inventory as a PDF with the logo",
-      "ITEM_6": "Disk: edit the price and quantity",
-      "ITEM_7": "Trash: delete the product (irreversible action)"
+      "SEARCH_TITLE": "Search",
+      "SEARCH_DESC": "Filter the inventory by name, category or code in real time as you type.",
+      "DETAIL_TITLE": "Detail",
+      "DETAIL_DESC": "Click any row to view the full product sheet and link it to the AEMPS database.",
+      "INSERT_TITLE": "Insert New",
+      "INSERT_DESC": "Add a product manually to the inventory by filling in the form.",
+      "AEMPS_TITLE": "AEMPS",
+      "AEMPS_DESC": "Import medicines directly from the official Ministry of Health catalogue.",
+      "PDF_TITLE": "Export PDF",
+      "PDF_DESC": "Download the full inventory as a PDF with the pharmacy logo.",
+      "EDIT_TITLE": "Disk",
+      "EDIT_DESC": "Edit the price and quantity of an existing product.",
+      "DELETE_TITLE": "Trash",
+      "DELETE_DESC": "Delete a product from the inventory. This action is irreversible."
     },
     "SALES_HISTORY": {
       "TITLE": "Help — Sales History",
-      "ITEM_1": "History: shows all registered sales",
-      "ITEM_2": "Search: filter by seller or client",
-      "ITEM_3": "Date: filter by day using the calendar picker",
-      "ITEM_4": "Bulk cancel: tick several sales with the checkboxes and click Cancel Selected",
-      "ITEM_5": "Cancelled sales move to Canceled Sales and the KPIs update",
-      "ITEM_6": "Export Excel: download the history as a .xlsx file"
+      "HISTORY_TITLE": "History",
+      "HISTORY_DESC": "Shows all sales recorded in the system with their details.",
+      "SEARCH_TITLE": "Search",
+      "SEARCH_DESC": "Filter the history by seller or client name.",
+      "DATE_TITLE": "Date",
+      "DATE_DESC": "Filter sales by day using the date picker.",
+      "BULK_TITLE": "Bulk Cancel",
+      "BULK_DESC": "Select multiple sales with the checkboxes and click \"Cancel Selected\" to cancel them in bulk.",
+      "CANCELLED_TITLE": "Cancelled Sales",
+      "CANCELLED_DESC": "Cancelled sales are moved to that section and the KPIs update automatically.",
+      "EXCEL_TITLE": "Export Excel",
+      "EXCEL_DESC": "Download the filtered history as a .xlsx file."
     },
     "SALES_PANEL": {
       "TITLE": "Help — Sales Panel",
-      "STEP_1": "Search for a product by name or category",
-      "STEP_2": "Click Add — out-of-stock products appear disabled",
-      "STEP_3": "Repeat to add more products to the same sale",
-      "STEP_4": "Go to the Cart to finalise",
-      "NOTE": "Only Admin and Seller roles can process sales"
+      "SEARCH_TITLE": "Search",
+      "SEARCH_DESC": "Search for a product by name or category.",
+      "ADD_TITLE": "Add",
+      "ADD_DESC": "Click to add it to the cart. Out-of-stock products appear disabled.",
+      "MULTIPLE_TITLE": "Multiple products",
+      "MULTIPLE_DESC": "Repeat the process to add more products to the same sale.",
+      "CART_TITLE": "Cart",
+      "CART_DESC": "Once you have all the products, go to the cart to finalise the sale.",
+      "NOTE": "Only users with Admin or Seller role can process sales"
     },
     "CART": {
       "TITLE": "Help — Cart",
-      "STEP_1": "Review the products before paying",
-      "STEP_2": "Adjust quantities with + and −",
-      "STEP_3": "Empty Cart clears the entire cart",
-      "STEP_4": "Complete Shop to proceed to payment",
-      "STEP_5": "Enter the DNI/NIE and click Pay",
+      "REVIEW_TITLE": "Review order",
+      "REVIEW_DESC": "Review the products and quantities before confirming payment.",
+      "QUANTITY_TITLE": "Adjust quantities",
+      "QUANTITY_DESC": "Use the + and − buttons to increase or decrease the units of each product.",
+      "EMPTY_TITLE": "Empty cart",
+      "EMPTY_DESC": "Remove all products from the cart and start a new sale from scratch.",
+      "COMPLETE_TITLE": "Complete purchase",
+      "COMPLETE_DESC": "Click \"Complete Shop\" to advance to the payment step and confirm the transaction.",
+      "DNI_TITLE": "Client DNI / NIE",
+      "DNI_DESC": "Enter the client's DNI or NIE and click Pay to confirm. The PDF ticket is generated and the stock updated.",
       "NOTE": "Completing the payment generates a PDF ticket and updates the stock"
     }
   },
   "USERS": {
     "DUPLICATE_TITLE": "User already exists",
     "DUPLICATE_TEXT": "This username is already registered in the system. Please choose a different name."
+  },
+  "VALIDAR_IA": {
+    "GENERICO_TITLE": "Name too generic",
+    "GENERICO_TEXT": "The AI could not identify a specific medicine. Try entering a more precise name — for example, include the active ingredient and dose like 'Ibuprofen 600mg' or 'Paracetamol 1g'. If you cannot find the medicine, you can search directly using the AEMPS button in the inventory."
   }
 }

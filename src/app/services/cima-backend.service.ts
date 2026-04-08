@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class CimaBackendService {
 
-  private readonly BASE_URL = 'https://farmacia-ko2-back-production.up.railway.app/api/cima/buscar';
+  private readonly BASE_URL = environment.apiCima;
   private readonly MEDICAMENTO_URL = environment.apiCimaMedicamento;
 
   constructor(private http: HttpClient) { }

@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivityLog } from '../models/activity-log.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityLogService {
 
-  private baseUrl = 'https://farmacia-ko2-back-production.up.railway.app/activity-log';
+  private baseUrl = `${environment.apiUrl}/activity-log`;
 
   constructor(private http: HttpClient) { }
 

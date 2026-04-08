@@ -3,7 +3,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-help-modal',
   standalone: false,
-  templateUrl: './help-modal.component.html'
+  templateUrl: './help-modal.component.html',
+  styleUrl: './help-modal.component.css'
 })
 export class HelpModalComponent {
   @Input() section: string = '';

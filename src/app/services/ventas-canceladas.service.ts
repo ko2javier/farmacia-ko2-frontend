@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service'; // Importamos para pillar el token
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VentasCanceladasService {
 
-  // 
-  //private apiUrl = 'http://localhost:5000/cancelaciones'; 
-  private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/cancelaciones';
+  private apiUrl = `${environment.apiUrl}/cancelaciones`;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

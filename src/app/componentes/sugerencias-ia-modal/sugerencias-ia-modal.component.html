@@ -1,0 +1,47 @@
+<div class="modal-backdrop-custom" (click)="onCancelar()"></div>
+
+<div class="modal d-block" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content shadow-lg">
+
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">🤖 Selecciona el medicamento oficial de AEMPS</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="onCancelar()" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <p class="text-muted small mb-3">
+          El sistema ha encontrado los siguientes medicamentos en el catálogo oficial. Selecciona el que corresponde.
+        </p>
+
+        <div class="row g-3">
+          <div class="col-12" *ngFor="let sugerencia of sugerencias">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <strong class="fs-6">{{ sugerencia.nombre }}</strong>
+                  <div class="mt-1">
+                    <span class="badge bg-success">{{ sugerencia.confianza }}% coincidencia</span>
+                    <span class="text-muted small ms-2">ID: {{ sugerencia.id }}</span>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-sm" (click)="onSeleccionar(sugerencia)">
+                  Seleccionar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="sugerencias.length === 0" class="text-center text-muted py-3">
+          No hay sugerencias disponibles.
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onCancelar()">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

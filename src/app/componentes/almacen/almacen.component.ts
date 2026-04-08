@@ -10,6 +10,9 @@ import { AuthService } from '../../services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PdfGeneratorService } from '../../services/pdf-generator.service';
 import { ArticuloDetalleModalComponent } from '../articulo-detalle-modal/articulo-detalle-modal.component';
+import { ValidarIaService } from '../../services/validar-ia.service';
+import { SugerenciaIA } from '../../models/SugerenciaIA';
+import { CimaBackendService } from '../../services/cima-backend.service';
 
 @Component({
   selector: 'app-almacen',
@@ -37,6 +40,11 @@ export class AlmacenComponent {
   isAdmin: boolean = false;
   textoBusqueda: string = '';
 
+  showSugerenciasIA = false;
+  sugerenciasIA: SugerenciaIA[] = [];
+  cargandoIA = false;
+  sugerenciaConfirmada = false;
+
   @ViewChild('detalleModal') detalleModal!: ArticuloDetalleModalComponent;
 
   // 2. Crear el "Emisor" para hablar con el Home
@@ -51,7 +59,9 @@ export class AlmacenComponent {
     private toastService: ToastService,
     private authService: AuthService,
     private translate: TranslateService,
-    private pdfService: PdfGeneratorService
+    private pdfService: PdfGeneratorService,
+    private validarIaService: ValidarIaService,
+    private cimaBackendService: CimaBackendService
   ) {}
 
   ngOnInit() {
@@ -105,7 +115,7 @@ export class AlmacenComponent {
     if (token) {
       try {
         const decoded: any = jwtDecode(token);
-        this.isAdmin = decoded.role === 'ADMIN' || decoded.role === 'ROLE_ADMIN';
+        this.isAdmin = decoded.role === 'ADMIN' || decoded.role === 'ROLE_ADMIN' || decoded.role === 'SUPERADMIN' || decoded.role === 'ROLE_SUPERADMIN';
       } catch (e) {
         this.isAdmin = false;
       }
@@ -214,10 +224,12 @@ export class AlmacenComponent {
       case 'none':
         this.operation = 'none';
         this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
+        this.sugerenciaConfirmada = false;
         break;
       default:
         this.operation = 'none';
         this.insertDto = { nombre: '',  categoria: '', precio: 0,  cantidad: 0 };
+        this.sugerenciaConfirmada = false;
         break;
     }
   }
@@ -289,7 +301,74 @@ export class AlmacenComponent {
     return this.respuesta;
   }
 
-  // INSERTAR (TRADUCIDO)
+  // INSERTAR — Paso 1: validar con IA antes de insertar
+  insertArticulo() {
+    if (!this.chequear_art()) return;
+
+    if (this.sugerenciaConfirmada) {
+      this.sugerenciaConfirmada = false;
+      this.insertarEnBD();
+      return;
+    }
+
+    this.cargandoIA = true;
+
+    this.validarIaService.validar(this.insertDto.nombre).subscribe({
+      next: (response) => {
+        this.cargandoIA = false;
+        if (!response.sugerencias || response.sugerencias.length === 0) {
+          Swal.fire({
+            icon: 'warning',
+            title: this.translate.instant('VALIDAR_IA.GENERICO_TITLE'),
+            text: this.translate.instant('VALIDAR_IA.GENERICO_TEXT')
+          });
+          return;
+        }
+        this.sugerenciasIA = response.sugerencias;
+        this.showSugerenciasIA = true;
+      },
+      error: (err) => {
+        this.cargandoIA = false;
+        if (err.status === 409) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Producto ya existe',
+            text: 'Este medicamento ya está registrado en el inventario.'
+          });
+        } else if (err.status === 404) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'No encontrado en AEMPS',
+            text: 'Este medicamento no existe en el catálogo oficial. No se puede insertar.'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo validar el medicamento. Inténtalo de nuevo.'
+          });
+        }
+      }
+    });
+  }
+
+  onSeleccionarSugerencia(sugerencia: SugerenciaIA) {
+    this.insertDto.nombre = sugerencia.nombre;
+    this.insertDto.aempsCode = sugerencia.id;
+    this.showSugerenciasIA = false;
+    this.sugerenciaConfirmada = true;
+
+    this.cimaBackendService.getByNregistro(sugerencia.id).subscribe({
+      next: (detalle: any) => {
+        this.insertDto.categoria = detalle.laboratorio || 'AEMPS';
+      },
+      error: () => {
+        this.insertDto.categoria = 'AEMPS';
+      }
+    });
+  }
+
+  // INSERTAR — Paso 2: inserción real en BD tras selección IA
   // --- FUNCIÓN AUXILIAR: LIMPIEZA Y RECORTE (15 CARACTERES) ---
   procesarNombre(nombreSucio: string): string {
     if (!nombreSucio) return '';
@@ -337,13 +416,8 @@ export class AlmacenComponent {
   }
 
   // --- INSERTAR ARTÍCULO BLINDADO ---
-  insertArticulo() {
-    // 1. Validaciones básicas (precio, cantidad, largos mínimos)
-    if (!this.chequear_art()) {
-      return;
-    }
-
-    // 2. PROCESADO DEL NOMBRE (Limpieza y Corte a 15 chars)
+  insertarEnBD() {
+    // 1. PROCESADO DEL NOMBRE (Limpieza y Corte a 15 chars)
     // Esto modifica el insertDto antes de enviarlo
     const nombreProcesado = this.procesarNombre(this.insertDto.nombre);
 

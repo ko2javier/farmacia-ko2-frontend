@@ -6,6 +6,13 @@
         <h4 class="mb-0 ms-3">{{ 'ALMACEN.TITULO_INSERTAR' | translate }}</h4>
       </div>
       <div class="card-body">
+
+        <!-- Spinner mientras carga la IA -->
+        <div *ngIf="cargandoIA" class="text-center my-3">
+          <div class="spinner-border text-warning" role="status"></div>
+          <p class="mt-2 text-muted">Validando con IA...</p>
+        </div>
+
         <form (ngSubmit)="insertArticulo()" #insertForm="ngForm">
           <div class="row g-3 px-3 mt-3">
             <div class="col-12 col-md-3">
@@ -258,4 +265,12 @@
   #detalleModal
   (articuloActualizado)="onArticuloActualizado($event)">
 </app-articulo-detalle-modal>
+
+<!-- Modal sugerencias IA -->
+<app-sugerencias-ia-modal
+  *ngIf="showSugerenciasIA"
+  [sugerencias]="sugerenciasIA"
+  (seleccionar)="onSeleccionarSugerencia($event)"
+  (cancelar)="showSugerenciasIA = false">
+</app-sugerencias-ia-modal>
 

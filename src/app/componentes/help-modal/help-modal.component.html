@@ -14,49 +14,177 @@
       <div class="modal-body">
 
         <!-- WAREHOUSE -->
-        <ul *ngIf="section === 'warehouse'" class="help-list list-unstyled mb-0">
-          <li><i class="bi bi-search me-2 text-primary"></i>{{ 'HELP.WAREHOUSE.ITEM_1' | translate }}</li>
-          <li><i class="bi bi-info-circle me-2 text-primary"></i>{{ 'HELP.WAREHOUSE.ITEM_2' | translate }}</li>
-          <li><i class="bi bi-plus-circle me-2 text-success"></i>{{ 'HELP.WAREHOUSE.ITEM_3' | translate }}</li>
-          <li><i class="bi bi-globe me-2 text-info"></i>{{ 'HELP.WAREHOUSE.ITEM_4' | translate }}</li>
-          <li><i class="bi bi-file-earmark-pdf me-2 text-danger"></i>{{ 'HELP.WAREHOUSE.ITEM_5' | translate }}</li>
-          <li><i class="bi bi-floppy me-2 text-secondary"></i>{{ 'HELP.WAREHOUSE.ITEM_6' | translate }}</li>
-          <li><i class="bi bi-trash me-2 text-danger"></i>{{ 'HELP.WAREHOUSE.ITEM_7' | translate }}</li>
-        </ul>
+        <div *ngIf="section === 'warehouse'">
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🔍</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.SEARCH_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.SEARCH_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">📋</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.DETAIL_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.DETAIL_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">➕</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.INSERT_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.INSERT_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">💊</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.AEMPS_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.AEMPS_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">📄</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.PDF_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.PDF_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">💾</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.EDIT_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.EDIT_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🗑️</span>
+              <span class="help-card-title">{{ 'HELP.WAREHOUSE.DELETE_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.WAREHOUSE.DELETE_DESC' | translate }}</p>
+          </div>
+        </div>
 
         <!-- SALES_HISTORY -->
-        <ul *ngIf="section === 'sales_history'" class="help-list list-unstyled mb-0">
-          <li><i class="bi bi-list-ul me-2 text-primary"></i>{{ 'HELP.SALES_HISTORY.ITEM_1' | translate }}</li>
-          <li><i class="bi bi-search me-2 text-primary"></i>{{ 'HELP.SALES_HISTORY.ITEM_2' | translate }}</li>
-          <li><i class="bi bi-calendar me-2 text-primary"></i>{{ 'HELP.SALES_HISTORY.ITEM_3' | translate }}</li>
-          <li><i class="bi bi-check2-square me-2 text-warning"></i>{{ 'HELP.SALES_HISTORY.ITEM_4' | translate }}</li>
-          <li><i class="bi bi-check2-square me-2 text-success"></i>{{ 'HELP.SALES_HISTORY.ITEM_5' | translate }}</li>
-          <li><i class="bi bi-file-earmark-excel me-2 text-success"></i>{{ 'HELP.SALES_HISTORY.ITEM_6' | translate }}</li>
-        </ul>
+        <div *ngIf="section === 'sales_history'">
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">📋</span>
+              <span class="help-card-title">{{ 'HELP.SALES_HISTORY.HISTORY_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_HISTORY.HISTORY_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🔍</span>
+              <span class="help-card-title">{{ 'HELP.SALES_HISTORY.SEARCH_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_HISTORY.SEARCH_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">📅</span>
+              <span class="help-card-title">{{ 'HELP.SALES_HISTORY.DATE_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_HISTORY.DATE_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">☑️</span>
+              <span class="help-card-title">{{ 'HELP.SALES_HISTORY.BULK_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_HISTORY.BULK_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">❌</span>
+              <span class="help-card-title">{{ 'HELP.SALES_HISTORY.CANCELLED_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_HISTORY.CANCELLED_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">📊</span>
+              <span class="help-card-title">{{ 'HELP.SALES_HISTORY.EXCEL_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_HISTORY.EXCEL_DESC' | translate }}</p>
+          </div>
+        </div>
 
         <!-- SALES_PANEL -->
         <div *ngIf="section === 'sales_panel'">
-          <ol class="help-steps">
-            <li>{{ 'HELP.SALES_PANEL.STEP_1' | translate }}</li>
-            <li>{{ 'HELP.SALES_PANEL.STEP_2' | translate }}</li>
-            <li>{{ 'HELP.SALES_PANEL.STEP_3' | translate }}</li>
-            <li>{{ 'HELP.SALES_PANEL.STEP_4' | translate }}</li>
-          </ol>
-          <p class="text-muted fst-italic small mb-0">
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🔍</span>
+              <span class="help-card-title">{{ 'HELP.SALES_PANEL.SEARCH_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_PANEL.SEARCH_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">➕</span>
+              <span class="help-card-title">{{ 'HELP.SALES_PANEL.ADD_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_PANEL.ADD_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🔄</span>
+              <span class="help-card-title">{{ 'HELP.SALES_PANEL.MULTIPLE_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_PANEL.MULTIPLE_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🛒</span>
+              <span class="help-card-title">{{ 'HELP.SALES_PANEL.CART_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.SALES_PANEL.CART_DESC' | translate }}</p>
+          </div>
+          <p class="help-note">
             <i class="bi bi-exclamation-circle me-1"></i>{{ 'HELP.SALES_PANEL.NOTE' | translate }}
           </p>
         </div>
 
         <!-- CART -->
         <div *ngIf="section === 'cart'">
-          <ol class="help-steps">
-            <li>{{ 'HELP.CART.STEP_1' | translate }}</li>
-            <li>{{ 'HELP.CART.STEP_2' | translate }}</li>
-            <li>{{ 'HELP.CART.STEP_3' | translate }}</li>
-            <li>{{ 'HELP.CART.STEP_4' | translate }}</li>
-            <li>{{ 'HELP.CART.STEP_5' | translate }}</li>
-          </ol>
-          <p class="text-muted fst-italic small mb-0">
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">👁️</span>
+              <span class="help-card-title">{{ 'HELP.CART.REVIEW_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.CART.REVIEW_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">➕➖</span>
+              <span class="help-card-title">{{ 'HELP.CART.QUANTITY_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.CART.QUANTITY_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🗑️</span>
+              <span class="help-card-title">{{ 'HELP.CART.EMPTY_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.CART.EMPTY_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">✅</span>
+              <span class="help-card-title">{{ 'HELP.CART.COMPLETE_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.CART.COMPLETE_DESC' | translate }}</p>
+          </div>
+          <div class="help-card">
+            <div class="help-card-header">
+              <span class="help-card-icon">🪪</span>
+              <span class="help-card-title">{{ 'HELP.CART.DNI_TITLE' | translate }}</span>
+            </div>
+            <p class="help-card-desc">{{ 'HELP.CART.DNI_DESC' | translate }}</p>
+          </div>
+          <p class="help-note">
             <i class="bi bi-exclamation-circle me-1"></i>{{ 'HELP.CART.NOTE' | translate }}
           </p>
         </div>

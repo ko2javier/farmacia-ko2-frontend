@@ -3,17 +3,14 @@ import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { Usuarios } from '../models/usuarios';
 import { HttpClient } from '@angular/common/http';
 import { Insert_User_DTO } from '../models/Insert_User_DTO';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-/*
-  private apiUrl = 'http://localhost:5000/users/all';
-  private apiUrl2 = 'http://localhost:5000/users';*/
-
-  private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/users/all';
-  private apiUrl2 = 'https://farmacia-ko2-back-production.up.railway.app/users';
+  private apiUrl = `${environment.apiUrl}/users/all`;
+  private apiUrl2 = `${environment.apiUrl}/users`;
 
   // Almacena los usuarios en un BehaviorSubject para compartirlos entre componentes
   private usersSubject = new BehaviorSubject<Usuarios[]>([]);

@@ -4,17 +4,15 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Articulo } from '../models/articulo';
 import { UpdateDto } from '../models/UpdateDTO';
 import { InsertDto } from '../models/InsertDto';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticuloService {
-  //private apiUrl = 'http://localhost:5000/articulos/All'; // URL del backend
-  //private apiUrl2 = 'http://localhost:5000/articulos'; // URL del backend
-
-   private apiUrl = 'https://farmacia-ko2-back-production.up.railway.app/articulos/All'; // URL del backend
-  private apiUrl2 = 'https://farmacia-ko2-back-production.up.railway.app/articulos'; // URL del backend
+  private apiUrl = `${environment.apiUrl}/articulos/All`;
+  private apiUrl2 = `${environment.apiUrl}/articulos`;
 
 
   constructor(private http: HttpClient) {}

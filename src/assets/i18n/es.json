@@ -244,43 +244,69 @@
   "HELP": {
     "WAREHOUSE": {
       "TITLE": "Ayuda — Almacén",
-      "ITEM_1": "Buscar: filtra por nombre, categoría o código en tiempo real",
-      "ITEM_2": "Detalle: haz clic en una fila para ver la ficha del producto y vincularlo con AEMPS",
-      "ITEM_3": "Insert New: añade un producto manualmente al inventario",
-      "ITEM_4": "AEMPS: importa desde el catálogo oficial del Ministerio de Sanidad",
-      "ITEM_5": "Export PDF: descarga el inventario completo en PDF con el logo",
-      "ITEM_6": "Disquete: edita el precio y la cantidad",
-      "ITEM_7": "Papelera: elimina el producto (acción irreversible)"
+      "SEARCH_TITLE": "Buscar",
+      "SEARCH_DESC": "Filtra el inventario por nombre, categoría o código en tiempo real mientras escribes.",
+      "DETAIL_TITLE": "Detalle",
+      "DETAIL_DESC": "Haz clic en cualquier fila para ver la ficha completa del producto y vincularlo con la base de datos AEMPS.",
+      "INSERT_TITLE": "Insert New",
+      "INSERT_DESC": "Añade un producto manualmente al inventario rellenando el formulario.",
+      "AEMPS_TITLE": "AEMPS",
+      "AEMPS_DESC": "Importa medicamentos directamente desde el catálogo oficial del Ministerio de Sanidad.",
+      "PDF_TITLE": "Export PDF",
+      "PDF_DESC": "Descarga el inventario completo en PDF con el logo de la farmacia.",
+      "EDIT_TITLE": "Disco",
+      "EDIT_DESC": "Edita el precio y la cantidad de un producto existente.",
+      "DELETE_TITLE": "Papelera",
+      "DELETE_DESC": "Elimina un producto del inventario. Esta acción es irreversible."
     },
     "SALES_HISTORY": {
       "TITLE": "Ayuda — Historial de Ventas",
-      "ITEM_1": "Historial: muestra todas las ventas registradas",
-      "ITEM_2": "Buscar: filtra por vendedor o cliente",
-      "ITEM_3": "Fecha: filtra por día con el selector de calendario",
-      "ITEM_4": "Cancelar en lote: marca varias ventas con los checkboxes y pulsa Cancel Selected",
-      "ITEM_5": "Las canceladas pasan a Canceled Sales y los KPIs se actualizan",
-      "ITEM_6": "Export Excel: descarga el historial en .xlsx"
+      "HISTORY_TITLE": "Historial",
+      "HISTORY_DESC": "Muestra todas las ventas registradas en el sistema con sus detalles.",
+      "SEARCH_TITLE": "Buscar",
+      "SEARCH_DESC": "Filtra el historial por nombre de vendedor o cliente.",
+      "DATE_TITLE": "Fecha",
+      "DATE_DESC": "Filtra las ventas por día usando el selector de fecha.",
+      "BULK_TITLE": "Bulk Cancel",
+      "BULK_DESC": "Selecciona varias ventas con los checkboxes y pulsa \"Cancel Selected\" para cancelarlas en lote.",
+      "CANCELLED_TITLE": "Cancelled Sales",
+      "CANCELLED_DESC": "Las ventas canceladas se mueven a esa sección y los KPIs se actualizan automáticamente.",
+      "EXCEL_TITLE": "Export Excel",
+      "EXCEL_DESC": "Descarga el historial filtrado como archivo .xlsx."
     },
     "SALES_PANEL": {
       "TITLE": "Ayuda — Panel de Ventas",
-      "STEP_1": "Busca el producto por nombre o categoría",
-      "STEP_2": "Pulsa Añadir — los productos agotados aparecen deshabilitados",
-      "STEP_3": "Repite para añadir más productos a la misma venta",
-      "STEP_4": "Ve al Carrito para finalizar",
-      "NOTE": "Solo Admin y Seller pueden realizar ventas"
+      "SEARCH_TITLE": "Buscar",
+      "SEARCH_DESC": "Busca un producto por nombre o categoría.",
+      "ADD_TITLE": "Añadir",
+      "ADD_DESC": "Haz clic para añadirlo al carrito. Los productos sin stock aparecen desactivados.",
+      "MULTIPLE_TITLE": "Múltiples productos",
+      "MULTIPLE_DESC": "Repite el proceso para añadir más productos a la misma venta.",
+      "CART_TITLE": "Carrito",
+      "CART_DESC": "Cuando tengas todos los productos, ve al carrito para finalizar la venta.",
+      "NOTE": "Solo usuarios con rol Admin o Seller pueden realizar ventas"
     },
     "CART": {
       "TITLE": "Ayuda — Carrito",
-      "STEP_1": "Revisa los productos antes de pagar",
-      "STEP_2": "Ajusta cantidades con + y −",
-      "STEP_3": "Empty Cart vacía el carrito completo",
-      "STEP_4": "Complete Shop para ir al pago",
-      "STEP_5": "Introduce el DNI/NIE y pulsa Pagar",
+      "REVIEW_TITLE": "Revisar pedido",
+      "REVIEW_DESC": "Revisa los productos y cantidades antes de confirmar el pago.",
+      "QUANTITY_TITLE": "Ajustar cantidades",
+      "QUANTITY_DESC": "Usa los botones + y − para aumentar o reducir las unidades de cada producto.",
+      "EMPTY_TITLE": "Vaciar carrito",
+      "EMPTY_DESC": "Elimina todos los productos del carrito y empieza una venta nueva desde cero.",
+      "COMPLETE_TITLE": "Completar compra",
+      "COMPLETE_DESC": "Pulsa \"Complete Shop\" para avanzar al paso de pago y confirmar la transacción.",
+      "DNI_TITLE": "DNI / NIE del cliente",
+      "DNI_DESC": "Introduce el DNI o NIE del cliente y pulsa Pay para confirmar. Se genera el ticket PDF y se actualiza el stock.",
       "NOTE": "Al completar el pago se genera un ticket PDF y el stock se actualiza"
     }
   },
   "USERS": {
     "DUPLICATE_TITLE": "Usuario ya existe",
     "DUPLICATE_TEXT": "El nombre de usuario ya está registrado en el sistema. Elige otro nombre."
+  },
+  "VALIDAR_IA": {
+    "GENERICO_TITLE": "Nombre demasiado genérico",
+    "GENERICO_TEXT": "La IA no pudo identificar un medicamento específico. Prueba a introducir un nombre más preciso — por ejemplo, incluye el principio activo y la dosis como 'Ibuprofeno 600mg' o 'Paracetamol 1g'. Si no encuentras el medicamento, puedes buscarlo directamente desde el botón AEMPS del inventario."
   }
 }
