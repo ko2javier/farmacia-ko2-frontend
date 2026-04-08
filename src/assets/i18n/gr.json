@@ -304,7 +304,17 @@
     "DUPLICATE_TEXT": "Dieser Benutzername ist bereits im System registriert. Bitte wählen Sie einen anderen Namen."
   },
   "ACTIVITY_LOG": {
-    "PLACEHOLDER_BUSCAR": "Nach Benutzer, Aktion oder Detail suchen…"
+    "PLACEHOLDER_BUSCAR": "Nach Benutzer, Aktion oder Detail suchen…",
+    "BTN_LIMPIAR": "Leeren",
+    "USUARIO": "Benutzer",
+    "ACCION": "Aktion",
+    "DETALLE": "Detail",
+    "IP": "IP",
+    "FECHA": "Datum",
+    "HORA": "Uhrzeit",
+    "SIN_REGISTROS": "Keine Einträge gefunden",
+    "ANTERIOR": "Zurück",
+    "SIGUIENTE": "Weiter"
   },
   "VALIDAR_IA": {
     "GENERICO_TITLE": "Name zu allgemein",

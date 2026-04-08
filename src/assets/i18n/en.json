@@ -307,7 +307,17 @@
     "DUPLICATE_TEXT": "This username is already registered in the system. Please choose a different name."
   },
   "ACTIVITY_LOG": {
-    "PLACEHOLDER_BUSCAR": "Search by user, action or detail…"
+    "PLACEHOLDER_BUSCAR": "Search by user, action or detail…",
+    "BTN_LIMPIAR": "Clear",
+    "USUARIO": "User",
+    "ACCION": "Action",
+    "DETALLE": "Detail",
+    "IP": "IP",
+    "FECHA": "Date",
+    "HORA": "Time",
+    "SIN_REGISTROS": "No records found",
+    "ANTERIOR": "Previous",
+    "SIGUIENTE": "Next"
   },
   "VALIDAR_IA": {
     "GENERICO_TITLE": "Name too generic",

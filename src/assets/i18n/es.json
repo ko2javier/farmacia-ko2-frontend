@@ -306,7 +306,17 @@
     "DUPLICATE_TEXT": "El nombre de usuario ya está registrado en el sistema. Elige otro nombre."
   },
   "ACTIVITY_LOG": {
-    "PLACEHOLDER_BUSCAR": "Buscar por usuario, acción o detalle…"
+    "PLACEHOLDER_BUSCAR": "Buscar por usuario, acción o detalle…",
+    "BTN_LIMPIAR": "Limpiar",
+    "USUARIO": "Usuario",
+    "ACCION": "Acción",
+    "DETALLE": "Detalle",
+    "IP": "IP",
+    "FECHA": "Fecha",
+    "HORA": "Hora",
+    "SIN_REGISTROS": "Sin registros",
+    "ANTERIOR": "Anterior",
+    "SIGUIENTE": "Siguiente"
   },
   "VALIDAR_IA": {
     "GENERICO_TITLE": "Nombre demasiado genérico",

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
 import { AuthService } from '../../services/auth.service';
@@ -114,6 +114,13 @@ export class HomeComponent {
 
   cerrarMenu() {
     this.menuAbierto = false;
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (window.innerWidth < 768 && this.currentSection === 'activity-log') {
+      this.cambiarSeccion('almacen');
+    }
   }
 // Funcion para conectar los emitters del catalogo externo!!
   recibirProductoImportado(producto: any) {

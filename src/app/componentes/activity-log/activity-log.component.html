@@ -11,7 +11,7 @@
           <input type="date" class="form-control form-control-sm"
                  [(ngModel)]="filterDate" (ngModelChange)="applyFilters()">
           <button class="btn btn-outline-secondary btn-sm text-nowrap" (click)="clearFilters()" type="button">
-            {{ 'ALMACEN.BTN_LIMPIAR' | translate }}
+            {{ 'ACTIVITY_LOG.BTN_LIMPIAR' | translate }}
           </button>
         </div>
 
@@ -20,12 +20,12 @@
           <table class="table table-light table-striped table-hover mb-0 table-sm align-middle" style="table-layout: fixed; width: 100%;">
             <thead class="text-center table-dark small">
               <tr>
-                <th style="width: 14%;">Usuario</th>
-                <th style="width: 20%;">Acción</th>
-                <th style="width: 28%;">Detalle</th>
-                <th style="width: 13%;">IP</th>
-                <th style="width: 13%;">Fecha</th>
-                <th style="width: 12%;">Hora</th>
+                <th style="width: 14%;">{{ 'ACTIVITY_LOG.USUARIO' | translate }}</th>
+                <th style="width: 20%;">{{ 'ACTIVITY_LOG.ACCION' | translate }}</th>
+                <th style="width: 28%;">{{ 'ACTIVITY_LOG.DETALLE' | translate }}</th>
+                <th style="width: 13%;">{{ 'ACTIVITY_LOG.IP' | translate }}</th>
+                <th style="width: 13%;">{{ 'ACTIVITY_LOG.FECHA' | translate }}</th>
+                <th style="width: 12%;">{{ 'ACTIVITY_LOG.HORA' | translate }}</th>
               </tr>
             </thead>
             <tbody class="text-center table-group-divider small">
@@ -42,7 +42,7 @@
                 <td class="py-2" style="font-size: 0.82rem;">{{ log.hora }}</td>
               </tr>
               <tr *ngIf="paginatedLogs.length === 0">
-                <td colspan="6" class="text-center text-muted py-4">Sin registros</td>
+                <td colspan="6" class="text-center text-muted py-4">{{ 'ACTIVITY_LOG.SIN_REGISTROS' | translate }}</td>
               </tr>
             </tbody>
           </table>
@@ -52,13 +52,17 @@
         <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
           <button class="btn btn-outline-primary btn-sm"
                   (click)="changePage(currentPage - 1)"
-                  [disabled]="currentPage === 1">⬅</button>
+                  [disabled]="currentPage === 1">
+            ⬅ {{ 'ACTIVITY_LOG.ANTERIOR' | translate }}
+          </button>
           <span class="fw-bold text-dark bg-light px-2 py-2 rounded border text-nowrap small">
             {{ currentPage }} / {{ totalPages }}
           </span>
           <button class="btn btn-outline-primary btn-sm"
                   (click)="changePage(currentPage + 1)"
-                  [disabled]="currentPage === totalPages">➡</button>
+                  [disabled]="currentPage === totalPages">
+            {{ 'ACTIVITY_LOG.SIGUIENTE' | translate }} ➡
+          </button>
         </div>
 
       </div>
