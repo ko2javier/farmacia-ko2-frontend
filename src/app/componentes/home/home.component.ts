@@ -49,6 +49,7 @@ export class HomeComponent {
     'ventas-canceladas': 'SIDEBAR.CANCELADAS',
     'resultados': 'SIDEBAR.RESULTADOS',
     'catalogo-externo':'SIDEBAR.CATALOGO',
+    'activity-log': 'SIDEBAR.ACTIVITY_LOG',
   };
 
 

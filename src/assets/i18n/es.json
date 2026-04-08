@@ -305,6 +305,9 @@
     "DUPLICATE_TITLE": "Usuario ya existe",
     "DUPLICATE_TEXT": "El nombre de usuario ya está registrado en el sistema. Elige otro nombre."
   },
+  "ACTIVITY_LOG": {
+    "PLACEHOLDER_BUSCAR": "Buscar por usuario, acción o detalle…"
+  },
   "VALIDAR_IA": {
     "GENERICO_TITLE": "Nombre demasiado genérico",
     "GENERICO_TEXT": "La IA no pudo identificar un medicamento específico. Prueba a introducir un nombre más preciso — por ejemplo, incluye el principio activo y la dosis como 'Ibuprofeno 600mg' o 'Paracetamol 1g'. Si no encuentras el medicamento, puedes buscarlo directamente desde el botón AEMPS del inventario."

@@ -306,6 +306,9 @@
     "DUPLICATE_TITLE": "User already exists",
     "DUPLICATE_TEXT": "This username is already registered in the system. Please choose a different name."
   },
+  "ACTIVITY_LOG": {
+    "PLACEHOLDER_BUSCAR": "Search by user, action or detail…"
+  },
   "VALIDAR_IA": {
     "GENERICO_TITLE": "Name too generic",
     "GENERICO_TEXT": "The AI could not identify a specific medicine. Try entering a more precise name — for example, include the active ingredient and dose like 'Ibuprofen 600mg' or 'Paracetamol 1g'. If you cannot find the medicine, you can search directly using the AEMPS button in the inventory."

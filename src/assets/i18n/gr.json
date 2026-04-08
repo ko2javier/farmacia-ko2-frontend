@@ -303,6 +303,9 @@
     "DUPLICATE_TITLE": "Benutzer existiert bereits",
     "DUPLICATE_TEXT": "Dieser Benutzername ist bereits im System registriert. Bitte wählen Sie einen anderen Namen."
   },
+  "ACTIVITY_LOG": {
+    "PLACEHOLDER_BUSCAR": "Nach Benutzer, Aktion oder Detail suchen…"
+  },
   "VALIDAR_IA": {
     "GENERICO_TITLE": "Name zu allgemein",
     "GENERICO_TEXT": "Die KI konnte kein spezifisches Medikament identifizieren. Versuchen Sie einen präziseren Namen einzugeben — zum Beispiel mit dem Wirkstoff und der Dosis wie 'Ibuprofen 600mg'. Falls Sie das Medikament nicht finden, können Sie es direkt über die AEMPS-Schaltfläche im Lager suchen."
