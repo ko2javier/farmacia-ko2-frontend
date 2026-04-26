@@ -10,7 +10,7 @@ Angular SPA for a pharmacy management system built as a final project for a High
 
 | Repo | Tech | Description |
 |------|------|-------------|
-| **This repo** | Angular 19 | SPA frontend |
+| [farmacia-ko2-frontend](https://github.com/ko2javier/farmacia-ko2-frontend) *(this repo)* | Angular 19 | SPA frontend |
 | [farmacia-ko2-back](https://github.com/ko2javier/farmacia-ko2-back) | Spring Boot + Java 21 | REST API backend |
 | [farmacia-ko2-ia](https://github.com/ko2javier/farmacia-ko2-ia) | Python + FastAPI | AI semantic matching microservice |
 
