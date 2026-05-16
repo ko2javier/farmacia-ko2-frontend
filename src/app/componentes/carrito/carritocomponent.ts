@@ -40,9 +40,6 @@ export class CarritoComponent implements OnInit {
     });
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
 
   eliminarDelCarrito(id: number) {
     this.carritoService.reducirCantidad(id);

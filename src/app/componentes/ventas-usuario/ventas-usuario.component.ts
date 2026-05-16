@@ -55,9 +55,6 @@ export class VentasUsuarioComponent implements OnInit {
     }
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
 
   obtenerVentas(): void {
     this.ventasService.cargarVentas().subscribe(

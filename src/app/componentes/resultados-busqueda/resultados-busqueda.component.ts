@@ -31,9 +31,6 @@ export class ResultadosBusquedaComponent implements OnInit {
     });
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
   /**
    * 📌 Obtiene la cantidad de un producto específico en el carrito
    */

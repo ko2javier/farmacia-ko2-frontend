@@ -35,9 +35,6 @@ export class UsersComponent implements OnInit{
     this.cargarUsuarios();
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
 
   cargarUsuarios(): void {
     this.user_service.cargarUsuarios().subscribe({

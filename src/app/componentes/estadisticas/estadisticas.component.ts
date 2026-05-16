@@ -68,9 +68,6 @@ export class EstadisticasComponent implements OnInit {
     this.cargarStockBajo();
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
   // 1. CARGAR Y AGRUPAR VENTAS
   cargarDatosVentas() {
     this.ventaService.cargarVentas().subscribe(data => {

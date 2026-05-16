@@ -33,9 +33,6 @@ export class PanelComponent implements OnInit {
     this.cargarProductos();
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
 
   // 🟢 2. Carga inicial: Traemos TODO de la base de datos una sola vez
   cargarProductos() {

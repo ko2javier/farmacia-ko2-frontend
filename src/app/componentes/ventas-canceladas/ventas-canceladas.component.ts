@@ -33,9 +33,7 @@ export class VentasCanceladasComponent implements OnInit {
     this.cargarDatosReales();
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
+
 
   // ✅ Tu método original, pero adaptado para guardar la copia de seguridad
   cargarDatosReales(): void {

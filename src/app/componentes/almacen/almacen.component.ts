@@ -77,10 +77,6 @@ export class AlmacenComponent {
     this.checkRole();
   }
 
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
-
   cargarDatosReales(): void {
     this.articuloService.cargarArticulos().subscribe(
       (data: any[]) => { // Aseguramos que data es un array
@@ -89,20 +85,6 @@ export class AlmacenComponent {
 
         // 2. Si hay texto en el buscador, reaplicamos el filtro, si no, mostramos todo
         this.aplicarFiltros();
-      },
-      (error) => {
-        // TODO: añadir manejo de error UI
-      }
-    );
-  }
-
-  cargarArticulos() {
-    this.articuloService.cargarArticulos().subscribe(
-      (data) => {
-        this.articulos = data;
-        this.totalPages = Math.ceil(this.articulos.length / this.rowsPerPage);
-        if (this.totalPages === 0) this.totalPages = 1;
-        this.displayTable(1);
       },
       (error) => {
         // TODO: añadir manejo de error UI

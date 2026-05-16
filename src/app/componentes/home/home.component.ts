@@ -88,9 +88,6 @@ export class HomeComponent {
     // Devuelve la clave correspondiente o una por defecto si falla
     return this.sectionKeys[this.currentSection] || 'SIDEBAR.PANEL';
   }
-  cambiarIdioma(idioma: string) {
-    this.translate.use(idioma);
-  }
   logout(): void {
     // Aquí puedes eliminar el token de autenticación
     localStorage.removeItem('jwtToken'); // O donde sea que guardes el token
@@ -102,10 +99,6 @@ export class HomeComponent {
     this.currentSection = seccion;
     this.showHelp = false;
     this.cdr.detectChanges();  // 🔄 Forzar actualización de la UI
-  }
-
-  debugEvent(event: any) {
-    this.cambiarSeccion(event);
   }
 
   toggleMenu() {
@@ -131,10 +124,6 @@ export class HomeComponent {
     this.cambiarSeccion('almacen');
   }
 
-}
-
-function jwt_decode(token: string) {
-  throw new Error('Function not implemented.');
 }
 
 
