@@ -7,35 +7,34 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CimaService {
-  private readonly API_URL = environment.apiCima;
 
-  constructor(private http: HttpClient) { }
+  private readonly apiUrl = environment.apiCima;
 
-  // AHORA ACEPTA EL PARÁMETRO DE PÁGINA (por defecto la 1)
+  constructor(private http: HttpClient) {}
+
+  // Busca medicamentos en AEMPS por nombre y página
+  // Transforma la respuesta cruda al formato que usan los componentes
   buscarMedicamentos(nombre: string, pagina: number = 1): Observable<any> {
-    // AÑADIMOS "&tamanioPagina=8" AL FINAL
-    return this.http.get<any>(`${this.API_URL}?nombre=${nombre}&pagina=${pagina}&tamanioPagina=8`).pipe(
-      map(response => {
-        return {
-          resultados: (response.resultados || []).map((med: any) => ({
-            registro: med.nregistro,
-            nombreOriginal: med.nombre,
-            nombreCorto: this.limpiarNombre(med.nombre),
-            laboratorio: med.labtitular,
-            imagen: med.fotos && med.fotos.length > 0 ? med.fotos[0].url : null
-          })),
-          totalFilas: response.totalFilas,
-          paginaActual: response.pagina,
-          // CAMBIAMOS EL DIVISOR A 8
-          totalPaginas: Math.ceil(response.totalFilas / 8)
-        };
-      })
+    return this.http.get<any>(`${this.apiUrl}?nombre=${nombre}&pagina=${pagina}&tamanioPagina=8`).pipe(
+      map(respuesta => ({
+        resultados: (respuesta.resultados || []).map((medicamento: any) => ({
+          registro:       medicamento.nregistro,
+          nombreOriginal: medicamento.nombre,
+          nombreCorto:    this.limpiarNombre(medicamento.nombre),
+          laboratorio:    medicamento.labtitular,
+          imagen:         medicamento.fotos && medicamento.fotos.length > 0 ? medicamento.fotos[0].url : null
+        })),
+        totalFilas:   respuesta.totalFilas,
+        paginaActual: respuesta.pagina,
+        totalPaginas: Math.ceil(respuesta.totalFilas / 8)
+      }))
     );
   }
 
+  // Elimina información farmacéutica genérica del nombre para dejarlo más corto y limpio
   private limpiarNombre(nombre: string): string {
     if (!nombre) return '';
-    let corto = nombre.split(/[,\(;]/)[0];
-    return corto.replace(/EFG/g, '').trim(); // Limpieza extra
+    let nombreCorto = nombre.split(/[,\(;]/)[0];
+    return nombreCorto.replace(/EFG/g, '').trim();
   }
 }

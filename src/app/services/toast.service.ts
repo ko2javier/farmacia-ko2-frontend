@@ -13,18 +13,16 @@ export interface ToastData {
 })
 export class ToastService {
 
-  private toastSubject = new Subject<ToastData>(); // Observable para emitir los datos del toast
-  toast$ = this.toastSubject.asObservable(); // Exponemos el observable para que otros componentes puedan suscribirse
+  // Subject que emite cada vez que se quiere mostrar un toast
+  private toastSubject = new Subject<ToastData>();
+
+  // Observable que los componentes usan para suscribirse y recibir los toasts
+  toast$ = this.toastSubject.asObservable();
 
   constructor() {}
 
+  // Lanza un toast con título, mensaje y tipo (error o éxito)
   showToast(title: string, message: string, isError: boolean, subTitle?: string) {
-    const toastData: ToastData = {
-      title,
-      subTitle,
-      message,
-      isError
-    };
-    this.toastSubject.next(toastData); // Emitimos los datos del toast
+    this.toastSubject.next({ title, subTitle, message, isError });
   }
 }

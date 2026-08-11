@@ -66,36 +66,36 @@
           </tr>
           </thead>
           <tbody class="text-center table-group-divider">
-          <tr *ngFor="let articulo of paginatedArticulos">
+          <tr *ngFor="let venta of ventasPaginadas">
 
             <td *ngIf="isAdmin" class="align-middle">
-              <input type="checkbox" [checked]="estaSeleccionado(articulo.id)" (change)="toggleSeleccion(articulo.id)">
+              <input type="checkbox" [checked]="estaSeleccionado(venta.id)" (change)="toggleSeleccion(venta.id)">
             </td>
 
-            <td class="d-none d-lg-table-cell">{{ articulo.username }}</td>
+            <td class="d-none d-lg-table-cell">{{ venta.username }}</td>
 
             <td class="text-start text-lg-center align-middle">
-              <div class="fw-bold">{{ articulo.nameproducto }}</div>
+              <div class="fw-bold">{{ venta.nameproducto }}</div>
 
               <div class="d-lg-none text-muted small mt-1">
-                📅 {{ articulo.fecha | date:'dd/MM' }}
-                <span class="ms-1">⏰ {{ articulo.hora }}</span>
+                📅 {{ venta.fecha | date:'dd/MM' }}
+                <span class="ms-1">⏰ {{ venta.hora }}</span>
               </div>
             </td>
 
-            <td class="d-none d-lg-table-cell align-middle">{{ articulo.cantidad }}</td>
+            <td class="d-none d-lg-table-cell align-middle">{{ venta.cantidad }}</td>
 
-            <td class="fw-bold text-success align-middle">{{ articulo.importe | currency:'EUR' }}</td>
+            <td class="fw-bold text-success align-middle">{{ venta.importe | currency:'EUR' }}</td>
 
-            <td class="d-none d-lg-table-cell align-middle">{{ articulo.dnicliente }}</td>
+            <td class="d-none d-lg-table-cell align-middle">{{ venta.dnicliente }}</td>
 
-            <td class="d-none d-lg-table-cell align-middle">{{ articulo.fecha }}</td>
+            <td class="d-none d-lg-table-cell align-middle">{{ venta.fecha }}</td>
 
-            <td class="d-none d-lg-table-cell align-middle">{{ articulo.hora }}</td>
+            <td class="d-none d-lg-table-cell align-middle">{{ venta.hora }}</td>
 
           </tr>
 
-          <tr *ngIf="paginatedArticulos.length === 0">
+          <tr *ngIf="ventasPaginadas.length === 0">
             <td [attr.colspan]="isAdmin ? 8 : 7" class="py-4 text-muted text-center">
               {{ 'HISTORIAL.SIN_RESULTADOS' | translate }}
             </td>

@@ -18,11 +18,15 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './carrito.component.css'
 })
 export class CarritoComponent implements OnInit {
+
+  // Controla si se muestra el formulario de identificación del cliente
   mostrarFormulario = false;
-  errorMessage: string = '';
+
+  // Datos del cliente que se rellenan en el formulario antes de pagar
   tipoDocumento: string = "";
   identificacion: string = "";
 
+  // Lista de productos que hay actualmente en el carrito
   carrito: CarritoItem[] = [];
 
   constructor(
@@ -35,32 +39,36 @@ export class CarritoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Nos suscribimos al carrito y filtramos los productos con cantidad mayor a 0
     this.carritoService.obtenerCarrito().subscribe((productos) => {
-      this.carrito = productos.filter(item => item.cantidadCompra > 0);
+      this.carrito = productos.filter(producto => producto.cantidadCompra > 0);
     });
   }
 
-
+  // Reduce en 1 la cantidad de un producto. Si llega a 0 desaparece del carrito
   eliminarDelCarrito(id: number) {
     this.carritoService.reducirCantidad(id);
   }
 
+  // Vacía el carrito y oculta el formulario de pago
   vaciarCarrito() {
     this.mostrarFormulario = false;
     this.carritoService.vaciarCarrito();
   }
 
-  /**
-   * 📌 Validar Identificacion (CON TRADUCCIÓN)
-   */
+  // Muestra u oculta el formulario de identificación del cliente
+  toggleFormulario() {
+    this.mostrarFormulario = !this.mostrarFormulario;
+  }
+
+  // Comprueba que el documento de identidad tenga el formato correcto según su tipo
   validarIdentificacion(tipo: string, valor: string): boolean {
-    // Obtenemos el título "Error" traducido
     const tituloError = this.translate.instant('CARRITO.MSG.ERROR_TITULO');
 
     switch (tipo) {
       case "":
       case "Choose...":
-      case "Elige...": // Añadido por si acaso viene en español
+      case "Elige...":
         this.toastService.showToast(tituloError, this.translate.instant('CARRITO.MSG.ESCOJA_DOC'), true, "Error");
         return false;
 
@@ -79,75 +87,68 @@ export class CarritoComponent implements OnInit {
         break;
 
       default:
-        // TRADUCCIÓN CON VARIABLE {{tipo}}
-        const msg = this.translate.instant('CARRITO.MSG.TIPO_NO_VALIDO', { tipo: tipo });
-        this.toastService.showToast(tituloError, msg, true, "Error");
+        const mensaje = this.translate.instant('CARRITO.MSG.TIPO_NO_VALIDO', { tipo: tipo });
+        this.toastService.showToast(tituloError, mensaje, true, "Error");
         return false;
     }
     return true;
   }
 
-  showform(){
-    this.mostrarFormulario = (!this.mostrarFormulario) ? true : false;
-  }
-
-  Completar() {
+  // Valida el formulario y lanza el proceso de venta
+  completarVenta() {
     if (!this.validarIdentificacion(this.tipoDocumento, this.identificacion)) {
       return;
     }
     this.registrarVenta();
   }
 
-  // 1) Función para validar los ítems carrito (CON TRADUCCIÓN)
+  // Comprueba que ningún producto del carrito supere el stock disponible
   validarItems(carrito: any[]): boolean {
     const tituloError = this.translate.instant('CARRITO.MSG.ERROR_TITULO');
 
-    for (const item of carrito) {
-      if (item.cantidadCompra > item.articulo.cantidad) {
-
-        // TRADUCCIÓN CON VARIABLES {{nombre}} y {{cantidad}}
-        const msg = this.translate.instant('CARRITO.MSG.NO_STOCK', {
-          nombre: item.articulo.nombre,
-          cantidad: item.articulo.cantidad
+    for (const producto of carrito) {
+      if (producto.cantidadCompra > producto.articulo.cantidad) {
+        const mensaje = this.translate.instant('CARRITO.MSG.NO_STOCK', {
+          nombre: producto.articulo.nombre,
+          cantidad: producto.articulo.cantidad
         });
-
-        this.toastService.showToast(tituloError, msg, true, 'Error');
+        this.toastService.showToast(tituloError, mensaje, true, 'Error');
         return false;
       }
     }
     return true;
   }
 
+  // Envía la venta al backend y pregunta al usuario si quiere imprimir el ticket
   registrarVenta() {
-    if (!this.validarItems(this.carrito)) {
-      return;
-    }
+    if (!this.validarItems(this.carrito)) return;
 
-    const ventasDTO: VentaDTO[] = this.carrito.map(item => ({
-      dnicliente: this.identificacion,
-      nameproducto: item.articulo.nombre,
-      cantidad: item.cantidadCompra,
-      importe: item.articulo.precio * item.cantidadCompra,
-      codigo: item.articulo.codigo
+    // Construimos el array de ventas que espera el backend
+    const ventasDTO: VentaDTO[] = this.carrito.map(producto => ({
+      dnicliente:   this.identificacion,
+      nameproducto: producto.articulo.nombre,
+      cantidad:     producto.cantidadCompra,
+      importe:      producto.articulo.precio * producto.cantidadCompra,
+      codigo:       producto.articulo.codigo
     }));
 
     this.ventasService.registrarVentas(ventasDTO).subscribe({
-      next: (response: VentaUsuario[]) => {
-        // 3) SWEET ALERT TRADUCIDO 🍬
+      next: (ventasRegistradas: VentaUsuario[]) => {
         Swal.fire({
-          title: this.translate.instant('CARRITO.MSG.SWAL_TITULO'),
-          text: this.translate.instant('CARRITO.MSG.SWAL_TEXTO'),
-          icon: 'success',
-          showCancelButton: true,
+          title:             this.translate.instant('CARRITO.MSG.SWAL_TITULO'),
+          text:              this.translate.instant('CARRITO.MSG.SWAL_TEXTO'),
+          icon:              'success',
+          showCancelButton:  true,
           confirmButtonText: this.translate.instant('CARRITO.MSG.SWAL_SI'),
-          cancelButtonText: this.translate.instant('CARRITO.MSG.SWAL_NO'),
+          cancelButtonText:  this.translate.instant('CARRITO.MSG.SWAL_NO'),
           confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33'
-        }).then((result) => {
+          cancelButtonColor:  '#d33'
+        }).then((resultado) => {
 
-          if (result.isConfirmed) {
+          // Si el usuario confirma, generamos el PDF del ticket
+          if (resultado.isConfirmed) {
             const datosVenta = {
-              id: response[0]?.id || 'BATCH',
+              id: ventasRegistradas[0]?.id || 'BATCH',
               dnicliente: this.identificacion
             };
             this.pdfService.imprimirTicket(datosVenta, this.carrito);
@@ -156,53 +157,48 @@ export class CarritoComponent implements OnInit {
           this.actualizarStockBatch();
           this.vaciarCarrito();
 
-          // TOAST FINAL TRADUCIDO
-          const tituloExito = this.translate.instant('CARRITO.MSG.EXITO_TITULO');
-          this.toastService.showToast(tituloExito, this.translate.instant('CARRITO.MSG.PROCESO_OK'), false, 'Success');
+          this.toastService.showToast(
+            this.translate.instant('CARRITO.MSG.EXITO_TITULO'),
+            this.translate.instant('CARRITO.MSG.PROCESO_OK'),
+            false, 'Success'
+          );
         });
-
       },
-      error: (err: any) => {
-        const tituloError = this.translate.instant('CARRITO.MSG.ERROR_TITULO');
-        this.toastService.showToast(tituloError, this.translate.instant('CARRITO.MSG.ERROR_REGISTRO'), true, 'Error');
+      error: () => {
+        this.toastService.showToast(
+          this.translate.instant('CARRITO.MSG.ERROR_TITULO'),
+          this.translate.instant('CARRITO.MSG.ERROR_REGISTRO'),
+          true, 'Error'
+        );
       }
     });
   }
 
-
+  // Descuenta del stock de cada artículo la cantidad vendida en esta venta
   actualizarStockBatch(): void {
-    const updates: UpdateDto[] = this.carrito
-      .filter(item => item.cantidadCompra > 0)
-      .map(item => ({
-        codigo: item.articulo.codigo,
-        cantidadVendida: item.cantidadCompra
+    const actualizaciones: UpdateDto[] = this.carrito
+      .filter(producto => producto.cantidadCompra > 0)
+      .map(producto => ({
+        codigo:          producto.articulo.codigo,
+        cantidadVendida: producto.cantidadCompra
       }));
 
-    this.articuloService.updateStockBatch(updates).subscribe({
+    this.articuloService.updateStockBatch(actualizaciones).subscribe({
       next: () => {},
       error: (err: any) => {
         if (err.status === 409) {
-          this.toastService.showToast(
-            'Conflicto de stock',
-            'El stock fue modificado por otro usuario. Por favor recarga e inténtalo de nuevo.',
-            true,
-            'Error'
-          );
+          this.toastService.showToast('Conflicto de stock', 'El stock fue modificado por otro usuario. Por favor recarga e inténtalo de nuevo.', true, 'Error');
         } else {
-          this.toastService.showToast(
-            'Error',
-            'No se pudo actualizar el stock. Contacta con el administrador.',
-            true,
-            'Error'
-          );
+          this.toastService.showToast('Error', 'No se pudo actualizar el stock. Contacta con el administrador.', true, 'Error');
         }
       }
     });
   }
 
+  // Suma el importe total de todos los productos del carrito
   calcularTotal(): number {
-    return this.carrito.reduce((suma, item) =>
-      suma + (item.cantidadCompra * item.articulo.precio), 0
+    return this.carrito.reduce((suma, producto) =>
+      suma + (producto.cantidadCompra * producto.articulo.precio), 0
     );
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VentasCanceladasService } from '../../services/ventas-canceladas.service'; // ✅ Tu servicio correcto
+import { VentasCanceladasService } from '../../services/ventas-canceladas.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -10,107 +10,94 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class VentasCanceladasComponent implements OnInit {
 
-  // 🟢 1. Estructura de datos para filtros
-  cancelacionesOriginal: any[] = [];   // Copia de seguridad (TODO)
-  cancelacionesFiltradas: any[] = [];  // Lista activa (Filtros aplicados)
-  paginatedCancelaciones: any[] = [];  // Lo que se ve en pantalla (Paginado)
+  // Lista completa que llega del backend (nunca se modifica)
+  cancelacionesOriginal: any[] = [];
+  // Lista que se filtra según el buscador
+  cancelacionesFiltradas: any[] = [];
+  // Porción de cancelacionesFiltradas que se muestra en la tabla (8 por página)
+  cancelacionesPaginadas: any[] = [];
 
-  // 🟢 2. Variables de los inputs del buscador
+  // Campos del buscador
   textoBusqueda: string = '';
   fechaBusqueda: string = '';
 
-  // Variables del paginado
+  // Control de paginación
   rowsPerPage: number = 8;
-  currentPage: number = 1;
-  totalPages: number = 0;
+  paginaActual: number = 1;
+  totalPaginas: number = 0;
 
   constructor(
     private ventasCanceladasService: VentasCanceladasService,
     private translate: TranslateService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.cargarDatosReales();
   }
 
-
-
-  // ✅ Tu método original, pero adaptado para guardar la copia de seguridad
+  // Pide todas las cancelaciones al backend y las muestra en la tabla
   cargarDatosReales(): void {
     this.ventasCanceladasService.getCancelaciones().subscribe(
-      (data) => {
-        // Guardamos en Original y en Filtrada (al inicio son iguales)
-        this.cancelacionesOriginal = data;
-        this.cancelacionesFiltradas = data;
-
-        // Calculamos paginación inicial
+      (cancelaciones) => {
+        this.cancelacionesOriginal  = cancelaciones;
+        this.cancelacionesFiltradas = cancelaciones;
         this.calcularPaginacion();
       },
-      (error) => {
-        // TODO: añadir manejo de error UI
-      }
+      (error) => {}
     );
   }
 
-  // 🟢 LÓGICA DE FILTRADO (Texto y Fecha)
+  // Filtra la lista según el texto escrito y/o la fecha seleccionada
   aplicarFiltros(): void {
-    let temporal = this.cancelacionesOriginal;
+    let resultado = this.cancelacionesOriginal;
 
-    // 1. Filtro por Texto (Producto o Responsable)
     if (this.textoBusqueda) {
       const texto = this.textoBusqueda.toLowerCase();
-      temporal = temporal.filter(item =>
-        (item.nombreProducto && item.nombreProducto.toLowerCase().includes(texto)) ||
-        (item.responsable && item.responsable.toLowerCase().includes(texto))
+      resultado = resultado.filter(cancelacion =>
+        (cancelacion.nombreProducto && cancelacion.nombreProducto.toLowerCase().includes(texto)) ||
+        (cancelacion.responsable    && cancelacion.responsable.toLowerCase().includes(texto))
       );
     }
 
-    // 2. Filtro por Fecha
     if (this.fechaBusqueda) {
-      temporal = temporal.filter(item =>
-        item.fecha && item.fecha.toString().startsWith(this.fechaBusqueda)
+      resultado = resultado.filter(cancelacion =>
+        cancelacion.fecha && cancelacion.fecha.toString().startsWith(this.fechaBusqueda)
       );
     }
 
-    // Actualizamos la lista filtrada y volvemos a la página 1
-    this.cancelacionesFiltradas = temporal;
-    this.currentPage = 1;
+    this.cancelacionesFiltradas = resultado;
+    this.paginaActual = 1;
     this.calcularPaginacion();
   }
 
-  // 🟢 Limpiar filtros
+  // Borra los filtros y vuelve a mostrar todas las cancelaciones
   limpiarFiltros(): void {
-    this.textoBusqueda = '';
-    this.fechaBusqueda = '';
-    this.cancelacionesFiltradas = this.cancelacionesOriginal; // Restauramos todo
-    this.currentPage = 1;
+    this.textoBusqueda          = '';
+    this.fechaBusqueda          = '';
+    this.cancelacionesFiltradas = this.cancelacionesOriginal;
+    this.paginaActual           = 1;
     this.calcularPaginacion();
   }
 
-  // ✅ Método auxiliar para recalcular páginas y cortar el array
+  // Calcula el total de páginas y carga la página actual
   calcularPaginacion(): void {
-    // Usamos 'cancelacionesFiltradas' para calcular el total
-    this.totalPages = Math.ceil(this.cancelacionesFiltradas.length / this.rowsPerPage);
-
-    if (this.totalPages === 0) this.totalPages = 1;
-
-    // Mostramos la página actual
-    this.displayTable(this.currentPage);
+    this.totalPaginas = Math.ceil(this.cancelacionesFiltradas.length / this.rowsPerPage);
+    if (this.totalPaginas === 0) this.totalPaginas = 1;
+    this.mostrarPagina(this.paginaActual);
   }
 
-  /** Metodos de Paginación */
-  displayTable(page: number): void {
-    const start = (page - 1) * this.rowsPerPage;
-    const end = start + this.rowsPerPage;
-
-    // IMPORTANTE: Cortamos de 'cancelacionesFiltradas', no de la original
-    this.paginatedCancelaciones = this.cancelacionesFiltradas.slice(start, end);
+  // Recorta la lista filtrada para mostrar solo los registros de la página actual
+  mostrarPagina(pagina: number): void {
+    const inicio = (pagina - 1) * this.rowsPerPage;
+    const fin    = inicio + this.rowsPerPage;
+    this.cancelacionesPaginadas = this.cancelacionesFiltradas.slice(inicio, fin);
   }
 
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.displayTable(page);
+  // Cambia de página si el número es válido
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.mostrarPagina(pagina);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service'; // Importamos para pillar el token
+import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -11,24 +11,23 @@ export class VentasCanceladasService {
 
   private apiUrl = `${environment.apiUrl}/cancelaciones`;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Método privado para meter el Token en la cabecera
+  // Construye los headers con el token JWT para autenticar las peticiones
   private getHeaders(): HttpHeaders {
-    const token = this.authService.getToken(); // Usamos tu método existente
+    const token = this.authService.getToken();
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
   }
 
-  // 1. Obtener todas las cancelaciones (GET)
+  // Pide todas las cancelaciones al backend
   getCancelaciones(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
-  // 2. Guardar una nueva cancelación (POST)
-  // Este lo usaremos luego cuando conectemos el botón de borrar venta
+  // Registra una nueva cancelación en el backend
   registrarCancelacion(datos: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, datos, { headers: this.getHeaders() });
   }

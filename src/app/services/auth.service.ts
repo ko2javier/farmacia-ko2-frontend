@@ -10,25 +10,26 @@ export class AuthService {
 
   private baseUrl = `${environment.apiUrl}/auth`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  // Envía las credenciales al backend y recibe el token JWT si son correctas
   login(username: string, password: string): Observable<any> {
-    const body = { username, password }; // Cuerpo de la solicitud
+    const body = { username, password };
     return this.http.post(`${this.baseUrl}/login`, body);
   }
 
+  // Guarda el token JWT en el localStorage tras el login
   saveToken(token: string): void {
-    localStorage.setItem('jwtToken', token); // Guarda el token en el almacenamiento local
-
+    localStorage.setItem('jwtToken', token);
   }
 
+  // Recupera el token JWT del localStorage (null si no hay sesión activa)
   getToken(): string | null {
-    return localStorage.getItem('jwtToken'); // Recupera el token
+    return localStorage.getItem('jwtToken');
   }
 
+  // Borra el token del localStorage al cerrar sesión
   logout(): void {
-    localStorage.removeItem('jwtToken'); // Borra el token al cerrar sesión
+    localStorage.removeItem('jwtToken');
   }
-
-
 }

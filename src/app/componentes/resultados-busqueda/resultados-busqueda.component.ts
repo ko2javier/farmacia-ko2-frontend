@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PanelVentasService } from '../../services/panel-ventas.service';
 import { CarritoService } from '../../services/carrito.service';
 import { CarritoItem } from '../../models/CarritoItem';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-resultados-busqueda',
@@ -11,94 +11,89 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrl: './resultados-busqueda.component.css'
 })
 export class ResultadosBusquedaComponent implements OnInit {
-  @Output() volverAlPanel = new EventEmitter<void>(); // ✅ Evento para volver
-  @Output() navegarAlCarrito = new EventEmitter<string>(); // 🔹 Ahora acepta strings
 
-  carrito: CarritoItem[] = []; // 🔹 Para reflejar la cantidad en la UI
+  // Eventos para comunicarse con el componente padre
+  @Output() volverAlPanel    = new EventEmitter<void>();
+  @Output() navegarAlCarrito = new EventEmitter<string>();
+
+  // Copia local del carrito para poder mostrar las cantidades en la tabla
+  carrito: CarritoItem[] = [];
+
+  // Paginación
+  paginaActual: number = 1;
+  productosPorPagina: number = 8;
 
   constructor(
     public panelVentasService: PanelVentasService,
-    public carritoService: CarritoService, private translate: TranslateService
+    public carritoService: CarritoService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
-    // ✅ Inicializa el carrito con los productos obtenidos de la búsqueda
+    // Carga los resultados de la búsqueda en el carrito como punto de partida
     this.carritoService.inicializarCarrito(this.panelVentasService.resultadosBusqueda);
 
-    // 🔹 Se suscribe a los cambios en el carrito para reflejarlo en la UI
-    this.carritoService.obtenerCarrito().subscribe(carrito => {
-      this.carrito = carrito;
+    // Se suscribe al carrito para reflejar los cambios de cantidad en tiempo real
+    this.carritoService.obtenerCarrito().subscribe(carritoActualizado => {
+      this.carrito = carritoActualizado;
     });
   }
 
-  /**
-   * 📌 Obtiene la cantidad de un producto específico en el carrito
-   */
+  // Devuelve cuántas unidades de un producto hay en el carrito
   obtenerCantidad(productoId: number): number {
-    const item = this.carrito.find(p => p.articulo.id === productoId);
-    return item ? item.cantidadCompra : 0;
+    const elemento = this.carrito.find(item => item.articulo.id === productoId);
+    return elemento ? elemento.cantidadCompra : 0;
   }
 
-  /**
-   * 📌 Verifica si el producto ya ha sido añadido al carrito para cambiar el botón
-   */
+  // Comprueba si un producto ya fue añadido al carrito (para cambiar el botón)
   estaEnCarrito(productoId: number): boolean {
     return this.carritoService.estaEnCarrito(productoId);
   }
 
-  /**
-   * 📌 Añade un producto al carrito
-   */
+  // Añade una unidad de un producto al carrito
   agregarAlCarrito(productoId: number) {
     this.carritoService.agregarAlCarrito(productoId);
   }
 
-  /**
-   * 📌 Reduce la cantidad de un producto en el carrito
-   */
+  // Quita una unidad de un producto del carrito
   reducirCantidad(productoId: number) {
     this.carritoService.reducirCantidad(productoId);
   }
 
-  /**
-   * 📌 Vuelve al panel de ventas y limpia la búsqueda
-   */
+  // Limpia la búsqueda y vuelve al panel de ventas
   volver() {
     this.panelVentasService.limpiarBusqueda();
-    this.volverAlPanel.emit(); // ✅ Emitimos evento para que PanelComponent oculte la tabla
+    this.volverAlPanel.emit();
   }
+
+  // Navega a la sección del carrito
   irAlCarrito() {
     this.navegarAlCarrito.emit('carrito');
   }
 
-  // Variables de paginación
-  page: number = 1;
-  pageSize: number = 8; // Muestra 8 productos por página
-
-// Getter: Calcula dinámicamente qué productos mostrar según la página
+  // Getter: devuelve solo los productos de la página actual
   get productosPaginados() {
-    const start = (this.page - 1) * this.pageSize;
-    const end = start + this.pageSize;
-    return this.panelVentasService.resultadosBusqueda.slice(start, end);
+    const inicio = (this.paginaActual - 1) * this.productosPorPagina;
+    const fin    = inicio + this.productosPorPagina;
+    return this.panelVentasService.resultadosBusqueda.slice(inicio, fin);
   }
 
-// Getter: Calcula el total de páginas
-  get totalPages() {
-    return Math.ceil(this.panelVentasService.resultadosBusqueda.length / this.pageSize) || 1;
+  // Getter: calcula el total de páginas según los resultados
+  get totalPaginas() {
+    return Math.ceil(this.panelVentasService.resultadosBusqueda.length / this.productosPorPagina) || 1;
   }
 
-// Función Siguiente
-  nextPage() {
-    if (this.page < this.totalPages) {
-      this.page++;
+  // Avanza a la página siguiente
+  paginaSiguiente() {
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
     }
   }
 
-// Función Anterior
-  prevPage() {
-    if (this.page > 1) {
-      this.page--;
+  // Retrocede a la página anterior
+  paginaAnterior() {
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
     }
   }
-
 }

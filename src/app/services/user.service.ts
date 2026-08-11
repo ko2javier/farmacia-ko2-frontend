@@ -9,32 +9,35 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${environment.apiUrl}/users/all`;
-  private apiUrl2 = `${environment.apiUrl}/users`;
 
-  // Almacena los usuarios en un BehaviorSubject para compartirlos entre componentes
+  private apiUrl     = `${environment.apiUrl}/users/all`;
+  private apiUrlBase = `${environment.apiUrl}/users`;
+
+  // BehaviorSubject que comparte la lista de usuarios entre componentes en tiempo real
   private usersSubject = new BehaviorSubject<Usuarios[]>([]);
   users$ = this.usersSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
+  // Pide todos los usuarios al backend y los guarda en el BehaviorSubject
   cargarUsuarios(): Observable<Usuarios[]> {
     return this.http.get<Usuarios[]>(this.apiUrl).pipe(
       tap((usuarios: Usuarios[]) => this.usersSubject.next(usuarios))
     );
   }
 
-  
-delete_user(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.apiUrl2}/${id}`);
-}
+  // Elimina un usuario por su ID
+  eliminarUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrlBase}/${id}`);
+  }
 
-insertUser(dto: Insert_User_DTO) {
-  return this.http.post<Usuarios>(`${this.apiUrl2}/insert`, dto);
-}
+  // Crea un nuevo usuario
+  insertUser(dto: Insert_User_DTO) {
+    return this.http.post<Usuarios>(`${this.apiUrlBase}/insert`, dto);
+  }
 
-Update_User(up_user: Usuarios) {
-  return this.http.put<Usuarios>(`${this.apiUrl2}/update`, up_user);
-}
-
+  // Actualiza los datos de un usuario existente
+  actualizarUsuario(usuario: Usuarios) {
+    return this.http.put<Usuarios>(`${this.apiUrlBase}/update`, usuario);
+  }
 }

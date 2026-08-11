@@ -12,15 +12,15 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PanelComponent implements OnInit {
 
-  // 🟢 1. Guardamos TODOS los productos aquí para no pedirlos siempre
+  // Lista completa de productos cargada una sola vez al iniciar
   articulosOriginal: Articulo[] = [];
 
-  // Variables del formulario
-  searchNombre: string = '';
-  searchCategoria: string = '';
+  // Campos del formulario de búsqueda
+  busquedaNombre: string = '';
+  busquedaCategoria: string = '';
 
-  // Estado
-  flag_search: boolean = false;
+  // Controla si se ha lanzado una búsqueda y si se muestra la tabla de resultados
+  busquedaActiva: boolean = false;
   mostrarResultados: boolean = false;
 
   constructor(
@@ -33,86 +33,74 @@ export class PanelComponent implements OnInit {
     this.cargarProductos();
   }
 
-
-  // 🟢 2. Carga inicial: Traemos TODO de la base de datos una sola vez
+  // Pide todos los artículos al backend y los guarda en memoria para filtrar localmente
   cargarProductos() {
     this.articuloService.cargarArticulos().subscribe(
-      (data) => {
-        this.articulosOriginal = data;
-
-        // Inicializamos el servicio vacío o con todo, según prefieras
-        this.panelVentasService.setProductos(data);
+      (articulos) => {
+        this.articulosOriginal = articulos;
+        this.panelVentasService.setProductos(articulos);
       },
-      (error) => { /* TODO: añadir manejo de error UI */ }
+      (error) => {}
     );
   }
 
-  // 🟢 3. EL BUSCADOR EFICIENTE (Filtrado Local)
+  // Filtra la lista local por nombre y/o categoría sin volver a llamar al backend
   buscarProductos() {
-    this.flag_search = true;
+    this.busquedaActiva    = true;
     this.mostrarResultados = true;
 
-    // Empezamos con la lista completa
     let resultados = this.articulosOriginal;
 
-    // a) Filtro por Nombre (si hay algo escrito)
-    if (this.searchNombre && this.searchNombre.trim() !== '') {
-      const texto = this.searchNombre.toLowerCase();
-      resultados = resultados.filter(p =>
-        p.nombre.toLowerCase().includes(texto)
+    if (this.busquedaNombre && this.busquedaNombre.trim() !== '') {
+      const texto = this.busquedaNombre.toLowerCase();
+      resultados = resultados.filter(articulo =>
+        articulo.nombre.toLowerCase().includes(texto)
       );
     }
 
-    // b) Filtro por Categoría (si hay algo escrito)
-    if (this.searchCategoria && this.searchCategoria.trim() !== '') {
-      const cat = this.searchCategoria.toLowerCase();
-      resultados = resultados.filter(p =>
-        p.categoria.toLowerCase().includes(cat)
+    if (this.busquedaCategoria && this.busquedaCategoria.trim() !== '') {
+      const categoria = this.busquedaCategoria.toLowerCase();
+      resultados = resultados.filter(articulo =>
+        articulo.categoria.toLowerCase().includes(categoria)
       );
     }
 
-    // 🟢 4. Pasamos el resultado limpio al servicio para que lo pinte la tabla
+    // Pasamos los resultados al servicio para que los pinte la tabla
     this.panelVentasService.resultadosBusqueda = resultados;
   }
 
-  // 🟢 5. Limpiar todo
-  clear() {
-    this.searchNombre = '';
-    this.searchCategoria = '';
-    this.flag_search = false;
+  // Limpia el formulario y oculta los resultados
+  limpiarBusqueda() {
+    this.busquedaNombre    = '';
+    this.busquedaCategoria = '';
+    this.busquedaActiva    = false;
     this.mostrarResultados = false;
-
-    // Reseteamos el servicio
     this.panelVentasService.limpiarBusqueda();
   }
 
-  // Lógica para autocompletar la categoría si escribes el nombre exacto
+  // Si el usuario escribe el nombre exacto de un producto, rellena automáticamente la categoría
   seleccionarProducto() {
-    // Buscamos en nuestra lista local (más rápido)
     const productoEncontrado = this.articulosOriginal.find(
-      prod => prod.nombre.toLowerCase() === this.searchNombre.toLowerCase()
+      articulo => articulo.nombre.toLowerCase() === this.busquedaNombre.toLowerCase()
     );
-
     if (productoEncontrado) {
-      this.searchCategoria = productoEncontrado.categoria;
+      this.busquedaCategoria = productoEncontrado.categoria;
     }
   }
 
-  // 🟢 6. Getters optimizados para los <datalist>
-  // Usamos un 'Set' para sacar valores únicos de la lista en memoria al instante
+  // Getter: nombres únicos para el datalist — filtra por lo que ya está escrito
   get productosUnicos(): string[] {
-    // Si hay texto escrito, filtramos las sugerencias
-    if (this.searchNombre) {
-      const texto = this.searchNombre.toLowerCase();
+    if (this.busquedaNombre) {
+      const texto = this.busquedaNombre.toLowerCase();
       return [...new Set(this.articulosOriginal
-        .filter(a => a.nombre.toLowerCase().includes(texto))
-        .map(a => a.nombre))];
+        .filter(articulo => articulo.nombre.toLowerCase().includes(texto))
+        .map(articulo => articulo.nombre))];
     }
-    // Si no, devolvemos todos (o limitamos a los primeros 20 para no saturar)
-    return [...new Set(this.articulosOriginal.map(a => a.nombre))].slice(0, 50);
+    return [...new Set(this.articulosOriginal.map(articulo => articulo.nombre))].slice(0, 50);
   }
 
+  // Getter: categorías únicas para el datalist
   get categoriasUnicas(): string[] {
-    return [...new Set(this.articulosOriginal.map(a => a.categoria))];
+    return [...new Set(this.articulosOriginal.map(articulo => articulo.categoria))];
   }
 }

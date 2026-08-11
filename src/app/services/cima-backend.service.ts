@@ -9,49 +9,40 @@ import { environment } from '../../environments/environment';
 })
 export class CimaBackendService {
 
-  private readonly BASE_URL = environment.apiCima;
-  private readonly MEDICAMENTO_URL = environment.apiCimaMedicamento;
+  private readonly busquedaUrl     = environment.apiCima;
+  private readonly medicamentoUrl  = environment.apiCimaMedicamento;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  /**
-   * Busca medicamentos a través de tu servidor Java.
-   * @param termino Nombre del medicamento (ej: "Paracetamol")
-   * @param pagina Número de página (por defecto 1)
-   */
+  // Busca medicamentos por nombre a través del proxy Java
+  // Transforma la respuesta cruda de AEMPS al formato que usan los componentes
   buscar(termino: string, pagina: number = 1): Observable<any> {
-    // Construimos la URL: https://.../buscar?nombre=X&pagina=Y
-    const url = `${this.BASE_URL}?nombre=${termino}&pagina=${pagina}`;
+    const url = `${this.busquedaUrl}?nombre=${termino}&pagina=${pagina}`;
 
     return this.http.get<any>(url).pipe(
-      map(response => {
-        // Transformamos la respuesta cruda de la AEMPS para que tu componente la entienda
-        return {
-          total: response.totalFilas,
-          paginaActual: response.pagina,
-          resultados: (response.resultados || []).map((item: any) => {
-            return {
-              // Mapeamos los campos raros de la AEMPS a los que usa tu componente
-              registro: item.nregistro,
-              nombreOriginal: item.nombre,
-              nombreCorto: item.nombre, // Se lo pasamos tal cual (el componente ya tiene lógica para limpiar)
-              laboratorio: item.labtitular,
-              cimg: item.fotos && item.fotos.length > 0 ? item.fotos[0].url : null
-            };
-          })
-        };
-      })
+      map(respuesta => ({
+        total:        respuesta.totalFilas,
+        paginaActual: respuesta.pagina,
+        resultados:   (respuesta.resultados || []).map((medicamento: any) => ({
+          registro:       medicamento.nregistro,
+          nombreOriginal: medicamento.nombre,
+          nombreCorto:    medicamento.nombre,
+          laboratorio:    medicamento.labtitular,
+          cimg:           medicamento.fotos && medicamento.fotos.length > 0 ? medicamento.fotos[0].url : null
+        }))
+      }))
     );
   }
 
+  // Pide el detalle completo de un medicamento por su número de registro AEMPS
   getByNregistro(nregistro: string): Observable<any> {
-    return this.http.get<any>(`${this.MEDICAMENTO_URL}?nregistro=${nregistro}`).pipe(
-      map(med => ({
-        nregistro: med.nregistro,
-        nombre: med.nombre,
-        laboratorio: med.labtitular,
-        principioActivo: (med.principiosActivos || []).map((p: any) => p.nombre).join(', '),
-        formaFarmaceutica: med.formaFarmaceutica?.nombre || ''
+    return this.http.get<any>(`${this.medicamentoUrl}?nregistro=${nregistro}`).pipe(
+      map(medicamento => ({
+        nregistro:         medicamento.nregistro,
+        nombre:            medicamento.nombre,
+        laboratorio:       medicamento.labtitular,
+        principioActivo:   (medicamento.principiosActivos || []).map((principio: any) => principio.nombre).join(', '),
+        formaFarmaceutica: medicamento.formaFarmaceutica?.nombre || ''
       }))
     );
   }

@@ -12,98 +12,106 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent implements OnInit{
+export class UsersComponent implements OnInit {
 
+  // Rol del usuario logado — lo recibe el padre para controlar qué acciones se muestran
   @Input() userRole: string = '';
 
-  lista_usuarios: Usuarios[] = [];
+  // Lista completa de usuarios cargada del backend
+  listaUsuarios: Usuarios[] = [];
+
+  // Control de paginación
   rowsPerPage: number = 8;
-  currentPage: number = 1;
-  totalPages: number = 0;
-  paginatedUsuarios: Usuarios[] = [];
+  paginaActual: number = 1;
+  totalPaginas: number = 0;
+  usuariosPaginados: Usuarios[] = [];
+
+  // Controla qué formulario se muestra: insertar, editar o ninguno
   operation: 'insert' | 'update' | 'none' = 'none';
-  flag_insert: boolean = false;
+  formularioValido: boolean = false;
 
-  selectedUser: Usuarios = { id: 0, username: '', password: '', enabled: 1, permiso: "" };
-  newUser: Insert_User_DTO = {  username: '',   password: '',   permiso: '' };
+  // Usuario seleccionado para editar
+  selectedUser: Usuarios = { id: 0, username: '', password: '', enabled: 1, permiso: '' };
+  // Datos del formulario de nuevo usuario
+  newUser: Insert_User_DTO = { username: '', password: '', permiso: '' };
 
-  constructor(private user_service: UserService,
-              private toastService: ToastService,
-              private translate: TranslateService ) {}
+  constructor(
+    private userService: UserService,
+    private toastService: ToastService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
   }
 
-
+  // Pide todos los usuarios al backend y los muestra en la tabla
   cargarUsuarios(): void {
-    this.user_service.cargarUsuarios().subscribe({
+    this.userService.cargarUsuarios().subscribe({
       next: (usuarios: Usuarios[]) => {
-        this.lista_usuarios = usuarios;
-        this.totalPages = Math.ceil(usuarios.length / this.rowsPerPage);
-        this.displayTable(1);
+        this.listaUsuarios = usuarios;
+        this.totalPaginas  = Math.ceil(usuarios.length / this.rowsPerPage);
+        this.mostrarPagina(1);
       },
-      error: (err) => {
-        // TRADUCIDO
-        const titulo = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
-        const msg = this.translate.instant('USUARIOS.MSG.CARGAR_ERROR');
-        this.toastService.showToast(titulo, msg, true, 'Error');
+      error: () => {
+        this.toastService.showToast(
+          this.translate.instant('USUARIOS.MSG.ERROR_TITULO'),
+          this.translate.instant('USUARIOS.MSG.CARGAR_ERROR'),
+          true, 'Error'
+        );
       }
     });
   }
 
-  displayTable(page: number): void {
-    const start = (page - 1) * this.rowsPerPage;
-    const end = start + this.rowsPerPage;
-    this.paginatedUsuarios = this.lista_usuarios.slice(start, end);
+  // Recorta la lista para mostrar solo los usuarios de la página actual
+  mostrarPagina(pagina: number): void {
+    const inicio = (pagina - 1) * this.rowsPerPage;
+    const fin    = inicio + this.rowsPerPage;
+    this.usuariosPaginados = this.listaUsuarios.slice(inicio, fin);
   }
 
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.displayTable(page);
+  // Cambia de página si el número es válido
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.mostrarPagina(pagina);
     }
   }
 
+  // Controla qué formulario se muestra en pantalla
   setMode(mode: 'none' | 'insert' | 'update', usuario?: Usuarios) {
     switch (mode) {
       case 'update':
-        this.operation = 'update';
-        if (usuario) {
-          this.selectedUser = { ...usuario, password: '' };
-        }
+        this.operation  = 'update';
+        if (usuario) this.selectedUser = { ...usuario, password: '' };
         break;
       case 'insert':
         this.operation = 'insert';
-        this.newUser = { username: '', password: '',  permiso: "" };
+        this.newUser   = { username: '', password: '', permiso: '' };
         break;
       case 'none':
-        this.operation = 'none';
-        this.selectedUser = { id: 0, username: '', password: '', enabled: 1, permiso: "" };
-        this.newUser = { username: '', password: '',  permiso: "" };
-        break;
       default:
-        this.operation = 'none';
-        this.selectedUser = { id: 0, username: '', password: '', enabled: 1, permiso: "" };
-        this.newUser = { username: '', password: '', permiso: "" };
+        this.operation   = 'none';
+        this.selectedUser = { id: 0, username: '', password: '', enabled: 1, permiso: '' };
+        this.newUser      = { username: '', password: '', permiso: '' };
         break;
     }
   }
 
+  // Muestra confirmación y elimina el usuario si el admin confirma
   deleteUsuario(id: number): void {
-    // SWEET ALERT TRADUCIDO 🍬
     Swal.fire({
-      title: this.translate.instant('USUARIOS.MSG.ELIMINAR_TITULO'),
-      text: this.translate.instant('USUARIOS.MSG.ELIMINAR_TEXTO'),
-      icon: 'warning',
-      showCancelButton: true,
+      title:             this.translate.instant('USUARIOS.MSG.ELIMINAR_TITULO'),
+      text:              this.translate.instant('USUARIOS.MSG.ELIMINAR_TEXTO'),
+      icon:              'warning',
+      showCancelButton:  true,
       confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      cancelButtonColor:  '#3085d6',
       confirmButtonText: this.translate.instant('USUARIOS.MSG.BTN_ELIMINAR'),
-      cancelButtonText: this.translate.instant('USUARIOS.MSG.BTN_CANCELAR')
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.user_service.delete_user(id).subscribe({
+      cancelButtonText:  this.translate.instant('USUARIOS.MSG.BTN_CANCELAR')
+    }).then((resultado) => {
+      if (resultado.isConfirmed) {
+        this.userService.eliminarUsuario(id).subscribe({
           next: () => {
             Swal.fire(
               this.translate.instant('USUARIOS.MSG.ELIMINADO_TITULO'),
@@ -112,7 +120,7 @@ export class UsersComponent implements OnInit{
             );
             this.cargarUsuarios();
           },
-          error: (err) => {
+          error: () => {
             Swal.fire(
               this.translate.instant('USUARIOS.MSG.ERROR_TITULO'),
               this.translate.instant('USUARIOS.MSG.ELIMINAR_ERROR'),
@@ -124,67 +132,67 @@ export class UsersComponent implements OnInit{
     });
   }
 
-  // VALIDACIONES TRADUCIDAS
-  chequear_insert():boolean{
-    this.flag_insert = true;
+  // Valida los datos del formulario de inserción antes de enviarlos
+  validarInsercion(): boolean {
+    this.formularioValido = true;
     const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
 
-    if(this.newUser.username==null || this.newUser.username.length<3){
+    if (!this.newUser.username || this.newUser.username.length < 3) {
       this.toastService.showToast(tituloError, this.translate.instant('USUARIOS.MSG.USER_INVALIDO'), true, 'Error');
-      this.flag_insert = false;
-
-    }else if (this.newUser.password==null || this.newUser.password.length<4){
+      this.formularioValido = false;
+    } else if (!this.newUser.password || this.newUser.password.length < 4) {
       this.toastService.showToast(tituloError, this.translate.instant('USUARIOS.MSG.PASS_INVALIDO'), true, 'Error');
-      this.flag_insert = false;
-
-    } else if (this.newUser.permiso==null || this.newUser.permiso === ""){
+      this.formularioValido = false;
+    } else if (!this.newUser.permiso || this.newUser.permiso === '') {
       this.toastService.showToast(tituloError, this.translate.instant('USUARIOS.MSG.PERMISO_NULL'), true, 'Error');
-      this.flag_insert = false;
+      this.formularioValido = false;
     }
 
-    return this.flag_insert;
+    return this.formularioValido;
   }
 
-  chequear_Update():boolean{
-    this.flag_insert = true;
+  // Valida los datos del formulario de edición antes de enviarlos
+  validarActualizacion(): boolean {
+    this.formularioValido = true;
     const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
 
-    if (this.selectedUser.password==null || this.selectedUser.password.length<4){
+    if (!this.selectedUser.password || this.selectedUser.password.length < 4) {
       this.toastService.showToast(tituloError, this.translate.instant('USUARIOS.MSG.PASS_INVALIDO'), true, 'Error');
-      this.flag_insert = false;
-
-    } else if (this.selectedUser.permiso==null || this.selectedUser.permiso === "" ){
+      this.formularioValido = false;
+    } else if (!this.selectedUser.permiso || this.selectedUser.permiso === '') {
       this.toastService.showToast(tituloError, this.translate.instant('USUARIOS.MSG.PERMISO_NULL'), true, 'Error');
-      this.flag_insert = false;
+      this.formularioValido = false;
     }
 
-    return this.flag_insert;
+    return this.formularioValido;
   }
 
-  // INSERTAR USUARIO (TRADUCIDO)
+  // Comprueba que el usuario no existe ya y lo inserta en el backend
   insertUsuario(): void {
-    if (!this.chequear_insert()){
-      return;
-    }
+    if (!this.validarInsercion()) return;
 
-    const existe = this.lista_usuarios.some(u => u.username.toLowerCase() === this.newUser.username.toLowerCase());
-    if (existe) {
+    const yaExiste = this.listaUsuarios.some(
+      usuario => usuario.username.toLowerCase() === this.newUser.username.toLowerCase()
+    );
+
+    if (yaExiste) {
       Swal.fire({
         icon: 'error',
         title: this.translate.instant('USERS.DUPLICATE_TITLE'),
-        text: this.translate.instant('USERS.DUPLICATE_TEXT')
+        text:  this.translate.instant('USERS.DUPLICATE_TEXT')
       });
       return;
     }
 
-    this.user_service.insertUser(this.newUser).subscribe({
-      next: (usuarioCreado: Usuarios) => {
-        const tituloExito = this.translate.instant('USUARIOS.MSG.EXITO_TITULO');
-        const msgExito = this.translate.instant('USUARIOS.MSG.CREADO_EXITO');
-
-        this.toastService.showToast(tituloExito, msgExito, false, 'Success');
+    this.userService.insertUser(this.newUser).subscribe({
+      next: () => {
+        this.toastService.showToast(
+          this.translate.instant('USUARIOS.MSG.EXITO_TITULO'),
+          this.translate.instant('USUARIOS.MSG.CREADO_EXITO'),
+          false, 'Success'
+        );
         this.cargarUsuarios();
-        this.newUser = { username: '', password: '',  permiso: "" };
+        this.newUser = { username: '', password: '', permiso: '' };
         this.setMode('none');
       },
       error: (err) => {
@@ -192,39 +200,41 @@ export class UsersComponent implements OnInit{
           Swal.fire({
             icon: 'error',
             title: this.translate.instant('USERS.DUPLICATE_TITLE'),
-            text: this.translate.instant('USERS.DUPLICATE_TEXT')
+            text:  this.translate.instant('USERS.DUPLICATE_TEXT')
           });
         } else {
-          const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
-          const msgError = this.translate.instant('USUARIOS.MSG.CREAR_ERROR');
-          this.toastService.showToast(tituloError, msgError, true, 'Error');
+          this.toastService.showToast(
+            this.translate.instant('USUARIOS.MSG.ERROR_TITULO'),
+            this.translate.instant('USUARIOS.MSG.CREAR_ERROR'),
+            true, 'Error'
+          );
         }
       }
     });
   }
 
-  // ACTUALIZAR USUARIO (TRADUCIDO)
+  // Envía los cambios del usuario editado al backend
   updateUsuario(): void {
-    if (!this.chequear_Update()){
-      return;
-    }
+    if (!this.validarActualizacion()) return;
 
-    this.user_service.Update_User (this.selectedUser).subscribe({
-      next: (usuario_updated: Usuarios) => {
-        const tituloExito = this.translate.instant('USUARIOS.MSG.EXITO_TITULO');
-        const msgExito = this.translate.instant('USUARIOS.MSG.ACTUALIZADO_EXITO');
-
-        this.toastService.showToast(tituloExito, msgExito, false, 'Success');
+    this.userService.actualizarUsuario(this.selectedUser).subscribe({
+      next: () => {
+        this.toastService.showToast(
+          this.translate.instant('USUARIOS.MSG.EXITO_TITULO'),
+          this.translate.instant('USUARIOS.MSG.ACTUALIZADO_EXITO'),
+          false, 'Success'
+        );
         this.cargarUsuarios();
-        this.selectedUser = { id: 0, username: '', password: '', enabled: 1, permiso: "" };
+        this.selectedUser = { id: 0, username: '', password: '', enabled: 1, permiso: '' };
         this.setMode('none');
       },
-      error: (err) => {
-        const tituloError = this.translate.instant('USUARIOS.MSG.ERROR_TITULO');
-        const msgError = this.translate.instant('USUARIOS.MSG.ACTUALIZAR_ERROR');
-        this.toastService.showToast(tituloError, msgError, true, 'Error');
+      error: () => {
+        this.toastService.showToast(
+          this.translate.instant('USUARIOS.MSG.ERROR_TITULO'),
+          this.translate.instant('USUARIOS.MSG.ACTUALIZAR_ERROR'),
+          true, 'Error'
+        );
       }
     });
   }
-
 }

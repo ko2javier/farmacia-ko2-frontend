@@ -7,10 +7,10 @@
         <div class="d-flex flex-column flex-md-row gap-2 mb-3">
           <input type="text" class="form-control form-control-sm"
                  [placeholder]="'ACTIVITY_LOG.PLACEHOLDER_BUSCAR' | translate"
-                 [(ngModel)]="filterText" (ngModelChange)="applyFilters()">
+                 [(ngModel)]="textoBusqueda" (ngModelChange)="aplicarFiltros()">
           <input type="date" class="form-control form-control-sm"
-                 [(ngModel)]="filterDate" (ngModelChange)="applyFilters()">
-          <button class="btn btn-outline-secondary btn-sm text-nowrap" (click)="clearFilters()" type="button">
+                 [(ngModel)]="fechaBusqueda" (ngModelChange)="aplicarFiltros()">
+          <button class="btn btn-outline-secondary btn-sm text-nowrap" (click)="limpiarFiltros()" type="button">
             {{ 'ACTIVITY_LOG.BTN_LIMPIAR' | translate }}
           </button>
         </div>
@@ -29,7 +29,7 @@
               </tr>
             </thead>
             <tbody class="text-center table-group-divider small">
-              <tr *ngFor="let log of paginatedLogs">
+              <tr *ngFor="let log of registrosPaginados">
                 <td class="text-break py-2" style="font-size: 0.82rem;">{{ log.username }}</td>
                 <td class="py-2">
                   <span class="badge" [ngClass]="badgeClass(log.action)" style="font-size: 0.7rem; font-weight: normal; white-space: normal;">
@@ -41,7 +41,7 @@
                 <td class="py-2" style="font-size: 0.82rem;">{{ log.fecha }}</td>
                 <td class="py-2" style="font-size: 0.82rem;">{{ log.hora }}</td>
               </tr>
-              <tr *ngIf="paginatedLogs.length === 0">
+              <tr *ngIf="registrosPaginados.length === 0">
                 <td colspan="6" class="text-center text-muted py-4">{{ 'ACTIVITY_LOG.SIN_REGISTROS' | translate }}</td>
               </tr>
             </tbody>
@@ -51,16 +51,16 @@
         <!-- Paginación -->
         <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
           <button class="btn btn-outline-primary btn-sm"
-                  (click)="changePage(currentPage - 1)"
-                  [disabled]="currentPage === 1">
+                  (click)="cambiarPagina(paginaActual - 1)"
+                  [disabled]="paginaActual === 1">
             ⬅ {{ 'ACTIVITY_LOG.ANTERIOR' | translate }}
           </button>
           <span class="fw-bold text-dark bg-light px-2 py-2 rounded border text-nowrap small">
-            {{ currentPage }} / {{ totalPages }}
+            {{ paginaActual }} / {{ totalPaginas }}
           </span>
           <button class="btn btn-outline-primary btn-sm"
-                  (click)="changePage(currentPage + 1)"
-                  [disabled]="currentPage === totalPages">
+                  (click)="cambiarPagina(paginaActual + 1)"
+                  [disabled]="paginaActual === totalPaginas">
             {{ 'ACTIVITY_LOG.SIGUIENTE' | translate }} ➡
           </button>
         </div>

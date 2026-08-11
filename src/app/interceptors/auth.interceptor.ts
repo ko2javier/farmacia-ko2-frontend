@@ -7,34 +7,27 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {} // Necesitamos el Router para redirigir
+  constructor(private router: Router) {}
 
+  // Intercepta todas las peticiones HTTP de la app
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('jwtToken');
 
-    let clonedRequest = request;
-
+    // Si hay token, lo añadimos a la cabecera de la petición
+    let peticionFinal = request;
     if (token) {
-      clonedRequest = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
+      peticionFinal = request.clone({
+        setHeaders: { Authorization: `Bearer ${token}` }
       });
     }
 
-    // Usamos pipe y catchError para escuchar la respuesta del servidor
-    return next.handle(clonedRequest).pipe(
+    return next.handle(peticionFinal).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Si el error es 401 (No autorizado) o 403 (Prohibido/Token expirado en Spring)
+        // Si el token expiró o no es válido, borramos la sesión y mandamos al login
         if (error.status === 401 || error.status === 403) {
-          // 1. Borramos el token para que no estorbe más
           localStorage.removeItem('jwtToken');
-
-          // 2. Mandamos al usuario al login de inmediato
           this.router.navigate(['/login']);
         }
-
-        // Devolvemos el error para que otros servicios puedan leerlo si es necesario
         return throwError(() => error);
       })
     );

@@ -123,7 +123,7 @@
               </tr>
               </thead>
               <tbody class="text-center table-group-divider small">
-              <tr *ngFor="let usuario of paginatedUsuarios">
+              <tr *ngFor="let usuario of usuariosPaginados">
 
                 <td class="py-2 text-break" style="font-size: 0.85rem;">
                   {{ usuario.username }}
@@ -175,18 +175,18 @@
 
             <div class="d-flex align-items-center justify-content-center gap-2 w-100 w-md-auto">
               <button class="btn btn-outline-primary btn-sm"
-                      (click)="changePage(currentPage - 1)"
-                      [disabled]="currentPage === 1">
+                      (click)="cambiarPagina(paginaActual - 1)"
+                      [disabled]="paginaActual === 1">
                 ⬅
               </button>
 
               <span class="fw-bold text-dark bg-light px-2 py-2 rounded border text-nowrap small">
-                  {{ currentPage }} / {{ totalPages }}
+                  {{ paginaActual }} / {{ totalPaginas }}
               </span>
 
               <button class="btn btn-outline-primary btn-sm"
-                      (click)="changePage(currentPage + 1)"
-                      [disabled]="currentPage === totalPages">
+                      (click)="cambiarPagina(paginaActual + 1)"
+                      [disabled]="paginaActual === totalPaginas">
                 ➡
               </button>
             </div>

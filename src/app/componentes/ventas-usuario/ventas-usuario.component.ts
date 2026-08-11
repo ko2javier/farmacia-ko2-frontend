@@ -16,20 +16,26 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class VentasUsuarioComponent implements OnInit {
 
+  // Lista completa que llega del backend (nunca se modifica)
   ventasOriginal: VentaUsuario[] = [];
+  // Lista que se filtra según el buscador
   ventasFiltradas: VentaUsuario[] = [];
-  paginatedArticulos: VentaUsuario[] = [];
+  // Porción de ventasFiltradas que se muestra en la tabla (8 por página)
+  ventasPaginadas: VentaUsuario[] = [];
 
+  // Campos del buscador
   textoBusqueda: string = '';
   fechaBusqueda: string = '';
 
+  // Control de paginación
   rowsPerPage: number = 8;
   currentPage: number = 1;
   totalPages: number = 0;
 
   isAdmin: boolean = false;
 
-  selectedVentas: Set<number> = new Set();
+  // IDs de las ventas que el usuario ha marcado con el checkbox
+  ventasSeleccionadas: Set<number> = new Set();
 
   constructor(
     private ventasService: VentasUserService,
@@ -39,11 +45,12 @@ export class VentasUsuarioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkRole();
+    this.verificarRol();
     this.obtenerVentas();
   }
 
-  checkRole(): void {
+  // Lee el token JWT para saber si el usuario es administrador
+  verificarRol(): void {
     const token = this.authService.getToken();
     if (token) {
       try {
@@ -55,114 +62,170 @@ export class VentasUsuarioComponent implements OnInit {
     }
   }
 
-
+  // Pide todas las ventas al backend y las muestra en la tabla
   obtenerVentas(): void {
     this.ventasService.cargarVentas().subscribe(
-      (data) => {
-        this.ventasOriginal = data;
-        this.ventasFiltradas = data;
+      (ventas) => {
+        this.ventasOriginal  = ventas;
+        this.ventasFiltradas = ventas;
         this.calcularPaginacion();
       },
-      (error) => {
-        // TODO: añadir manejo de error UI
-      }
+      (error) => {}
     );
   }
 
+  // Filtra la lista según el texto escrito y/o la fecha seleccionada
   aplicarFiltros(): void {
-    let temporal = this.ventasOriginal;
+    let resultado = this.ventasOriginal;
 
     if (this.textoBusqueda) {
       const texto = this.textoBusqueda.toLowerCase();
-      temporal = temporal.filter(v =>
-        (v.username && v.username.toLowerCase().includes(texto)) ||
-        (v.dnicliente && v.dnicliente.toLowerCase().includes(texto)) ||
-        (v.nameproducto && v.nameproducto.toLowerCase().includes(texto))
+      resultado = resultado.filter(venta =>
+        (venta.username     && venta.username.toLowerCase().includes(texto))     ||
+        (venta.dnicliente   && venta.dnicliente.toLowerCase().includes(texto))   ||
+        (venta.nameproducto && venta.nameproducto.toLowerCase().includes(texto))
       );
     }
 
     if (this.fechaBusqueda) {
-      temporal = temporal.filter(v =>
-        v.fecha && v.fecha.toString().startsWith(this.fechaBusqueda)
+      resultado = resultado.filter(venta =>
+        venta.fecha && venta.fecha.toString().startsWith(this.fechaBusqueda)
       );
     }
 
-    this.ventasFiltradas = temporal;
+    this.ventasFiltradas = resultado;
     this.currentPage = 1;
     this.calcularPaginacion();
   }
 
+  // Borra los filtros y vuelve a mostrar todas las ventas
   limpiarFiltros(): void {
     this.textoBusqueda = '';
     this.fechaBusqueda = '';
     this.ventasFiltradas = this.ventasOriginal;
     this.currentPage = 1;
-    this.selectedVentas.clear();
+    this.ventasSeleccionadas.clear();
     this.calcularPaginacion();
   }
 
+  // Calcula el total de páginas y recorta la lista para mostrar solo la página actual
   calcularPaginacion(): void {
     this.totalPages = Math.ceil(this.ventasFiltradas.length / this.rowsPerPage);
     if (this.totalPages === 0) this.totalPages = 1;
 
-    const start = (this.currentPage - 1) * this.rowsPerPage;
-    const end = start + this.rowsPerPage;
+    const inicio = (this.currentPage - 1) * this.rowsPerPage;
+    const fin    = inicio + this.rowsPerPage;
 
-    this.paginatedArticulos = this.ventasFiltradas.slice(start, end);
+    this.ventasPaginadas = this.ventasFiltradas.slice(inicio, fin);
   }
 
+  // Avanza o retrocede una página (+1 o -1)
   cambiarPagina(delta: number): void {
     const nuevaPagina = this.currentPage + delta;
     if (nuevaPagina >= 1 && nuevaPagina <= this.totalPages) {
       this.currentPage = nuevaPagina;
-      this.selectedVentas.clear();
+      this.ventasSeleccionadas.clear();
       this.calcularPaginacion();
     }
   }
 
+  // Marca o desmarca una venta individual por su ID
   toggleSeleccion(id: number): void {
-    if (this.selectedVentas.has(id)) {
-      this.selectedVentas.delete(id);
+    if (this.ventasSeleccionadas.has(id)) {
+      this.ventasSeleccionadas.delete(id);
     } else {
-      this.selectedVentas.add(id);
+      this.ventasSeleccionadas.add(id);
     }
   }
 
+  // Devuelve true si una venta está marcada
   estaSeleccionado(id: number): boolean {
-    return this.selectedVentas.has(id);
+    return this.ventasSeleccionadas.has(id);
   }
 
+  // True si todas las ventas de la página actual están marcadas
   get todosSeleccionados(): boolean {
-    return this.paginatedArticulos.length > 0 &&
-      this.paginatedArticulos.every(v => this.selectedVentas.has(v.id));
+    return this.ventasPaginadas.length > 0 &&
+      this.ventasPaginadas.every(venta => this.ventasSeleccionadas.has(venta.id));
   }
 
+  // Número de ventas actualmente seleccionadas
   get numSeleccionados(): number {
-    return this.selectedVentas.size;
+    return this.ventasSeleccionadas.size;
   }
 
+  // Marca todas las ventas de la página actual, o las desmarca si ya estaban todas marcadas
   toggleSeleccionTodo(): void {
     if (this.todosSeleccionados) {
-      this.paginatedArticulos.forEach(v => this.selectedVentas.delete(v.id));
+      this.ventasPaginadas.forEach(venta => this.ventasSeleccionadas.delete(venta.id));
     } else {
-      this.paginatedArticulos.forEach(v => this.selectedVentas.add(v.id));
+      this.ventasPaginadas.forEach(venta => this.ventasSeleccionadas.add(venta.id));
     }
   }
 
+  // Cancela en lote todas las ventas marcadas con checkbox
   cancelarSeleccionadas(): void {
-    const ids = [...this.selectedVentas];
+    const ids = [...this.ventasSeleccionadas];
 
     Swal.fire({
-      title: this.translate.instant('HISTORIAL.MSG.CANCELAR_TITULO'),
-      text: this.translate.instant('HISTORIAL.MSG.CANCELAR_TEXTO'),
-      icon: 'warning',
-      showCancelButton: true,
+      title:             this.translate.instant('HISTORIAL.MSG.CANCELAR_TITULO'),
+      text:              this.translate.instant('HISTORIAL.MSG.CANCELAR_TEXTO'),
+      icon:              'warning',
+      showCancelButton:  true,
       confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      cancelButtonColor:  '#3085d6',
       confirmButtonText: this.translate.instant('HISTORIAL.MSG.BTN_SI_CANCELAR'),
-      cancelButtonText: this.translate.instant('HISTORIAL.MSG.BTN_NO_VOLVER')
-    }).then((result) => {
-      if (!result.isConfirmed) return;
+      cancelButtonText:  this.translate.instant('HISTORIAL.MSG.BTN_NO_VOLVER')
+    }).then((resultado) => {
+      if (!resultado.isConfirmed) return;
+
+      // Extraemos el nombre del responsable del token para registrarlo en la cancelación
+      const token = this.authService.getToken();
+      let responsable = 'Desconocido';
+      if (token) {
+        try {
+          const decoded: any = jwtDecode(token);
+          responsable = decoded.sub || decoded.username || 'Admin';
+        } catch (e) {}
+      }
+
+      // forkJoin lanza todas las cancelaciones a la vez y espera a que todas terminen
+      forkJoin(ids.map(id => this.ventasService.cancelarVenta(id, responsable))).subscribe({
+        next: () => {
+          Swal.fire(
+            this.translate.instant('HISTORIAL.MSG.EXITO_TITULO'),
+            this.translate.instant('HISTORIAL.MSG.EXITO_TEXTO'),
+            'success'
+          );
+          this.ventasSeleccionadas.clear();
+          this.obtenerVentas();
+        },
+        error: () => {
+          Swal.fire(
+            this.translate.instant('HISTORIAL.MSG.ERROR_TITULO'),
+            this.translate.instant('HISTORIAL.MSG.ERROR_TEXTO'),
+            'error'
+          );
+          this.ventasSeleccionadas.clear();
+          this.obtenerVentas();
+        }
+      });
+    });
+  }
+
+  // Cancela una venta individual tras confirmación del usuario
+  cancelarVenta(venta: any): void {
+    Swal.fire({
+      title:             this.translate.instant('HISTORIAL.MSG.CANCELAR_TITULO'),
+      text:              this.translate.instant('HISTORIAL.MSG.CANCELAR_TEXTO'),
+      icon:              'warning',
+      showCancelButton:  true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor:  '#3085d6',
+      confirmButtonText: this.translate.instant('HISTORIAL.MSG.BTN_SI_CANCELAR'),
+      cancelButtonText:  this.translate.instant('HISTORIAL.MSG.BTN_NO_VOLVER')
+    }).then((resultado) => {
+      if (!resultado.isConfirmed) return;
 
       const token = this.authService.getToken();
       let responsable = 'Desconocido';
@@ -173,87 +236,38 @@ export class VentasUsuarioComponent implements OnInit {
         } catch (e) {}
       }
 
-      forkJoin(ids.map(id => this.ventasService.cancelarVenta(id, responsable))).subscribe({
+      this.ventasService.cancelarVenta(venta.id, responsable).subscribe({
         next: () => {
           Swal.fire(
             this.translate.instant('HISTORIAL.MSG.EXITO_TITULO'),
             this.translate.instant('HISTORIAL.MSG.EXITO_TEXTO'),
             'success'
           );
-          this.selectedVentas.clear();
           this.obtenerVentas();
         },
-        error: () => {
-          Swal.fire(
-            this.translate.instant('HISTORIAL.MSG.ERROR_TITULO'),
-            this.translate.instant('HISTORIAL.MSG.ERROR_TEXTO'),
-            'error'
-          );
-          this.selectedVentas.clear();
-          this.obtenerVentas();
-        }
-      });
-    });
-  }
-
-  cancelarVenta(venta: any): void {
-    // SWEET ALERT TRADUCIDO 🍬
-    Swal.fire({
-      title: this.translate.instant('HISTORIAL.MSG.CANCELAR_TITULO'),
-      text: this.translate.instant('HISTORIAL.MSG.CANCELAR_TEXTO'),
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: this.translate.instant('HISTORIAL.MSG.BTN_SI_CANCELAR'),
-      cancelButtonText: this.translate.instant('HISTORIAL.MSG.BTN_NO_VOLVER')
-    }).then((result) => {
-
-      if (result.isConfirmed) {
-
-        const token = this.authService.getToken();
-        let responsable = 'Desconocido';
-        if (token) {
-          try {
-            const decoded: any = jwtDecode(token);
-            responsable = decoded.sub || decoded.username || 'Admin';
-          } catch (e) {
-            // TODO: añadir manejo de error UI
-          }
-        }
-
-        this.ventasService.cancelarVenta(venta.id, responsable).subscribe({
-          next: (response) => {
+        error: (err) => {
+          // El backend a veces devuelve 200 dentro del error por un bug de Angular/HTTP
+          if (err.status === 200) {
             Swal.fire(
               this.translate.instant('HISTORIAL.MSG.EXITO_TITULO'),
               this.translate.instant('HISTORIAL.MSG.EXITO_TEXTO'),
               'success'
             );
             this.obtenerVentas();
-          },
-          error: (err) => {
-            if (err.status === 200) {
-              Swal.fire(
-                this.translate.instant('HISTORIAL.MSG.EXITO_TITULO'),
-                this.translate.instant('HISTORIAL.MSG.EXITO_TEXTO'),
-                'success'
-              );
-              this.obtenerVentas();
-            } else {
-              Swal.fire(
-                this.translate.instant('HISTORIAL.MSG.ERROR_TITULO'),
-                this.translate.instant('HISTORIAL.MSG.ERROR_TEXTO'),
-                'error'
-              );
-            }
+          } else {
+            Swal.fire(
+              this.translate.instant('HISTORIAL.MSG.ERROR_TITULO'),
+              this.translate.instant('HISTORIAL.MSG.ERROR_TEXTO'),
+              'error'
+            );
           }
-        });
-      }
+        }
+      });
     });
   }
 
+  // Exporta las ventas actualmente filtradas a un fichero Excel
   descargarExcel(): void {
     this.excelService.exportarHistorialVentas(this.ventasFiltradas);
   }
-
 }

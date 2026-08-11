@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastData, ToastService } from './services/toast.service';
 import { Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -10,36 +10,41 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router,
-    private toastService: ToastService, private translate: TranslateService ) {
-    // 3. CONFIGURAMOS EL IDIOMA
-    this.translate.setDefaultLang('es'); // Idioma de respaldo
-    this.translate.use('en');          // Idioma inicial
-  }
-    toast: ToastData | null = null;
+
+  // Toast activo — null cuando no hay ninguno visible
+  toast: ToastData | null = null;
 
   title = 'Auth_V3';
 
-/** Aplico el toast de manera global !! */
+  constructor(
+    private router: Router,
+    private toastService: ToastService,
+    private translate: TranslateService
+  ) {
+    // Idioma de respaldo si falta alguna clave en el idioma activo
+    this.translate.setDefaultLang('es');
+    // Idioma inicial al arrancar la app
+    this.translate.use('en');
+  }
+
   ngOnInit() {
-    // Aplicar tema guardado al arrancar la app
+    // Restauramos el tema guardado por el usuario
     if (localStorage.getItem('theme') === 'dark') {
       document.body.classList.add('dark');
     }
 
-    this.toastService.toast$.subscribe((data: ToastData) => {
-      this.toast = data;
-
-      // Auto ocultar el toast después de 4 segundos
+    // Nos suscribimos al servicio de toasts para mostrarlos globalmente
+    // y los ocultamos automáticamente después de 1.2 segundos
+    this.toastService.toast$.subscribe((datos: ToastData) => {
+      this.toast = datos;
       setTimeout(() => {
         this.toast = null;
       }, 1200);
     });
   }
 
+  // Cierra el toast manualmente si el usuario hace clic en él
   closeToast() {
-    this.toast = null; // Cierra el toast manualmente
+    this.toast = null;
   }
-
-
 }

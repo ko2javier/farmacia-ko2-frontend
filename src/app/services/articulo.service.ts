@@ -6,75 +6,67 @@ import { UpdateDto } from '../models/UpdateDTO';
 import { InsertDto } from '../models/InsertDto';
 import { environment } from '../../environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ArticuloService {
-  private apiUrl = `${environment.apiUrl}/articulos/All`;
-  private apiUrl2 = `${environment.apiUrl}/articulos`;
 
+  private todasUrl   = `${environment.apiUrl}/articulos/All`;
+  private apiUrlBase = `${environment.apiUrl}/articulos`;
+
+  // BehaviorSubject que comparte la lista de artículos entre componentes en tiempo real
+  private articulosSubject = new BehaviorSubject<Articulo[]>([]);
+  articulos$ = this.articulosSubject.asObservable();
 
   constructor(private http: HttpClient) {}
-  
-// Comportamiento para almacenar los artículos en memoria y compartirlos entre componentes
-private articulosSubject = new BehaviorSubject<Articulo[]>([]);
-articulos$ = this.articulosSubject.asObservable(); // Observable para que otros componentes se suscriban
 
+  // Pide todos los artículos al backend y los guarda en el BehaviorSubject
+  cargarArticulos(): Observable<Articulo[]> {
+    return this.http.get<Articulo[]>(this.todasUrl).pipe(
+      tap((articulos: Articulo[]) => this.articulosSubject.next(articulos))
+    );
+  }
 
+  // Devuelve los artículos que hay en memoria sin hacer nueva petición al backend
+  obtenerArticulos(): Articulo[] {
+    return this.articulosSubject.value;
+  }
 
-// Obtener artículos del backend y almacenarlos en memoria
-cargarArticulos(): Observable<Articulo[]> {
-  return this.http.get<Articulo[]>(this.apiUrl).pipe(
-    tap((articulos: Articulo[]) => this.articulosSubject.next(articulos)) // Se especifica el tipo
-  );
-}
+  // Actualiza el stock de un artículo individual por su código
+  updateStock(codigo: string, dto: UpdateDto): Observable<Articulo> {
+    return this.http.put<Articulo>(`${this.todasUrl}/updateStock/${codigo}`, dto);
+  }
 
-// Método para obtener los artículos almacenados (sin hacer nueva petición)
-obtenerArticulos(): Articulo[] {
-  return this.articulosSubject.value;
-}
+  // Actualiza el stock de varios artículos a la vez (tras una venta)
+  updateStockBatch(actualizaciones: UpdateDto[]): Observable<Articulo> {
+    return this.http.put<Articulo>(`${this.apiUrlBase}/updateStock`, actualizaciones);
+  }
 
-updateStock(codigo: string, updateDto: UpdateDto): Observable<Articulo> {
-  return this.http.put<Articulo>(`${this.apiUrl}/updateStock/${codigo}`, updateDto);
-}
+  // Actualiza precio y cantidad de un artículo
+  updateItem(cambios: UpdateDto): Observable<Articulo> {
+    return this.http.put<Articulo>(`${this.apiUrlBase}/updateItem`, cambios);
+  }
 
-// Para realizar un update de stock de un articulo!!
+  // Crea un artículo nuevo en el backend
+  insert_item(nuevoArticulo: InsertDto): Observable<Articulo> {
+    return this.http.post<Articulo>(`${this.apiUrlBase}/insert`, nuevoArticulo);
+  }
 
-updateStockBatch(updates: UpdateDto []){
-  return this.http.put<Articulo>(`${this.apiUrl2}/updateStock`, updates);
+  // Elimina un artículo por su ID
+  deleteArticulo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrlBase}/${id}`);
+  }
 
-}
-/**Para cambiar valores de precio y cantd en articulo */
+  // Asocia un código AEMPS y laboratorio a un artículo existente
+  patchAemps(id: number, aempsCode: string, laboratorio: string): Observable<Articulo> {
+    return this.http.patch<Articulo>(`${this.apiUrlBase}/${id}/aemps`, { aempsCode, laboratorio });
+  }
 
-updateItem(updates: UpdateDto ){
-  return this.http.put<Articulo>(`${this.apiUrl2}/updateItem`, updates);
-
-}
-
-/**Para Crear un articulo nuevo */
-
-insert_item(updates: InsertDto ){
-  return this.http.post<Articulo>(`${this.apiUrl2}/insert`, updates);
-
-}
-
-/**Para eliminar un articulo */
-
-
-deleteArticulo(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.apiUrl2}/${id}`);
-}
-
-patchAemps(id: number, aempsCode: string, laboratorio: string): Observable<Articulo> {
-  return this.http.patch<Articulo>(`${this.apiUrl2}/${id}/aemps`, { aempsCode, laboratorio });
-}
-
-actualizarArticuloLocal(actualizado: Articulo): void {
-  const lista = this.articulosSubject.value.map(a =>
-    a.id === actualizado.id ? actualizado : a
-  );
-  this.articulosSubject.next(lista);
-}
-
+  // Actualiza un artículo en la lista local sin volver a llamar al backend
+  actualizarArticuloLocal(actualizado: Articulo): void {
+    const listaActualizada = this.articulosSubject.value.map(articulo =>
+      articulo.id === actualizado.id ? actualizado : articulo
+    );
+    this.articulosSubject.next(listaActualizada);
+  }
 }

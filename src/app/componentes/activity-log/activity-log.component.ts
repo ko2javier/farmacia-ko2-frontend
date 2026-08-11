@@ -10,61 +10,71 @@ import { ActivityLogService } from '../../services/activity-log.service';
 })
 export class ActivityLogComponent implements OnInit {
 
-  logs: ActivityLog[] = [];
-  filteredLogs: ActivityLog[] = [];
-  paginatedLogs: ActivityLog[] = [];
+  // Lista completa que llega del backend
+  registros: ActivityLog[] = [];
+  // Lista filtrada según el buscador
+  registrosFiltrados: ActivityLog[] = [];
+  // Porción que se muestra en la tabla (10 por página)
+  registrosPaginados: ActivityLog[] = [];
 
-  filterText: string = '';
-  filterDate: string = '';
+  // Campos del buscador
+  textoBusqueda: string = '';
+  fechaBusqueda: string = '';
 
-  currentPage: number = 1;
+  // Control de paginación
+  paginaActual: number = 1;
   rowsPerPage: number = 10;
-  totalPages: number = 0;
+  totalPaginas: number = 0;
 
   constructor(private activityLogService: ActivityLogService) {}
 
   ngOnInit(): void {
     this.activityLogService.getAll().subscribe({
-      next: (data) => {
-        this.logs = data;
-        this.applyFilters();
+      next: (registros) => {
+        this.registros = registros;
+        this.aplicarFiltros();
       }
     });
   }
 
-  applyFilters(): void {
-    const text = this.filterText.toLowerCase();
-    this.filteredLogs = this.logs.filter(log => {
-      const matchText = !text ||
-        log.username.toLowerCase().includes(text) ||
-        log.action.toLowerCase().includes(text) ||
-        log.detail.toLowerCase().includes(text);
-      const matchDate = !this.filterDate || log.fecha === this.filterDate;
-      return matchText && matchDate;
+  // Filtra los registros por texto y/o fecha
+  aplicarFiltros(): void {
+    const texto = this.textoBusqueda.toLowerCase();
+    this.registrosFiltrados = this.registros.filter(registro => {
+      const coincideTexto = !texto ||
+        registro.username.toLowerCase().includes(texto) ||
+        registro.action.toLowerCase().includes(texto)   ||
+        registro.detail.toLowerCase().includes(texto);
+      const coincideFecha = !this.fechaBusqueda || registro.fecha === this.fechaBusqueda;
+      return coincideTexto && coincideFecha;
     });
-    this.totalPages = Math.max(1, Math.ceil(this.filteredLogs.length / this.rowsPerPage));
-    this.currentPage = 1;
-    this.updatePage();
+    this.totalPaginas = Math.max(1, Math.ceil(this.registrosFiltrados.length / this.rowsPerPage));
+    this.paginaActual = 1;
+    this.mostrarPagina();
   }
 
-  clearFilters(): void {
-    this.filterText = '';
-    this.filterDate = '';
-    this.applyFilters();
+  // Borra los filtros y muestra todos los registros
+  limpiarFiltros(): void {
+    this.textoBusqueda = '';
+    this.fechaBusqueda = '';
+    this.aplicarFiltros();
   }
 
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.updatePage();
+  // Cambia de página si el número es válido
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.mostrarPagina();
     }
   }
 
-  private updatePage(): void {
-    const start = (this.currentPage - 1) * this.rowsPerPage;
-    this.paginatedLogs = this.filteredLogs.slice(start, start + this.rowsPerPage);
+  // Recorta la lista para mostrar solo los registros de la página actual
+  private mostrarPagina(): void {
+    const inicio = (this.paginaActual - 1) * this.rowsPerPage;
+    this.registrosPaginados = this.registrosFiltrados.slice(inicio, inicio + this.rowsPerPage);
   }
 
+  // Devuelve la clase CSS del badge según el tipo de acción registrada
   badgeClass(action: string): string {
     switch (action) {
       case 'LOGIN_SUCCESS':

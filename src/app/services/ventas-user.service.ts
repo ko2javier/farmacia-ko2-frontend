@@ -11,15 +11,17 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class VentasUserService {
-  private apiUrl = `${environment.apiUrl}/ventas/all`;
-  private sales_Url = `${environment.apiUrl}/ventas`;
 
+  private todasVentasUrl = `${environment.apiUrl}/ventas/all`;
+  private ventasUrl      = `${environment.apiUrl}/ventas`;
+
+  // BehaviorSubject que comparte la lista de ventas entre componentes en tiempo real
   private ventasSubject = new BehaviorSubject<VentaUsuario[]>([]);
   ventas$ = this.ventasSubject.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // 👇 ESTO ES LO QUE TE FALTABA O DABA ERROR ANTES
+  // Construye los headers con el token JWT para autenticar las peticiones
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
     return new HttpHeaders({
@@ -28,23 +30,26 @@ export class VentasUserService {
     });
   }
 
+  // Pide todas las ventas al backend y las guarda en el BehaviorSubject
   cargarVentas(): Observable<VentaUsuario[]> {
-    return this.http.get<VentaUsuario[]>(this.apiUrl, { headers: this.getHeaders() }).pipe(
+    return this.http.get<VentaUsuario[]>(this.todasVentasUrl, { headers: this.getHeaders() }).pipe(
       tap(ventas => this.ventasSubject.next(ventas))
     );
   }
 
+  // Devuelve las ventas como Observable (sin hacer nueva petición al backend)
   obtenerVentas(): Observable<VentaUsuario[]> {
     return this.ventas$;
   }
 
-  // 👇 AQUÍ ESTÁ EL MÉTODO QUE DICE QUE NO EXISTE
+  // Envía una lista de ventas al backend para registrarlas de golpe
   registrarVentas(ventas: VentaDTO[]): Observable<any> {
-    return this.http.post(`${this.sales_Url}/registrar/list`, ventas, { headers: this.getHeaders() });
+    return this.http.post(`${this.ventasUrl}/registrar/list`, ventas, { headers: this.getHeaders() });
   }
 
+  // Cancela una venta por su ID y registra quién la canceló
   cancelarVenta(id: number, responsable: string): Observable<any> {
-    const url = `${this.sales_Url}/cancelar/${id}?responsable=${responsable}`;
+    const url = `${this.ventasUrl}/cancelar/${id}?responsable=${responsable}`;
     return this.http.delete(url, { headers: this.getHeaders() });
   }
 }

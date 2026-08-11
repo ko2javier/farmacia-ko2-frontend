@@ -11,8 +11,9 @@ export class ActivityLogService {
 
   private baseUrl = `${environment.apiUrl}/activity-log`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  // Pide todos los registros de actividad al backend
   getAll(): Observable<ActivityLog[]> {
     return this.http.get<ActivityLog[]>(`${this.baseUrl}/all`);
   }

@@ -5,44 +5,57 @@ import { Articulo } from '../models/articulo';
   providedIn: 'root'
 })
 export class PanelVentasService {
+
+  // Lista completa de productos cargada del backend
   public productos: Articulo[] = [];
-  public resultadosBusqueda: Articulo[] = []; // ✅ Guarda los resultados filtrados
+
+  // Resultados filtrados que muestra la tabla de búsqueda
+  public resultadosBusqueda: Articulo[] = [];
+
+  // Controlan si se muestran los datalist de autocompletado
   public mostrarListaNombres: boolean = false;
   public mostrarListaCategorias: boolean = false;
 
   constructor() {}
 
-  setProductos(data: Articulo[]) {
-    this.productos = data;
+  // Guarda la lista completa de productos en el servicio
+  setProductos(articulos: Articulo[]) {
+    this.productos = articulos;
   }
 
+  // Devuelve los nombres únicos de todos los productos
   obtenerProductosUnicos(): string[] {
     return this.productos.length > 0
-      ? Array.from(new Set(this.productos.map((producto) => producto.nombre)))
+      ? Array.from(new Set(this.productos.map(producto => producto.nombre)))
       : [];
   }
 
+  // Devuelve las categorías únicas de todos los productos
   obtenerCategoriasUnicas(): string[] {
     return this.productos.length > 0
-      ? Array.from(new Set(this.productos.map((producto) => producto.categoria)))
+      ? Array.from(new Set(this.productos.map(producto => producto.categoria)))
       : [];
   }
 
-  actualizarListaNombres(searchNombre: string) {
-    this.mostrarListaNombres = searchNombre.length >= 2;
+  // Muestra el datalist de nombres solo si hay al menos 2 caracteres escritos
+  actualizarListaNombres(nombre: string) {
+    this.mostrarListaNombres = nombre.length >= 2;
   }
 
-  actualizarListaCategorias(searchCategoria: string) {
-    this.mostrarListaCategorias = searchCategoria.length >= 2;
+  // Muestra el datalist de categorías solo si hay al menos 2 caracteres escritos
+  actualizarListaCategorias(categoria: string) {
+    this.mostrarListaCategorias = categoria.length >= 2;
   }
 
-  buscarProductos(searchNombre: string, searchCategoria: string) {
+  // Filtra los productos por nombre y/o categoría y guarda el resultado
+  buscarProductos(nombre: string, categoria: string) {
     this.resultadosBusqueda = this.productos.filter(producto =>
-      (searchNombre.trim() === '' || producto.nombre.toLowerCase().includes(searchNombre.toLowerCase())) &&
-      (searchCategoria.trim() === '' || producto.categoria.toLowerCase().includes(searchCategoria.toLowerCase()))
+      (nombre.trim()    === '' || producto.nombre.toLowerCase().includes(nombre.toLowerCase()))    &&
+      (categoria.trim() === '' || producto.categoria.toLowerCase().includes(categoria.toLowerCase()))
     );
   }
 
+  // Vacía los resultados de búsqueda
   limpiarBusqueda() {
     this.resultadosBusqueda = [];
   }

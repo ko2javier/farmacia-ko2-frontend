@@ -1,0 +1,55 @@
+# ==========================================
+# REQUISITOS PARA EJECUTAR EL FRONT ANGULAR
+# ==========================================
+
+# -------------------------------------
+# 1. INSTALAR NODE.JS (incluye npm)
+# -------------------------------------
+# Descargar desde: https://nodejs.org
+# Version recomendada: 18.x o superior (LTS)
+# Verificar instalacion:
+#   node -v
+#   npm -v
+
+# -------------------------------------
+# 2. INSTALAR ANGULAR CLI (una vez por maquina)
+# -------------------------------------
+# Ejecutar en terminal:
+#   npm install -g @angular/cli
+#
+# Version usada en este proyecto: ^19.0.6
+# Verificar instalacion:
+#   ng version
+
+# -------------------------------------
+# 3. INSTALAR DEPENDENCIAS DEL PROYECTO
+# -------------------------------------
+# Ejecutar en la carpeta raiz del proyecto (donde esta package.json):
+#   npm install
+#
+# Esto instala automaticamente todo lo definido en package.json:
+#   - Angular 19
+#   - Bootstrap 5
+#   - ngx-translate (ES/EN/DE)
+#   - ngx-charts
+#   - SweetAlert2
+#   - jsPDF + jspdf-autotable
+#   - xlsx
+#   - jwt-decode
+#   - rxjs, zone.js, tslib
+
+# -------------------------------------
+# 4. CONFIGURAR ENTORNO (environment.ts)
+# -------------------------------------
+# Archivo: src/environments/environment.ts
+#
+# Para local: descomentar las 3 lineas localhost:5000 y comentar las de produccion
+# Para produccion (Hetzner): descomentar las 3 lineas de produccion y comentar las de local
+
+# -------------------------------------
+# 5. ARRANCAR EL PROYECTO
+# -------------------------------------
+# Ejecutar en la carpeta raiz:
+#   ng serve
+#
+# Acceder desde el navegador en: http://localhost:4200

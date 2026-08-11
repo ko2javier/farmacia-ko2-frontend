@@ -10,8 +10,8 @@
 
         <input class="form-control"
                list="datalistOptions1"
-               [(ngModel)]="searchNombre"
-               (input)="panelVentasService.actualizarListaNombres(searchNombre)"
+               [(ngModel)]="busquedaNombre"
+               (input)="panelVentasService.actualizarListaNombres(busquedaNombre)"
                (change)="seleccionarProducto()"
                placeholder="{{ 'PANEL.PLACEHOLDER_NOMBRE' | translate }}">
 
@@ -27,8 +27,8 @@
 
         <input class="form-control"
                list="datalistOptions2"
-               [(ngModel)]="searchCategoria"
-               (input)="panelVentasService.actualizarListaCategorias(searchCategoria)"
+               [(ngModel)]="busquedaCategoria"
+               (input)="panelVentasService.actualizarListaCategorias(busquedaCategoria)"
                placeholder="{{ 'PANEL.PLACEHOLDER_CATEGORIA' | translate }}">
 
         <datalist id="datalistOptions2" *ngIf="panelVentasService.mostrarListaCategorias">
@@ -41,7 +41,7 @@
           <button class="btn btn-success w-100" (click)="buscarProductos()">
             {{ 'PANEL.BTN_BUSCAR' | translate }}
           </button>
-          <button class="btn btn-warning w-100" (click)="clear()">
+          <button class="btn btn-warning w-100" (click)="limpiarBusqueda()">
             {{ 'PANEL.BTN_LIMPIAR' | translate }}
           </button>
         </div>

@@ -104,7 +104,7 @@
                placeholder="{{ 'CARRITO.PLACEHOLDER_ID' | translate }}"
                [(ngModel)]="identificacion" required>
 
-        <button class="btn btn-success fw-bold" type="button" (click)="Completar()">
+        <button class="btn btn-success fw-bold" type="button" (click)="completarVenta()">
           {{ 'CARRITO.PAGAR' | translate }}
         </button>
       </div>
@@ -114,7 +114,7 @@
       <button class="btn btn-warning w-100 w-md-auto" (click)="vaciarCarrito()">
         {{ 'CARRITO.VACIAR' | translate }}
       </button>
-      <button class="btn btn-success w-100 w-md-auto" (click)="showform()">
+      <button class="btn btn-success w-100 w-md-auto" (click)="toggleFormulario()">
         {{ 'CARRITO.COMPLETAR' | translate }}
       </button>
     </div>
