@@ -1,6 +1,13 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://farmacia-ko2-back-production.up.railway.app',
-  apiCima: 'https://farmacia-ko2-back-production.up.railway.app/api/cima/buscar',
-  apiCimaMedicamento: 'https://farmacia-ko2-back-production.up.railway.app/api/cima/medicamento'
+
+  // Para desarrollo local: descomenta las siguientes 3 lineas y comenta las de Railway
+  // apiUrl: 'http://localhost:5000',
+  // apiCima: 'http://localhost:5000/api/cima/buscar',
+  // apiCimaMedicamento: 'http://localhost:5000/api/cima/medicamento'
+
+  // Para produccion (Hetzner): descomenta las siguientes 3 lineas y comenta las de local
+  apiUrl: 'https://pharma-api.ko2-oreilly.com',
+  apiCima: 'https://pharma-api.ko2-oreilly.com/api/cima/buscar',
+  apiCimaMedicamento: 'https://pharma-api.ko2-oreilly.com/api/cima/medicamento'
 };
