@@ -10,7 +10,7 @@ Angular SPA for a pharmacy management system built as a final project for a High
 
 | Repo | Tech | Description |
 |------|------|-------------|
-| [farmacia-ko2-frontend](https://github.com/ko2javier/farmacia-ko2-frontend) *(this repo)* | Angular 19 | SPA frontend |
+| [farmacia-ko2-frontend](https://github.com/ko2javier/farmacia-ko2-frontend) *(this repo)* | Angular 21 | SPA frontend |
 | [farmacia-ko2-back](https://github.com/ko2javier/farmacia-ko2-back) | Spring Boot + Java 21 | REST API backend |
 | [farmacia-ko2-ia](https://github.com/ko2javier/farmacia-ko2-ia) | Python + FastAPI | AI semantic matching microservice |
 
@@ -20,15 +20,15 @@ Angular SPA for a pharmacy management system built as a final project for a High
 
 | | Technology |
 |---|---|
-| Framework | Angular 19 |
-| Language | TypeScript 5.6 |
+| Framework | Angular 21 |
+| Language | TypeScript |
 | UI | Bootstrap 5 + custom CSS |
-| Charts | ngx-charts |
-| i18n | ngx-translate (ES / EN / DE) |
+| Charts | ngx-charts 25 |
+| i18n | ngx-translate 17 (ES / EN / DE) |
 | Alerts | SweetAlert2 |
 | Export | jsPDF + jspdf-autotable, xlsx |
 | Auth | JWT via localStorage |
-| Deployment | Railway (Docker + Nginx) |
+| Deployment | Docker multi-stage build (Node → Nginx) |
 
 ---
 
@@ -37,31 +37,34 @@ Angular SPA for a pharmacy management system built as a final project for a High
 - **JWT Authentication** — login, token storage, HTTP interceptor that injects `Authorization: Bearer` on every request
 - **Inventory management** — full CRUD with barcode support, stock batch updates and optimistic conflict handling (409)
 - **AI-assisted drug validation** — before adding a product, searches the official AEMPS drug registry and shows the top 3 AI-matched suggestions via a modal
-- **Sales module** — register sales with cart, cancel with automatic stock restore
+- **Sales module** — cart-based sale registration with PDF invoice, and cancellation into a separate cancelled-sales history
 - **Statistics dashboard** — interactive charts (sales by user, top products, revenue over time)
 - **Activity log** — real-time audit trail of all write operations (admin only)
-- **User management** — create/delete users, role assignment (ADMIN / SELLER)
+- **User management** — create/delete users, role assignment (SUPERADMIN / ADMIN / SELLER)
 - **Export** — PDF and Excel reports from any data table
 - **Dark mode** — toggle persisted in localStorage
-- **Multilingual** — Spanish, English, German via i18n JSON files
+- **Multilingual** — Spanish, English and German via i18n JSON files (`src/assets/i18n/`; the German file is named `gr.json`)
 
 ---
 
 ## Architecture
 
 ```
-Angular SPA (Railway / Nginx)
+Angular SPA (Docker + Nginx)  ·  pharma.ko2-oreilly.com
         │
-        │  HTTP + JWT
+        │  HTTPS + JWT
         ▼
-Spring Boot API  ──────────────►  MySQL (Aiven)
+Spring Boot API  ·  pharma-api.ko2-oreilly.com   ──►  MySQL (Aiven)
+  (Hetzner VPS, Docker Compose)
         │
         ├──────────────────────►  AEMPS (Spanish drug registry)
         │
-        └──────────────────────►  FastAPI IA microservice
+        └──────────────────────►  FastAPI AI microservice (internal network)
 ```
 
 The frontend never calls the AI microservice or AEMPS directly — all external calls go through the Spring Boot backend.
+
+The API base URL lives in `src/environments/`. It points at the self-managed Hetzner deployment since the August 2026 cutover; the previous Railway URL is kept commented out in `environment.ts` alongside the `localhost:5000` entry for local work.
 
 ---
 
@@ -115,7 +118,7 @@ Open [http://localhost:4200](http://localhost:4200) in your browser.
 ng build --configuration=production
 ```
 
-The project includes a `Dockerfile` (Angular + Nginx) ready for Railway deployment.
+The `Dockerfile` is a two-stage build: `node:20-alpine` compiles the production bundle, then `nginx:alpine` serves `dist/fp_daw/browser` on port 80. `nginx.conf` falls back to `index.html` so Angular's client-side routing works on refresh.
 
 ---
 
