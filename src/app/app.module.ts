@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -82,6 +82,15 @@ export function HttpLoaderFactory(http: any) {
 
   ],
   providers: [
+    // Angular 21 is zoneless by default: without this provider, zone.js is
+    // still loaded but Angular no longer uses it to run change detection.
+    // Data assigned inside an HTTP subscribe() was never painted until some
+    // template event (typing in a filter) forced a check, so every table
+    // loaded empty. The components here mutate plain fields, not signals,
+    // so they need zone-based change detection, as before the 19 -> 21
+    // update of 2026-08-18. Checked in production: the HTTP calls were
+    // running in the <root> zone instead of the "angular" zone.
+    provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
