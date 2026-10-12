@@ -7,7 +7,7 @@ export const environment = {
   // apiCimaMedicamento: 'http://localhost:5000/api/cima/medicamento'
 
   // Para produccion (Hetzner): descomenta las siguientes 3 lineas y comenta las de local
-  apiUrl: 'https://pharma-api.ko2-oreilly.com',
-  apiCima: 'https://pharma-api.ko2-oreilly.com/api/cima/buscar',
-  apiCimaMedicamento: 'https://pharma-api.ko2-oreilly.com/api/cima/medicamento'
+  apiUrl: 'https://pharma-api-py.ko2-oreilly.com',
+  apiCima: 'https://pharma-api-py.ko2-oreilly.com/api/cima/buscar',
+  apiCimaMedicamento: 'https://pharma-api-py.ko2-oreilly.com/api/cima/medicamento'
 };
