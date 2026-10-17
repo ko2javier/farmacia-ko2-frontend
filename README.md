@@ -11,7 +11,8 @@ Angular SPA for a pharmacy management system built as a final project for a High
 | Repo | Tech | Description |
 |------|------|-------------|
 | [farmacia-ko2-frontend](https://github.com/ko2javier/farmacia-ko2-frontend) *(this repo)* | Angular 21 | SPA frontend |
-| [farmacia-ko2-back](https://github.com/ko2javier/farmacia-ko2-back) | Spring Boot + Java 21 | REST API backend |
+| [pharma_back_py](https://github.com/ko2javier/pharma_back_py) | Python + async FastAPI | REST API backend **(serving production)** |
+| [farmacia-ko2-back](https://github.com/ko2javier/farmacia-ko2-back) | Spring Boot + Java 21 | the original backend, retired 17 Oct 2026 |
 | [farmacia-ko2-ia](https://github.com/ko2javier/farmacia-ko2-ia) | Python + FastAPI | AI semantic matching microservice |
 
 ---
@@ -54,7 +55,7 @@ Angular SPA (Docker + Nginx)  ·  pharma.ko2-oreilly.com
         │
         │  HTTPS + JWT
         ▼
-Spring Boot API  ·  pharma-api.ko2-oreilly.com   ──►  MySQL (Aiven)
+FastAPI backend  ·  pharma-api-py.ko2-oreilly.com  ──►  MySQL (Aiven)
   (Hetzner VPS, Docker Compose)
         │
         ├──────────────────────►  AEMPS (Spanish drug registry)
@@ -62,7 +63,11 @@ Spring Boot API  ·  pharma-api.ko2-oreilly.com   ──►  MySQL (Aiven)
         └──────────────────────►  FastAPI AI microservice (internal network)
 ```
 
-The frontend never calls the AI microservice or AEMPS directly — all external calls go through the Spring Boot backend.
+The frontend never calls the AI microservice or AEMPS directly — all external calls go through the backend.
+
+Until October 2026 that backend was the Spring Boot service at `pharma-api.ko2-oreilly.com`. The SPA switched to the
+FastAPI port on 12 October and the Spring Boot service was stopped on 17 October; the JSON contract is identical, so
+the switch was one URL in `src/environments/`.
 
 The API base URL lives in `src/environments/`. It points at the self-managed Hetzner deployment since the August 2026 cutover; the previous Railway URL is kept commented out in `environment.ts` alongside the `localhost:5000` entry for local work.
 
